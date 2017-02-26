@@ -64,7 +64,7 @@ CREATE TABLE mms_formula_details
 ) COMMENT = '配方详情信息';
 
 DROP TABLE IF EXISTS cms_name_to_risk_material;
-CREATE TABLE cms_name_to_risk_material
+CREATE TABLE mms_name_to_risk_material
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
@@ -79,8 +79,8 @@ CREATE TABLE cms_name_to_risk_material
 	PRIMARY KEY (id)
 ) COMMENT = '标准中文名对应的风险物质';
 
-DROP TABLE IF EXISTS cms_forbidden_component;
-CREATE TABLE cms_forbidden_component
+DROP TABLE IF EXISTS mms_forbidden_component;
+CREATE TABLE mms_forbidden_component
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	sequence varchar(64) NOT NULL COMMENT '序号',
@@ -97,35 +97,6 @@ CREATE TABLE cms_forbidden_component
 
 /* 已使用原料目录*/
 
-
-/* Create Indexes */
-
-CREATE INDEX cms_article_create_by ON cms_article (create_by ASC);
-CREATE INDEX cms_article_title ON cms_article (title ASC);
-CREATE INDEX cms_article_keywords ON cms_article (keywords ASC);
-CREATE INDEX cms_article_del_flag ON cms_article (del_flag ASC);
-CREATE INDEX cms_article_weight ON cms_article (weight ASC);
-CREATE INDEX cms_article_update_date ON cms_article (update_date ASC);
-CREATE INDEX cms_article_category_id ON cms_article (category_id ASC);
-CREATE INDEX cms_category_parent_id ON cms_category (parent_id ASC);
-/*CREATE INDEX cms_category_parent_ids ON cms_category (parent_ids ASC);*/
-CREATE INDEX cms_category_module ON cms_category (module ASC);
-CREATE INDEX cms_category_name ON cms_category (name ASC);
-CREATE INDEX cms_category_sort ON cms_category (sort ASC);
-CREATE INDEX cms_category_del_flag ON cms_category (del_flag ASC);
-CREATE INDEX cms_category_office_id ON cms_category (office_id ASC);
-CREATE INDEX cms_category_site_id ON cms_category (site_id ASC);
-CREATE INDEX cms_comment_category_id ON cms_comment (category_id ASC);
-CREATE INDEX cms_comment_content_id ON cms_comment (content_id ASC);
-CREATE INDEX cms_comment_status ON cms_comment (del_flag ASC);
-CREATE INDEX cms_guestbook_del_flag ON cms_guestbook (del_flag ASC);
-CREATE INDEX cms_link_category_id ON cms_link (category_id ASC);
-CREATE INDEX cms_link_title ON cms_link (title ASC);
-CREATE INDEX cms_link_del_flag ON cms_link (del_flag ASC);
-CREATE INDEX cms_link_weight ON cms_link (weight ASC);
-CREATE INDEX cms_link_create_by ON cms_link (create_by ASC);
-CREATE INDEX cms_link_update_date ON cms_link (update_date ASC);
-CREATE INDEX cms_site_del_flag ON cms_site (del_flag ASC);
 
 
 

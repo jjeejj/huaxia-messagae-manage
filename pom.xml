@@ -934,8 +934,8 @@
 									<classpath refid="maven.test.classpath" />
 									<transaction src="db/sys/jeesite_${jdbc.type}.sql"/>
 									<transaction src="db/cms/jeesite_${jdbc.type}.sql"/>
+									<transaction src="db/mms/jeesite_${jdbc.type}.sql"/>
 									<transaction src="db/gen/jeesite_${jdbc.type}.sql"/>
-									<transaction src="db/gen/example_${jdbc.type}.sql"/>
 									<transaction src="db/act/drop/activiti.${jdbc.type}.drop.engine.sql"/>
 									<transaction src="db/act/drop/activiti.${jdbc.type}.drop.history.sql"/>
 									<transaction src="db/act/drop/activiti.${jdbc.type}.drop.identity.sql"/>
@@ -960,7 +960,8 @@
 									<classpath refid="maven.test.classpath" />
 									<operation type="INSERT" src="db/sys/jeesite_data.xls" format="xls" transaction="true"/>
 									<operation type="INSERT" src="db/cms/jeesite_data.xls" format="xls" transaction="true"/>
-									
+									<operation type="INSERT" src="db/mms/jeesite_data.xls" format="xls" transaction="true"/>
+
 								</dbunit>
 								
 							</target>
