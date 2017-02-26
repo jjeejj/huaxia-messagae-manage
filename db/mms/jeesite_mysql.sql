@@ -63,13 +63,13 @@ CREATE TABLE mms_formula_details
 	PRIMARY KEY (id)
 ) COMMENT = '配方详情信息';
 
-DROP TABLE IF EXISTS cms_name_to_risk_material;
+DROP TABLE IF EXISTS mms_name_to_risk_material;
 CREATE TABLE mms_name_to_risk_material
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
 	risk_material varchar(100) COMMENT '风险物质',
-	transform_level char(1) COMMENT '转换查询级别(1:精确转换，2：模糊转换)',
+	transform_level char(1) COMMENT '转换级别(1:精确转换，2：模糊转换)',
   create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',

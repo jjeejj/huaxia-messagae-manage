@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.NameToRiskMaterialDao">
+    
+	<sql id="nameToRiskMaterialColumns">
+		a.id AS "id",
+		a.standard_chinese_name AS "standardChineseName",
+		a.risk_material AS "riskMaterial",
+		a.transform_level AS "transformLevel",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="nameToRiskMaterialJoins">
+	</sql>
+    
+	<select id="get" resultType="NameToRiskMaterial">
+		SELECT 
+			<include refid="nameToRiskMaterialColumns"/>
+		FROM mms_name_to_risk_material a
+		<include refid="nameToRiskMaterialJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="NameToRiskMaterial">
+		SELECT 
+			<include refid="nameToRiskMaterialColumns"/>
+		FROM mms_name_to_risk_material a
+		<include refid="nameToRiskMaterialJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="standardChineseName != null and standardChineseName != ''">
+				AND a.standard_chinese_name = #{standardChineseName}
+			</if>
+			<if test="riskMaterial != null and riskMaterial != ''">
+				AND a.risk_material = #{riskMaterial}
+			</if>
+			<if test="transformLevel != null and transformLevel != ''">
+				AND a.transform_level = #{transformLevel}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="NameToRiskMaterial">
+		SELECT 
+			<include refid="nameToRiskMaterialColumns"/>
+		FROM mms_name_to_risk_material a
+		<include refid="nameToRiskMaterialJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_name_to_risk_material(
+			id,
+			standard_chinese_name,
+			risk_material,
+			transform_level,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{standardChineseName},
+			#{riskMaterial},
+			#{transformLevel},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_name_to_risk_material SET 	
+			standard_chinese_name = #{standardChineseName},
+			risk_material = #{riskMaterial},
+			transform_level = #{transformLevel},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_name_to_risk_material SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
