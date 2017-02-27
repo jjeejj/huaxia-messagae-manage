@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.FormulaDetailsDao">
+    
+	<sql id="formulaDetailsColumns">
+		a.id AS "id",
+		a.formula_id AS "formulaId",
+		a.sequence AS "sequence",
+		a.standard_chinese_name AS "standardChineseName",
+		a.inic_name AS "inicName",
+		a.raw_material_content AS "rawMaterialContent",
+		a.compound_percentage AS "compoundPercentage",
+		a.actual_component_content AS "actualComponentContent",
+		a.purpose_of_use AS "purposeOfUse",
+		a.risk_material AS "riskMaterial",
+		a.component_type AS "componentType",
+		a.actual_component_content_status AS "actualComponentContentStatus",
+		a.name_or_inic_status AS "nameOrInicStatus",
+		a.plant_component AS "plantComponent",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="formulaDetailsJoins">
+	</sql>
+    
+	<select id="get" resultType="FormulaDetails">
+		SELECT 
+			<include refid="formulaDetailsColumns"/>
+		FROM mms_formula_details a
+		<include refid="formulaDetailsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="FormulaDetails">
+		SELECT 
+			<include refid="formulaDetailsColumns"/>
+		FROM mms_formula_details a
+		<include refid="formulaDetailsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sequence != null and sequence != ''">
+				AND a.sequence = #{sequence}
+			</if>
+			<if test="standardChineseName != null and standardChineseName != ''">
+				AND a.standard_chinese_name = #{standardChineseName}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="FormulaDetails">
+		SELECT 
+			<include refid="formulaDetailsColumns"/>
+		FROM mms_formula_details a
+		<include refid="formulaDetailsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_formula_details(
+			id,
+			formula_id,
+			sequence,
+			standard_chinese_name,
+			inic_name,
+			raw_material_content,
+			compound_percentage,
+			actual_component_content,
+			purpose_of_use,
+			risk_material,
+			component_type,
+			actual_component_content_status,
+			name_or_inic_status,
+			plant_component,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{formulaId},
+			#{sequence},
+			#{standardChineseName},
+			#{inicName},
+			#{rawMaterialContent},
+			#{compoundPercentage},
+			#{actualComponentContent},
+			#{purposeOfUse},
+			#{riskMaterial},
+			#{componentType},
+			#{actualComponentContentStatus},
+			#{nameOrInicStatus},
+			#{plantComponent},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_formula_details SET 	
+			formula_id = #{formulaId},
+			sequence = #{sequence},
+			standard_chinese_name = #{standardChineseName},
+			inic_name = #{inicName},
+			raw_material_content = #{rawMaterialContent},
+			compound_percentage = #{compoundPercentage},
+			actual_component_content = #{actualComponentContent},
+			purpose_of_use = #{purposeOfUse},
+			risk_material = #{riskMaterial},
+			component_type = #{componentType},
+			actual_component_content_status = #{actualComponentContentStatus},
+			name_or_inic_status = #{nameOrInicStatus},
+			plant_component = #{plantComponent},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_formula_details SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+	<!--根据配方id  获取所有的配方信息-->
+	<select id="selectAllByFormulaId" resultType="FormulaDetails" parameterType="String">
+		SELECT
+		<include refid="formulaDetailsColumns"/>
+		FROM mms_formula_details a
+		where a.formula_id = #{formulaId}
+	</select>
+	
+</mapper>

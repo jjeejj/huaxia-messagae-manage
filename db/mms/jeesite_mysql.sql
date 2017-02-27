@@ -51,7 +51,7 @@ CREATE TABLE mms_formula_details
 	purpose_of_use varchar(100) COMMENT '使用目的',
 	risk_material varchar(100) COMMENT '风险物质',
   component_type char(1) COMMENT '成分类型(1:正常，2：禁用，3：限用)',
-  actual_component_content_status char(1) COMMENT '对于限用成分的实际成份含量状态(1:符合标准，2：不符合)',
+  actual_component_content_status char(1) COMMENT '对于限用成分的实际成份含量状态(1:符合标准，2：不符合标准)',
   name_or_inic_status char(1) COMMENT '标准中文名称或INCI名的状态(0:正常,1:标准中文名称和INCI名不一致,2：标准中文名称未出现,3：INCI名未出现,4:标准中文名称和INCI名都未出现)',
   plant_component char(1) COMMENT '是否是植物成分(1:是,2:不是)',
 	create_by varchar(64) COMMENT '创建者',
@@ -69,7 +69,7 @@ CREATE TABLE mms_name_to_risk_material
 	id varchar(64) NOT NULL COMMENT '编号',
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
 	risk_material varchar(100) COMMENT '风险物质',
-	transform_level char(1) COMMENT '转换级别(1:精确转换，2：模糊转换)',
+	transform_level char(1) COMMENT '转换级别(1:精确转换，2-100：模糊转换级别，数字越大级别越高)',
   create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
@@ -85,7 +85,7 @@ CREATE TABLE mms_forbidden_component
 	id varchar(64) NOT NULL COMMENT '编号',
 	sequence varchar(64) NOT NULL COMMENT '序号',
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
-	inic_name varchar(100) COMMENT 'INCI名',
+	inic_name varchar(100) COMMENT '原植(动)物拉丁文学名或植(动)物英文名 ',
   create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
@@ -95,8 +95,42 @@ CREATE TABLE mms_forbidden_component
 	PRIMARY KEY (id)
 ) COMMENT = '化妆品安全技术规范的禁用成分';
 
-/* 已使用原料目录*/
+/*化妆品安全技术规范的限用成分*/
+DROP TABLE IF EXISTS mms__component;
+CREATE TABLE mms__component
+(
+	id varchar(64) NOT NULL COMMENT '编号',
+	sequence varchar(64) NOT NULL COMMENT '序号',
+	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
+	inic_name varchar(100) COMMENT 'INIC名 ',
+	enlish_name varchar(100) COMMENT '英文名称 ',
+	enlish_name varchar(100) COMMENT '适用及(或)使用范围 ',
+	enlish_name varchar(100) COMMENT '最大允许浓度',
+  create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '化妆品安全技术规范的限用成分'
 
+/* 已使用原料目录*/
+DROP TABLE IF EXISTS mms_;
+CREATE TABLE mms_
+(
+	id varchar(64) NOT NULL COMMENT '编号',
+	sequence varchar(64) NOT NULL COMMENT '序号',
+	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
+	inic_name varchar(100) COMMENT 'INCI名/英文名称',
+  create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '已使用原料目录';
 
 
 

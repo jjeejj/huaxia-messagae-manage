@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.FormulaDao">
+    
+	<sql id="formulaColumns">
+		a.id AS "id",
+		a.sequence AS "sequence",
+		a.formula_name AS "formulaName",
+		a.raw_material_content_total AS "rawMaterialContentTotal",
+		a.actual_component_content_total AS "actualComponentContentTotal",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="formulaJoins">
+	</sql>
+    
+	<select id="get" resultType="Formula">
+		SELECT 
+			<include refid="formulaColumns"/>
+		FROM mms_formula a
+		<include refid="formulaJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Formula">
+		SELECT 
+			<include refid="formulaColumns"/>
+		FROM mms_formula a
+		<include refid="formulaJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sequence != null and sequence != ''">
+				AND a.sequence = #{sequence}
+			</if>
+			<if test="formulaName != null and formulaName != ''">
+				AND a.formula_name = #{formulaName}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Formula">
+		SELECT 
+			<include refid="formulaColumns"/>
+		FROM mms_formula a
+		<include refid="formulaJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_formula(
+			id,
+			sequence,
+			formula_name,
+			raw_material_content_total,
+			actual_component_content_total,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sequence},
+			#{formulaName},
+			#{rawMaterialContentTotal},
+			#{actualComponentContentTotal},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_formula SET 	
+			sequence = #{sequence},
+			formula_name = #{formulaName},
+			raw_material_content_total = #{rawMaterialContentTotal},
+			actual_component_content_total = #{actualComponentContentTotal},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_formula SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
