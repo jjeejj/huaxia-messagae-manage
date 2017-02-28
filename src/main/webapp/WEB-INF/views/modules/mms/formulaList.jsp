@@ -6,7 +6,18 @@
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			function startFilter(id) {
+				$.ajax({
+				    url:'${ctx}/mms/formula/filter',
+					type:'get',
+					success:function (data) {
+
+                    },
+					error:function (err) {
+
+                    }
+				})
+            }
 		});
 		function page(n,s){
 			$("#pageNo").val(n);
@@ -72,6 +83,8 @@
 				<shiro:hasPermission name="mms:formula:edit"><td>
     				<a href="${ctx}/mms/formula/form?id=${formula.id}">修改</a>
 					<a href="${ctx}/mms/formula/delete?id=${formula.id}" onclick="return confirmx('确认要删除该配方信息吗？', this.href)">删除</a>
+					<%--<a href="${ctx}/mms/formula/filter?id=${formula.id}" onclick="startFilter(${formula.id})">筛选</a>--%>
+					<a href="${ctx}/mms/formula/filter?id=${formula.id}" >筛选</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

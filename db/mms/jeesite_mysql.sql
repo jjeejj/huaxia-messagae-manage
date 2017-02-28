@@ -96,16 +96,16 @@ CREATE TABLE mms_forbidden_component
 ) COMMENT = '化妆品安全技术规范的禁用成分';
 
 /*化妆品安全技术规范的限用成分*/
-DROP TABLE IF EXISTS mms__component;
-CREATE TABLE mms__component
+DROP TABLE IF EXISTS mms_limited_component;
+CREATE TABLE mms_limited_component
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	sequence varchar(64) NOT NULL COMMENT '序号',
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
 	inic_name varchar(100) COMMENT 'INIC名 ',
-	enlish_name varchar(100) COMMENT '英文名称 ',
-	enlish_name varchar(100) COMMENT '适用及(或)使用范围 ',
-	enlish_name varchar(100) COMMENT '最大允许浓度',
+	english_name varchar(100) COMMENT '英文名称 ',
+	use_range varchar(10) COMMENT '适用及(或)使用范围 ',
+	max_allow_concentretion varchar(10) COMMENT '最大允许浓度',
   create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
@@ -113,11 +113,11 @@ CREATE TABLE mms__component
 	remarks varchar(255) COMMENT '备注信息',
 	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
 	PRIMARY KEY (id)
-) COMMENT = '化妆品安全技术规范的限用成分'
+) COMMENT = '化妆品安全技术规范的限用成分';
 
 /* 已使用原料目录*/
-DROP TABLE IF EXISTS mms_;
-CREATE TABLE mms_
+DROP TABLE IF EXISTS mms_raw_material_list;
+CREATE TABLE mms_raw_material_list
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	sequence varchar(64) NOT NULL COMMENT '序号',
@@ -131,6 +131,37 @@ CREATE TABLE mms_
 	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
 	PRIMARY KEY (id)
 ) COMMENT = '已使用原料目录';
+
+/* 产品*/
+
+DROP TABLE IF EXISTS mms_product;
+CREATE TABLE mms_product
+(
+	id varchar(64) NOT NULL COMMENT '编号',
+	product_id varchar(64) NOT NULL COMMENT '产品编号',
+	english_name varchar(100) NOT NULL COMMENT '中文名称',
+	chinese_name varchar(100) NOT NULL COMMENT '英文名称',
+	type char(1) COMMENT '类别',
+	work_matters varchar(100) NOT NULL COMMENT '工作事项',
+	product_leader varchar(64) NOT NULL COMMENT '产品负责人',
+	project_leader varchar(64) NOT NULL COMMENT '项目负责人',
+	enterprise_application varchar(64) NOT NULL COMMENT '申请企业',
+	actual_production_enterprise varchar(64)  COMMENT '实际生产企业',
+	responsible_unit_in_china varchar(64)  COMMENT '在华责任单位',
+	project_time datetime  COMMENT '立项时间',
+	contract_signing_time datetime  COMMENT '合同签订时间',
+	sample_time datetime  COMMENT '来样时间',
+	sample_quantity varchar(10)  COMMENT '样品数量',
+	total_number_of_samples varchar(10)  COMMENT '送检总数',
+	submission_time datetime  COMMENT '送检时间',
+  create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '产品';
 
 
 
