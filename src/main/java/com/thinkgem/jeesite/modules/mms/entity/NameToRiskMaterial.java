@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.mms.entity;
 
+import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
 import org.hibernate.validator.constraints.Length;
 //import org.hibernate.validator.constraints.Length(min=0, max=1, message="转换查询级别");
 
@@ -29,6 +30,7 @@ public class NameToRiskMaterial extends DataEntity<NameToRiskMaterial> {
 	}
 
 	@Length(min=1, max=100, message="标准中文名称长度必须介于 1 和 100 之间")
+	@ExcelField(title = "标准中文名称",sort = 10)
 	public String getStandardChineseName() {
 		return standardChineseName;
 	}
@@ -38,6 +40,7 @@ public class NameToRiskMaterial extends DataEntity<NameToRiskMaterial> {
 	}
 	
 	@Length(min=0, max=100, message="风险物质长度必须介于 0 和 100 之间")
+	@ExcelField(title = "风险物质",sort = 20)
 	public String getRiskMaterial() {
 		return riskMaterial;
 	}
@@ -47,6 +50,7 @@ public class NameToRiskMaterial extends DataEntity<NameToRiskMaterial> {
 	}
 	
 	@Length(min=0, max=1, message="转换查询级别(1:精确转换，2：模糊转换)长度必须介于 0 和 1 之间")
+	@ExcelField(title = "转换查询级别(1:精确转换，2：模糊转换一级，3：模糊转换二级)",sort = 30)
 	public String getTransformLevel() {
 		return transformLevel;
 	}
