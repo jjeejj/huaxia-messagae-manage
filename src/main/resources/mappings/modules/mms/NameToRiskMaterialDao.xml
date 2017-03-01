@@ -113,5 +113,17 @@
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
+	<!--查询所有模糊转换的信息，并按照优先级别进行排序-->
+	<select id="selectAllLevelOther" resultType="NameToRiskMaterial">
+		SELECT
+		<include refid="nameToRiskMaterialColumns"/>
+		FROM mms_name_to_risk_material a
+		<include refid="nameToRiskMaterialJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			and a.transform_level != '1'
+		</where>
+		ORDER BY a.transform_level DESC
+	</select>
 	
 </mapper>

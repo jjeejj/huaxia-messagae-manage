@@ -1,6 +1,7 @@
 package com.thinkgem.jeesite.modules.mms.vo;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
+import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
 
 /**
  * 导入的配方的基本信息
@@ -16,7 +17,9 @@ public class ExportFormulaVo extends DataEntity {
     private String formulaDetailsRawMaterialContent; //配方详情原料含量（%）
     private String formulaDetailsCompoundPercentage; //配方详情复配百分比（%）
     private String formulaDetailsPurposeOfUse; //配方详情使用目的
+    private String formulaRemarks; //配方备注信息
 
+    @ExcelField(title = "配方名称",sort = 20)
     public String getFormulaName() {
         return formulaName;
     }
@@ -25,6 +28,7 @@ public class ExportFormulaVo extends DataEntity {
         this.formulaName = formulaName;
     }
 
+    @ExcelField(title = "配方序号",sort = 10)
     public String getFormulaSequence() {
         return formulaSequence;
     }
@@ -33,6 +37,7 @@ public class ExportFormulaVo extends DataEntity {
         this.formulaSequence = formulaSequence;
     }
 
+    @ExcelField(title = "配方详情序号",sort = 30)
     public String getFormulaDetailsSequence() {
         return formulaDetailsSequence;
     }
@@ -40,7 +45,7 @@ public class ExportFormulaVo extends DataEntity {
     public void setFormulaDetailsSequence(String formulaDetailsSequence) {
         this.formulaDetailsSequence = formulaDetailsSequence;
     }
-
+    @ExcelField(title = "配方详情标准中文名称",sort = 40)
     public String getFormulaDetailsStandardChineseName() {
         return formulaDetailsStandardChineseName;
     }
@@ -49,6 +54,7 @@ public class ExportFormulaVo extends DataEntity {
         this.formulaDetailsStandardChineseName = formulaDetailsStandardChineseName;
     }
 
+    @ExcelField(title = "配方详情INCI名",sort = 50)
     public String getFormulaDetailsInicName() {
         return formulaDetailsInicName;
     }
@@ -57,6 +63,7 @@ public class ExportFormulaVo extends DataEntity {
         this.formulaDetailsInicName = formulaDetailsInicName;
     }
 
+    @ExcelField(title = "配方详情原料含量（%）",sort = 60)
     public String getFormulaDetailsRawMaterialContent() {
         return formulaDetailsRawMaterialContent;
     }
@@ -65,6 +72,7 @@ public class ExportFormulaVo extends DataEntity {
         this.formulaDetailsRawMaterialContent = formulaDetailsRawMaterialContent;
     }
 
+    @ExcelField(title = "配方详情复配百分比（%）",sort = 70)
     public String getFormulaDetailsCompoundPercentage() {
         return formulaDetailsCompoundPercentage;
     }
@@ -73,11 +81,21 @@ public class ExportFormulaVo extends DataEntity {
         this.formulaDetailsCompoundPercentage = formulaDetailsCompoundPercentage;
     }
 
+    @ExcelField(title = "配方详情使用目的",sort = 80)
     public String getFormulaDetailsPurposeOfUse() {
         return formulaDetailsPurposeOfUse;
     }
 
     public void setFormulaDetailsPurposeOfUse(String formulaDetailsPurposeOfUse) {
         this.formulaDetailsPurposeOfUse = formulaDetailsPurposeOfUse;
+    }
+
+    public String getFormulaRemarks() {
+        return formulaRemarks;
+    }
+
+    @ExcelField(title = "配方备注信息",sort = 90)
+    public void setFormulaRemarks(String formulaRemarks) {
+        this.formulaRemarks = formulaRemarks;
     }
 }

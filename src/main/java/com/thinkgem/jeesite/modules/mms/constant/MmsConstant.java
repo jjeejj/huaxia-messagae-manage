@@ -34,6 +34,16 @@ public class MmsConstant {
      */
     public static final String ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL = "1"; //1:符合标准
     public static final String ACTUAL_COMPONENT_CONTENT_STATUS_NO_NORMAL = "2"; //2：不符合标准
+	
+	/**
+	* 植物成分判断的正则表达式
+	*
+	*/
+	public static final String plantComponentRegex = "\\(\\w*\\)(提取)*[油水汁粉]|\\(\\w*\\)[\\w\\W\\u4e00-\\u9fa5]*\\/";
+//    String regex1 = "\\(\\w*\\))[油水汁粉]|\\(\\w*\\)[\\w\\W\\u4e00-\\u9fa5]*\\/";
+
+    public static final String PLANT_COMPONENT_YES = "1"; //1:是
+    public static final String PLANT_COMPONENT_NO = "2"; //2:不是
 
 
 }

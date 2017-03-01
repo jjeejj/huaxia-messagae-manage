@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.mms.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,9 @@ import com.thinkgem.jeesite.modules.mms.dao.NameToRiskMaterialDao;
 @Service
 @Transactional(readOnly = true)
 public class NameToRiskMaterialService extends CrudService<NameToRiskMaterialDao, NameToRiskMaterial> {
+
+	@Autowired
+	private NameToRiskMaterialDao nameToRiskMaterialDao;
 
 	public NameToRiskMaterial get(String id) {
 		return super.get(id);
@@ -42,6 +46,13 @@ public class NameToRiskMaterialService extends CrudService<NameToRiskMaterialDao
 	@Transactional(readOnly = false)
 	public void delete(NameToRiskMaterial nameToRiskMaterial) {
 		super.delete(nameToRiskMaterial);
+	}
+	/**
+	 * 查询所有模糊转换的信息，并按照优先级别进行排序
+	 * @return List<NameToRiskMaterial>
+	 */
+	public  List<NameToRiskMaterial> selectAllLevelOther(){
+		return nameToRiskMaterialDao.selectAllLevelOther();
 	}
 	
 }

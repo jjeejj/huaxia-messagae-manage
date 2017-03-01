@@ -6,16 +6,24 @@ package com.thinkgem.jeesite.modules.mms.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.collect.Lists;
+import com.thinkgem.jeesite.common.utils.excel.ExportExcel;
+import com.thinkgem.jeesite.common.utils.excel.ImportExcel;
 import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
 import com.thinkgem.jeesite.modules.mms.entity.*;
 import com.thinkgem.jeesite.modules.mms.service.*;
+import com.thinkgem.jeesite.modules.mms.vo.ExportFormulaVo;
+import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.config.Global;
@@ -23,7 +31,10 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 配方信息Controller
@@ -48,6 +59,11 @@ public class FormulaController extends BaseController {
 
 	@Autowired
 	private LimitedComponentService limitedComponentService;
+
+
+	@Autowired
+	private NameToRiskMaterialService nameToRiskMaterialService;
+
 
 	@ModelAttribute
 	public Formula get(@RequestParam(required=false) String id) {
@@ -125,6 +141,8 @@ public class FormulaController extends BaseController {
 		String standardChineseName = StringUtils.EMPTY; //标准中文名
 		String inicName = StringUtils.EMPTY; //INCI名
 //		float actualComponentContent = 0L; //实际成份含量
+		// 创建 Pattern 对象
+		Pattern r1 = Pattern.compile(MmsConstant.plantComponentRegex);
 		for(FormulaDetails formulaDetails :formulaDetailsList ){
 			standardChineseName = formulaDetails.getStandardChineseName();
 			//根据标准中文名，判断是否是禁用物质
@@ -140,7 +158,7 @@ public class FormulaController extends BaseController {
 				limitedComponent.setStandardChineseName(standardChineseName);
 				List<LimitedComponent> limitedComponentList = limitedComponentService.findList(limitedComponent);
 				if(limitedComponentList !=null && limitedComponentList.size() >0){
-					formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_FORBIDDEN); //限用成分
+					formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED); //限用成分
 					//成分含量是否符合标准
 					limitedComponent = limitedComponentList.get(0);
 					if(Float.parseFloat(formulaDetails.getActualComponentContent()) > Float.parseFloat(limitedComponent.getMaxAllowConcentretion())){ //大于标准含量
@@ -201,9 +219,12 @@ public class FormulaController extends BaseController {
 			 *
 			 * Java 正则表达式
 			 */
-
-
-
+			Matcher m1= r1.matcher(standardChineseName);
+			if(m1.find()){ //含有，植物油
+				formulaDetails.setPlantComponent(MmsConstant.PLANT_COMPONENT_YES);
+			}else{
+				formulaDetails.setPlantComponent(MmsConstant.PLANT_COMPONENT_NO);
+			}
 			//保存筛选后的信息
 			formulaDetailsService.save(formulaDetails);
 		}
@@ -212,5 +233,101 @@ public class FormulaController extends BaseController {
 		return "redirect:"+Global.getAdminPath()+"/mms/formula/?repage";
 	}
 
+
+	/**
+	 * 导入模板下载
+	 * @param response 响应
+	 * @param redirectAttributes 重定向
+	 * @return
+	 */
+	@RequestMapping(value = "import/template")
+	public String importFileTemplate(HttpServletResponse response, RedirectAttributes redirectAttributes) {
+		try {
+			String fileName = "配方数据导入模板.xlsx";
+			List<ExportFormulaVo> list = Lists.newArrayList();
+			list.add(new ExportFormulaVo());
+			new ExportExcel("配方数据", ExportFormulaVo.class, 2).setDataList(list).write(response, fileName).dispose();
+			return null;
+		} catch (Exception e) {
+			addMessage(redirectAttributes, "导入模板下载失败！失败信息：" + e.getMessage());
+		}
+		return "redirect:" + Global.getAdminPath() + "/mms/formula/?repage";
+	}
+
+	/**
+	 * 处理导入的文件数据
+	 * @param file 导入的文件
+	 * @param redirectAttributes 重定向
+	 * @return
+	 */
+	@RequestMapping(value = "import",method = RequestMethod.POST)
+	public String importFile (MultipartFile file, RedirectAttributes redirectAttributes){
+
+		try {
+			ImportExcel ei = new ImportExcel(file, 1, 0);
+			try {
+				List<ExportFormulaVo> exportFormulaVoList = ei.getDataList(ExportFormulaVo.class);
+				String standardChineseName = StringUtils.EMPTY; //标准中文名
+				String riskMaterial = StringUtils.EMPTY; //风险物质
+
+				for(ExportFormulaVo exportFormulaVo :exportFormulaVoList ){
+					standardChineseName = exportFormulaVo.getFormulaDetailsStandardChineseName();
+					riskMaterial = this.nameToRiskMaterial(standardChineseName); //对应的风险物质
+
+				}
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+
+	/**
+	 * 根据标准中文名查找对应的风险物质
+	 * 先进行精确查询，在进行模糊查询，模糊查询级别越高，优先级越高
+	 * @param standardChineseName 标准中文名
+	 * @return
+	 */
+	private String nameToRiskMaterial(String standardChineseName){
+
+		String riskMaterial = StringUtils.EMPTY;
+		Boolean isOk = false;
+		//先查询精确匹配的风险物质
+		NameToRiskMaterial nameToRiskMaterial = new NameToRiskMaterial();
+		//根据字典表进行查找精确匹配对应的等级
+//		String transformLevel = DictUtils.getDictValue("精确转换","transform_level","");
+		nameToRiskMaterial.setTransformLevel("1");
+		List<NameToRiskMaterial>  nameToRiskMaterialListLevelOne = nameToRiskMaterialService.findList(nameToRiskMaterial);
+		if(nameToRiskMaterialListLevelOne !=null && nameToRiskMaterialListLevelOne.size() > 0){
+			for (NameToRiskMaterial nameToRiskMaterial1 : nameToRiskMaterialListLevelOne){
+				if(standardChineseName.equals(nameToRiskMaterial1.getStandardChineseName())){
+					riskMaterial = nameToRiskMaterial1.getRiskMaterial();
+					isOk = true;
+					break;
+				}
+			}
+		}
+
+		if(!isOk){ //没有匹配到，开始模糊匹配
+			//查询所有模糊转换的信息，并按照优先级别进行排序，数字越高优先级越大
+			List<NameToRiskMaterial> nameToRiskMaterialListLevelOther = nameToRiskMaterialService.selectAllLevelOther();
+			if(nameToRiskMaterialListLevelOther !=null && nameToRiskMaterialListLevelOther.size() > 0 ){
+				for(NameToRiskMaterial nameToRiskMaterialOther : nameToRiskMaterialListLevelOther){
+					if(standardChineseName.contains(nameToRiskMaterialOther.getStandardChineseName())){
+						riskMaterial = nameToRiskMaterialOther.getRiskMaterial();
+						isOk = true;
+						break;
+					}
+				}
+			}
+		}
+		return riskMaterial;
+	}
 
 }
