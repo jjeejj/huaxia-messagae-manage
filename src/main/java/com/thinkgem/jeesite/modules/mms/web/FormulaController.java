@@ -32,6 +32,7 @@ import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -269,12 +270,100 @@ public class FormulaController extends BaseController {
 				List<ExportFormulaVo> exportFormulaVoList = ei.getDataList(ExportFormulaVo.class);
 				String standardChineseName = StringUtils.EMPTY; //标准中文名
 				String riskMaterial = StringUtils.EMPTY; //风险物质
+				String rawMaterialContent = StringUtils.EMPTY; //原料含量（%）
+				float rawMaterialContentTotal = 0L; //总原料含量（%）
+				String compoundPercentage = StringUtils.EMPTY; //复配百分比（%）
+				String actualComponentContent = StringUtils.EMPTY; //实际成份含量（%）
+				float actualComponentContentTotal = 0L; //总实际成份含量（%）
+				String purposeOfUse = StringUtils.EMPTY; //使用目的
+				String sequence = StringUtils.EMPTY; //序号
 
-				for(ExportFormulaVo exportFormulaVo :exportFormulaVoList ){
+				//配方信息---一次导入只有一条
+				Formula formula = new Formula();
+				//先不保存配方详情信息
+				List<FormulaDetails> formulaDetailsList = new ArrayList<FormulaDetails>();
+				for(int i = 0; i<exportFormulaVoList.size();i++ ){
+					ExportFormulaVo exportFormulaVo = exportFormulaVoList.get(i);
+					//配方信息保存
+					if(exportFormulaVo.getFormulaName() !=null && !exportFormulaVo.getFormulaName().equals("")){ //配方名称
+						formula.setFormulaName(exportFormulaVo.getFormulaName());
+					}
+					if(exportFormulaVo.getFormulaSequence() !=null && !exportFormulaVo.getFormulaSequence().equals("")){
+						formula.setSequence(exportFormulaVo.getFormulaSequence());
+					} //配方序号
+					if(exportFormulaVo.getRemarks() !=null && !exportFormulaVo.getRemarks().equals("")){
+						formula.setRemarks(exportFormulaVo.getRemarks());
+					} //配方备注
+
+					//配方详情
+					FormulaDetails formulaDetails = new FormulaDetails();
+
 					standardChineseName = exportFormulaVo.getFormulaDetailsStandardChineseName();
 					riskMaterial = this.nameToRiskMaterial(standardChineseName); //对应的风险物质
+					formulaDetails.setStandardChineseName(standardChineseName);
+					formulaDetails.setInicName(exportFormulaVo.getFormulaDetailsInicName());
+					formulaDetails.setRiskMaterial(riskMaterial);
+					rawMaterialContent =exportFormulaVo.getFormulaDetailsRawMaterialContent(); //原料含量（%）,某一项可能没有向上找
+					rawMaterialContentTotal += (rawMaterialContent == null || rawMaterialContent.equals(""))? 0L : Float.parseFloat(rawMaterialContent);//总原料含量
+					if(rawMaterialContent == null || rawMaterialContent.equals("")){
+						for(int j = i -1; j>=0;j--){
+							boolean isRawMaterialContentok = false;
+							ExportFormulaVo exportFormulaVoRawMaterialContent = exportFormulaVoList.get(j);
+							if(exportFormulaVoRawMaterialContent.getFormulaDetailsRawMaterialContent()!=null && !exportFormulaVoRawMaterialContent.getFormulaDetailsRawMaterialContent().equals("")){
+								rawMaterialContent = exportFormulaVoRawMaterialContent.getFormulaDetailsRawMaterialContent();
+								isRawMaterialContentok = true;
+								break;
+							}
+							if(!isRawMaterialContentok){
+								rawMaterialContent = "0";
+							}
+						}
+					}
+					compoundPercentage = exportFormulaVo.getFormulaDetailsCompoundPercentage();//复配百分比（%）
+					actualComponentContent = String.valueOf((Float.parseFloat(rawMaterialContent) *  Float.parseFloat(compoundPercentage))/100); //实际成分含量
+
+					actualComponentContentTotal += Float.parseFloat(actualComponentContent);//总实际成分含量
+					formulaDetails.setActualComponentContent(actualComponentContent);
+					formulaDetails.setRawMaterialContent(rawMaterialContent);
+					formulaDetails.setCompoundPercentage(compoundPercentage);
+
+					//使用目的
+					purposeOfUse = exportFormulaVo.getFormulaDetailsPurposeOfUse();
+					if(purposeOfUse == null || purposeOfUse.equals("")){
+						for(int j = i -1; j>=0;j--){
+							ExportFormulaVo exportFormulaVoPurposeOfUse = exportFormulaVoList.get(j);
+							if(exportFormulaVoPurposeOfUse.getFormulaDetailsPurposeOfUse()!=null && !exportFormulaVoPurposeOfUse.getFormulaDetailsPurposeOfUse().equals("")){
+								purposeOfUse = exportFormulaVoPurposeOfUse.getFormulaDetailsPurposeOfUse();
+								break;
+							}
+						}
+					}
+					formulaDetails.setPurposeOfUse(purposeOfUse);
+					//配方详情的每一个序号
+					sequence = exportFormulaVo.getFormulaSequence();
+					if(sequence == null || sequence.equals("")){
+						for(int j = i -1; j>=0;j--){
+							ExportFormulaVo exportFormulaVoSequence = exportFormulaVoList.get(j);
+							if(exportFormulaVoSequence.getFormulaSequence()!=null && !exportFormulaVoSequence.getFormulaSequence().equals("")){
+								sequence = exportFormulaVoSequence.getFormulaSequence();
+								break;
+							}
+						}
+					}
+					formulaDetails.setSequence(sequence);
+					formulaDetailsList.add(formulaDetails);
 
 				}
+				formula.setActualComponentContentTotal(String.valueOf(actualComponentContentTotal));
+				formula.setRawMaterialContentTotal(String.valueOf(rawMaterialContentTotal));
+				formulaService.save(formula);
+
+				//取得配方id保存信息
+				for (FormulaDetails formulaDetails :formulaDetailsList ){
+					formulaDetails.setFormulaId(formula.getId());
+					formulaDetailsService.save(formulaDetails);
+				}
+
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -285,7 +374,8 @@ public class FormulaController extends BaseController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "";
+		addMessage(redirectAttributes, "导入配方信息成功");
+		return "redirect:" + Global.getAdminPath() + "/mms/formula/?repage";
 	}
 
 	/**

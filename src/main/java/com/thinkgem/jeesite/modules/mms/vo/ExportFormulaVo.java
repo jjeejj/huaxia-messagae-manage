@@ -89,12 +89,12 @@ public class ExportFormulaVo extends DataEntity {
     public void setFormulaDetailsPurposeOfUse(String formulaDetailsPurposeOfUse) {
         this.formulaDetailsPurposeOfUse = formulaDetailsPurposeOfUse;
     }
-
+    @ExcelField(title = "配方备注信息",sort = 90)
     public String getFormulaRemarks() {
         return formulaRemarks;
     }
 
-    @ExcelField(title = "配方备注信息",sort = 90)
+
     public void setFormulaRemarks(String formulaRemarks) {
         this.formulaRemarks = formulaRemarks;
     }
