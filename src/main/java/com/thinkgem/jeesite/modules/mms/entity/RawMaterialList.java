@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.mms.entity;
 
+import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
 import org.hibernate.validator.constraints.Length;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
@@ -18,6 +19,8 @@ public class RawMaterialList extends DataEntity<RawMaterialList> {
 	private String sequence;		// 序号
 	private String standardChineseName;		// 标准中文名称
 	private String inicName;		// INCI名/英文名称
+
+	private String remark;		// 导入用的备注字段
 	
 	public RawMaterialList() {
 		super();
@@ -28,6 +31,7 @@ public class RawMaterialList extends DataEntity<RawMaterialList> {
 	}
 
 	@Length(min=1, max=64, message="序号长度必须介于 1 和 64 之间")
+	@ExcelField(title = "序号",sort = 10)
 	public String getSequence() {
 		return sequence;
 	}
@@ -37,6 +41,7 @@ public class RawMaterialList extends DataEntity<RawMaterialList> {
 	}
 	
 	@Length(min=1, max=100, message="标准中文名称长度必须介于 1 和 100 之间")
+	@ExcelField(title = "标准中文名称",sort = 20)
 	public String getStandardChineseName() {
 		return standardChineseName;
 	}
@@ -46,6 +51,7 @@ public class RawMaterialList extends DataEntity<RawMaterialList> {
 	}
 	
 	@Length(min=0, max=100, message="INCI名/英文名称长度必须介于 0 和 100 之间")
+	@ExcelField(title = "INCI名/英文名",sort = 30)
 	public String getInicName() {
 		return inicName;
 	}
@@ -53,5 +59,12 @@ public class RawMaterialList extends DataEntity<RawMaterialList> {
 	public void setInicName(String inicName) {
 		this.inicName = inicName;
 	}
-	
+
+	@ExcelField(title = "备注",sort = 40)
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 }

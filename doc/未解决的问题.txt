@@ -1,0 +1,20 @@
+1:mysql 查询：带引号和括号的怎么处理：
+比如：
+SELECT
+	a.id AS "id",
+	a.sequence AS "sequence",
+	a.standard_chinese_name AS "standardChineseName",
+	a.inic_name AS "inicName",
+	a.create_by AS "createBy.id",
+	a.create_date AS "createDate",
+	a.update_by AS "updateBy.id",
+	a.update_date AS "updateDate",
+	a.remarks AS "remarks",
+	a.del_flag AS "delFlag"
+FROM
+	mms_forbidden_component a
+WHERE
+	a.del_flag = '0'
+AND a.standard_chinese_name = '硫酸((1,1'-联苯)-4,4'-二基)二铵'
+
+2：已使用原料的字段确定？？？

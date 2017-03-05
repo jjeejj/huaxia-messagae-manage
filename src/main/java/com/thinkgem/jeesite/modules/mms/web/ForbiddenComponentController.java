@@ -59,6 +59,9 @@ public class ForbiddenComponentController extends BaseController {
 	@RequiresPermissions("mms:forbiddenComponent:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(ForbiddenComponent forbiddenComponent, HttpServletRequest request, HttpServletResponse response, Model model) {
+		if(StringUtils.isNoneEmpty(forbiddenComponent.getStandardChineseName())){ //特殊字符处理
+			forbiddenComponent.setStandardChineseName(forbiddenComponent.getStandardChineseName().replaceAll("&rsquo;","'"));
+		}
 		Page<ForbiddenComponent> page = forbiddenComponentService.findPage(new Page<ForbiddenComponent>(request, response), forbiddenComponent); 
 		model.addAttribute("page", page);
 		return "modules/mms/forbiddenComponentList";
