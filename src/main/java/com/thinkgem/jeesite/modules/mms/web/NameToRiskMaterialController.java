@@ -122,6 +122,9 @@ public class NameToRiskMaterialController extends BaseController {
 		List<NameToRiskMaterial> list = ei.getDataList(NameToRiskMaterial.class);
 		//TODO 风险物质，有重复的怎么办？？？
 		for(NameToRiskMaterial  nameToRiskMaterial : list){
+			if(StringUtils.isEmpty(nameToRiskMaterial.getStandardChineseName())){ //没有标准中文名的记录，忽略防止空白单元行
+				continue;
+			}
 			nameToRiskMaterialService.save(nameToRiskMaterial);
 		}
 		addMessage(redirectAttributes, "已成功导入  标准中文名对应的风险物质数据");

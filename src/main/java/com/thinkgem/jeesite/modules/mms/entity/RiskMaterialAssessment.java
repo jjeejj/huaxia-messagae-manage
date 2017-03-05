@@ -3,9 +3,11 @@
  */
 package com.thinkgem.jeesite.modules.mms.entity;
 
+import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
 import org.hibernate.validator.constraints.Length;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
+
 
 /**
  * 风险物质评估信息Entity
@@ -20,6 +22,8 @@ public class RiskMaterialAssessment extends DataEntity<RiskMaterialAssessment> {
 	private String source;		// 主要来源
 	private String safetyThreshold;		// 安全阈值
 	private String evaluationBasis;		// 评估依据
+
+	private String remark;		// 备注
 	
 	public RiskMaterialAssessment() {
 		super();
@@ -30,6 +34,7 @@ public class RiskMaterialAssessment extends DataEntity<RiskMaterialAssessment> {
 	}
 
 	@Length(min=1, max=64, message="序号长度必须介于 1 和 64 之间")
+	@ExcelField(title = "序号",sort = 10)
 	public String getSequence() {
 		return sequence;
 	}
@@ -39,6 +44,7 @@ public class RiskMaterialAssessment extends DataEntity<RiskMaterialAssessment> {
 	}
 	
 	@Length(min=1, max=255, message="风险物质名称长度必须介于 1 和 255 之间")
+	@ExcelField(title = "风险物质名称",sort = 20)
 	public String getRiskMaterialName() {
 		return riskMaterialName;
 	}
@@ -48,6 +54,7 @@ public class RiskMaterialAssessment extends DataEntity<RiskMaterialAssessment> {
 	}
 	
 	@Length(min=0, max=255, message="主要来源长度必须介于 0 和 255 之间")
+	@ExcelField(title = "主要来源",sort = 30)
 	public String getSource() {
 		return source;
 	}
@@ -57,6 +64,7 @@ public class RiskMaterialAssessment extends DataEntity<RiskMaterialAssessment> {
 	}
 	
 	@Length(min=0, max=50, message="安全阈值长度必须介于 0 和 50 之间")
+	@ExcelField(title = "安全阈值",sort = 40)
 	public String getSafetyThreshold() {
 		return safetyThreshold;
 	}
@@ -66,6 +74,7 @@ public class RiskMaterialAssessment extends DataEntity<RiskMaterialAssessment> {
 	}
 	
 	@Length(min=0, max=255, message="评估依据长度必须介于 0 和 255 之间")
+	@ExcelField(title = "评估依据",sort = 50)
 	public String getEvaluationBasis() {
 		return evaluationBasis;
 	}
@@ -73,5 +82,13 @@ public class RiskMaterialAssessment extends DataEntity<RiskMaterialAssessment> {
 	public void setEvaluationBasis(String evaluationBasis) {
 		this.evaluationBasis = evaluationBasis;
 	}
-	
+
+	@ExcelField(title = "备注",sort = 60)
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 }

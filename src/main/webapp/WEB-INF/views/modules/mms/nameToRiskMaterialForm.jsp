@@ -54,7 +54,7 @@
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('transform_level')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<span class="help-inline"><font color="red">* 模糊转换级别越高，优先级越高</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
