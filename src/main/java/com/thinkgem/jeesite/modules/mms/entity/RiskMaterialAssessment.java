@@ -23,7 +23,7 @@ public class RiskMaterialAssessment extends DataEntity<RiskMaterialAssessment> {
 	private String safetyThreshold;		// 安全阈值
 	private String evaluationBasis;		// 评估依据
 
-	private String remark;		// 备注
+	private String remark;		// 导入用的备注字段
 	
 	public RiskMaterialAssessment() {
 		super();

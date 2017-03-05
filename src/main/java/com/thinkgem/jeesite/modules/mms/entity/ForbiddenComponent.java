@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.mms.entity;
 
+import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
 import org.hibernate.validator.constraints.Length;
 //import org.hibernate.validator.constraints.Length(min=0, max=100, message="原植(动)物拉丁文学名或植;
 
@@ -19,6 +20,8 @@ public class ForbiddenComponent extends DataEntity<ForbiddenComponent> {
 	private String sequence;		// 序号
 	private String standardChineseName;		// 标准中文名称
 	private String inicName;		// 原植(动)物拉丁文学名或植(动)物英文名
+
+	private String remark;		// 导入用的备注字段
 	
 	public ForbiddenComponent() {
 		super();
@@ -29,6 +32,7 @@ public class ForbiddenComponent extends DataEntity<ForbiddenComponent> {
 	}
 
 	@Length(min=1, max=64, message="序号长度必须介于 1 和 64 之间")
+	@ExcelField(title = "序号",sort = 10)
 	public String getSequence() {
 		return sequence;
 	}
@@ -38,6 +42,7 @@ public class ForbiddenComponent extends DataEntity<ForbiddenComponent> {
 	}
 	
 	@Length(min=1, max=100, message="标准中文名称长度必须介于 1 和 100 之间")
+	@ExcelField(title = "标准中文名称",sort = 20)
 	public String getStandardChineseName() {
 		return standardChineseName;
 	}
@@ -47,6 +52,7 @@ public class ForbiddenComponent extends DataEntity<ForbiddenComponent> {
 	}
 	
 	@Length(min=0, max=100, message="原植(动)物拉丁文学名或植(动)物英文名长度必须介于 0 和 100 之间")
+	@ExcelField(title = "原植(动)物拉丁文学名或植(动)物英文名",sort = 30)
 	public String getInicName() {
 		return inicName;
 	}
@@ -54,5 +60,13 @@ public class ForbiddenComponent extends DataEntity<ForbiddenComponent> {
 	public void setInicName(String inicName) {
 		this.inicName = inicName;
 	}
-	
+
+	@ExcelField(title = "备注",sort = 40)
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 }

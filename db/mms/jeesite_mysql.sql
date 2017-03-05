@@ -85,7 +85,7 @@ CREATE TABLE mms_forbidden_component
 	id varchar(64) NOT NULL COMMENT '编号',
 	sequence varchar(64) NOT NULL COMMENT '序号',
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
-	inic_name varchar(100) COMMENT '原植(动)物拉丁文学名或植(动)物英文名 ',
+	inic_name varchar(1000) COMMENT '原植(动)物拉丁文学名或植(动)物英文名 ',
   create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
