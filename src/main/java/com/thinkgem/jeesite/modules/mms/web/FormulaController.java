@@ -121,6 +121,19 @@ public class FormulaController extends BaseController {
 		return "redirect:"+Global.getAdminPath()+"/mms/formula/?repage";
 	}
 
+	/**
+	 * 根据配方 id 找到具体的配方信息
+	 * @param formula
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "formulaDetailById")
+	public String formulaDetailById(Formula formula, RedirectAttributes redirectAttributes) {
+
+		formulaService.save(formula);
+		return "modules/mms/formulaDetailsList";
+	}
+
 
 	/**
 	 * 筛选功能

@@ -80,7 +80,9 @@
 					${formula.sequence}
 				</a></td>
 				<td>
-					${formula.formulaName}
+					<a href="${ctx}/mms/formula/formulaDetailById?id=${formula.id}">
+						${formula.formulaName}
+					</a>
 				</td>
 				<td>
 					${formula.rawMaterialContentTotal}
