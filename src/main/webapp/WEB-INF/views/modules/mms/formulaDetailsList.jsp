@@ -44,7 +44,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>配方id</th>
+				<th>归属配方</th>
 				<th>序号</th>
 				<th>标准中文名称</th>
 				<th>INCI名</th>
@@ -61,9 +61,9 @@
 		<tbody>
 		<c:forEach items="${page.list}" var="formulaDetails">
 			<tr>
-				<td><a href="${ctx}/mms/formulaDetails/form?id=${formulaDetails.id}">
-					${formulaDetails.formulaId}
-				</a></td>
+				<td>
+					${formulaDetails.formula.formulaName}
+				</td>
 				<td>
 					${formulaDetails.sequence}
 				</td>

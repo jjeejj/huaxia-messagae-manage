@@ -24,6 +24,26 @@
                     bottomText:"导入文件不能超过5M，仅允许导入“xls”或“xlsx”格式文件！"});
             });
 		});
+
+        /**
+		 * 配方详情
+         * @param formulaId 配方id
+         */
+        function formulaDetailById(formulaId){
+            console.log("formulaId = " + formulaId);
+            top.$.jBox.open("iframe:${ctx}/mms/formula/formulaDetailById/?formulaId=" + formulaId, "该配方详细信息列表" , 910, $(top.document).height() - 140,{
+                buttons:{/**"确定充值":"ok"*/ "关闭":true}, bottomText:"", submit:function(v, h, f) {
+//					if (v=="ok"){
+//						// 执行保存
+//						loading('正在提交，请稍等...');
+//						$('#searchForm').submit();
+//					}
+                }, loaded:function(h){
+                    $(".jbox-content", top.document).css("overflow-y","hidden");
+
+                }
+            });
+        }
 		function page(n,s){
 			$("#pageNo").val(n);
 			$("#pageSize").val(s);
@@ -76,13 +96,11 @@
 		<tbody>
 		<c:forEach items="${page.list}" var="formula">
 			<tr>
-				<td><a href="${ctx}/mms/formula/form?id=${formula.id}">
-					${formula.sequence}
-				</a></td>
 				<td>
-					<a href="${ctx}/mms/formula/formulaDetailById?id=${formula.id}">
+					${formula.sequence}
+				</td>
+				<td>
 						${formula.formulaName}
-					</a>
 				</td>
 				<td>
 					${formula.rawMaterialContentTotal}
@@ -97,6 +115,7 @@
 					${formula.remarks}
 				</td>
 				<shiro:hasPermission name="mms:formula:edit"><td>
+					<a href="#" id="membersIdDetail" onclick="formulaDetailById('${formula.id}');">详情</a>
     				<a href="${ctx}/mms/formula/form?id=${formula.id}">修改</a>
 					<a href="${ctx}/mms/formula/delete?id=${formula.id}" onclick="return confirmx('确认要删除该配方信息吗？', this.href)">删除</a>
 					<%--<a href="${ctx}/mms/formula/filter?id=${formula.id}" onclick="startFilter(${formula.id})">筛选</a>--%>

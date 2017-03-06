@@ -47,7 +47,7 @@ CREATE TABLE mms_formula_details
 	inic_name varchar(100) COMMENT 'INCI名',
 	raw_material_content varchar(10) COMMENT '原料含量（%）',
 	compound_percentage varchar(10) COMMENT '复配百分比（%）',
-	actual_component_content varchar(10) COMMENT '实际成份含量（%）',
+	actual_component_content varchar(32) COMMENT '实际成份含量（%）',
 	purpose_of_use varchar(100) COMMENT '使用目的',
 	risk_material varchar(100) COMMENT '风险物质',
   component_type char(1) COMMENT '成分类型(1:正常，2：禁用，3：限用)',

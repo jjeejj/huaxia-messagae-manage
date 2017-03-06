@@ -34,9 +34,9 @@
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
 		<div class="control-group">
-			<label class="control-label">配方id：</label>
+			<label class="control-label">归属配方：</label>
 			<div class="controls">
-				<form:input path="formulaId" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
+				<form:input path="formula.formulaName" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

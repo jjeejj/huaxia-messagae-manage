@@ -15,7 +15,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 public class FormulaDetails extends DataEntity<FormulaDetails> {
 	
 	private static final long serialVersionUID = 1L;
-	private String formulaId;		// 配方id
+	private String formulaId;
 	private String sequence;		// 序号
 	private String standardChineseName;		// 标准中文名称
 	private String inicName;		// INCI名
@@ -28,6 +28,8 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 	private String actualComponentContentStatus;		// 对于限用成分的实际成份含量状态
 	private String nameOrInicStatus;		// 标准中文名称或INCI名的状态
 	private String plantComponent;		// 是否是植物成分
+
+	private Formula formula;		// 配方
 	
 	public FormulaDetails() {
 		super();
@@ -37,14 +39,6 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 		super(id);
 	}
 
-	@Length(min=1, max=64, message="配方id长度必须介于 1 和 64 之间")
-	public String getFormulaId() {
-		return formulaId;
-	}
-
-	public void setFormulaId(String formulaId) {
-		this.formulaId = formulaId;
-	}
 	
 	@Length(min=1, max=64, message="序号长度必须介于 1 和 64 之间")
 	public String getSequence() {
@@ -153,5 +147,20 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 	public void setPlantComponent(String plantComponent) {
 		this.plantComponent = plantComponent;
 	}
-	
+
+	public Formula getFormula() {
+		return formula;
+	}
+
+	public void setFormula(Formula formula) {
+		this.formula = formula;
+	}
+
+	public String getFormulaId() {
+		return formulaId;
+	}
+
+	public void setFormulaId(String formulaId) {
+		this.formulaId = formulaId;
+	}
 }

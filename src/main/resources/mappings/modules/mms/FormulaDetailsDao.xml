@@ -22,10 +22,12 @@
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		f.formula_name AS "formula.formulaName"
 	</sql>
 	
 	<sql id="formulaDetailsJoins">
+		LEFT JOIN mms_formula f on a.formula_id = f.id
 	</sql>
     
 	<select id="get" resultType="FormulaDetails">
@@ -48,6 +50,9 @@
 			</if>
 			<if test="standardChineseName != null and standardChineseName != ''">
 				AND a.standard_chinese_name = #{standardChineseName}
+			</if>
+			<if test="formulaId != null and formulaId != ''">
+				AND a.formula_id = #{formulaId}
 			</if>
 		</where>
 		<choose>
@@ -156,7 +161,9 @@
 		SELECT
 		<include refid="formulaDetailsColumns"/>
 		FROM mms_formula_details a
+		<include refid="formulaDetailsJoins"/>
 		where a.formula_id = #{formulaId}
+		ORDER BY a.sequence
 	</select>
 	
 </mapper>

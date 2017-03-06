@@ -123,15 +123,20 @@ public class FormulaController extends BaseController {
 
 	/**
 	 * 根据配方 id 找到具体的配方信息
-	 * @param formula
-	 * @param redirectAttributes
+	 * @param request
+	 * @param response
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "formulaDetailById")
-	public String formulaDetailById(Formula formula, RedirectAttributes redirectAttributes) {
+	public String formulaDetailById(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		formulaService.save(formula);
-		return "modules/mms/formulaDetailsList";
+		String formulaId = request.getParameter("formulaId");//配方ID
+		//查询
+		List<FormulaDetails> formulaDetailsList = formulaDetailsService.selectAllByFormulaId(formulaId);
+
+		model.addAttribute("formulaDetailsList", formulaDetailsList);
+		return "modules/mms/formulaDetailsListByFormulaId";
 	}
 
 
