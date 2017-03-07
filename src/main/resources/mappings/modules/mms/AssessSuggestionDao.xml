@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.AssessSuggestionDao">
+    
+	<sql id="assessSuggestionColumns">
+		a.id AS "id",
+		a.sequence AS "sequence",
+		a.suggestion_type AS "suggestionType",
+		a.main_content AS "mainContent",
+		a.issuance_date AS "issuanceDate",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="assessSuggestionJoins">
+	</sql>
+    
+	<select id="get" resultType="AssessSuggestion">
+		SELECT 
+			<include refid="assessSuggestionColumns"/>
+		FROM mms_assess_suggestion a
+		<include refid="assessSuggestionJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="AssessSuggestion">
+		SELECT 
+			<include refid="assessSuggestionColumns"/>
+		FROM mms_assess_suggestion a
+		<include refid="assessSuggestionJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="suggestionType != null and suggestionType != ''">
+				AND a.suggestion_type = #{suggestionType}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="AssessSuggestion">
+		SELECT 
+			<include refid="assessSuggestionColumns"/>
+		FROM mms_assess_suggestion a
+		<include refid="assessSuggestionJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_assess_suggestion(
+			id,
+			sequence,
+			suggestion_type,
+			main_content,
+			issuance_date,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sequence},
+			#{suggestionType},
+			#{mainContent},
+			#{issuanceDate},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_assess_suggestion SET 	
+			sequence = #{sequence},
+			suggestion_type = #{suggestionType},
+			main_content = #{mainContent},
+			issuance_date = #{issuanceDate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_assess_suggestion SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

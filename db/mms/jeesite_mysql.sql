@@ -163,5 +163,21 @@ CREATE TABLE mms_product
 	PRIMARY KEY (id)
 ) COMMENT = '产品';
 
+-- 审评意见数据库
+DROP TABLE IF EXISTS mms_assess_suggestion;
+CREATE TABLE mms_assess_suggestion (
+  id varchar(64) NOT NULL COMMENT '编号',
+  sequence varchar(64) NOT NULL COMMENT '序号',
+  suggestion_type char(1) NOT NULL COMMENT '意见类别',
+  main_content text  NULL COMMENT '主要内容',
+  issuance_date datetime COMMENT '出具日期',
+  create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '审评意见';
 
 
