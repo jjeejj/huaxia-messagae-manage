@@ -35,7 +35,6 @@
             $('#btn').click(function () {
 
                 var inputValue = $('#beforeFilter').val();
-                console.log('===========',inputValue);
                 if(!inputValue || !inputValue.trim()){ //没有输入内容
                     $('#beforeFilter').addClass('red_border');
                     return false;
