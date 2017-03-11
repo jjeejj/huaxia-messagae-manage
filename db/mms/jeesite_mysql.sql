@@ -132,29 +132,15 @@ CREATE TABLE mms_raw_material_list
 	PRIMARY KEY (id)
 ) COMMENT = '已使用原料目录';
 
-/* 产品*/
-
+/* 产品汇总信息 */
 DROP TABLE IF EXISTS mms_product;
 CREATE TABLE mms_product
 (
 	id varchar(64) NOT NULL COMMENT '编号',
-	product_id varchar(64) NOT NULL COMMENT '产品编号',
-	english_name varchar(100) NOT NULL COMMENT '中文名称',
-	chinese_name varchar(100) NOT NULL COMMENT '英文名称',
-	type char(1) COMMENT '类别',
-	work_matters varchar(100) NOT NULL COMMENT '工作事项',
-	product_leader varchar(64) NOT NULL COMMENT '产品负责人',
-	project_leader varchar(64) NOT NULL COMMENT '项目负责人',
-	enterprise_application varchar(64) NOT NULL COMMENT '申请企业',
-	actual_production_enterprise varchar(64)  COMMENT '实际生产企业',
-	responsible_unit_in_china varchar(64)  COMMENT '在华责任单位',
-	project_time datetime  COMMENT '立项时间',
-	contract_signing_time datetime  COMMENT '合同签订时间',
-	sample_time datetime  COMMENT '来样时间',
-	sample_quantity varchar(10)  COMMENT '样品数量',
-	total_number_of_samples varchar(10)  COMMENT '送检总数',
-	submission_time datetime  COMMENT '送检时间',
-  create_by varchar(64) COMMENT '创建者',
+	market_product_id varchar(64) NOT NULL COMMENT '市场产品id',
+	comprehensive_product_id varchar(64)  COMMENT '综合产品id',
+	declare_product_id varchar(64)  COMMENT '申报产品id',
+	create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
 	update_date datetime COMMENT '更新时间',
@@ -163,15 +149,80 @@ CREATE TABLE mms_product
 	PRIMARY KEY (id)
 ) COMMENT = '产品';
 
+DROP TABLE IF EXISTS mms_market_product;
+CREATE TABLE mms_market_product
+(
+	id varchar(64) NOT NULL COMMENT '编号',
+	product_number varchar(64) NOT NULL COMMENT '产品编号',
+	english_name varchar(100) NOT NULL COMMENT '中文名称',
+	chinese_name varchar(100) NOT NULL COMMENT '英文名称',
+	product_type char(1) COMMENT '类别',
+	work_matters varchar(100) NOT NULL COMMENT '工作事项',
+	product_leader varchar(64) NOT NULL COMMENT '产品负责人',
+	project_leader varchar(64) NOT NULL COMMENT '项目负责人',
+	enterprise_application varchar(64) NOT NULL COMMENT '申请企业',
+	actual_production_enterprise varchar(64)  COMMENT '实际生产企业',
+	responsible_unit_in_china varchar(64)  COMMENT '在华责任单位',
+	project_time datetime  COMMENT '立项时间',
+	contract_signing_time datetime  COMMENT '合同签订时间',
+	create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '市场产品';
+
+/*  综合产品 */
+DROP TABLE IF EXISTS mms_comprehensive_product;
+CREATE TABLE mms_comprehensive_product
+(
+	id varchar(64) NOT NULL COMMENT '编号',
+	sample_time datetime  COMMENT '来样时间',
+	sample_quantity varchar(10)  COMMENT '样品数量',
+	total_number_of_samples varchar(10)  COMMENT '送检总数',
+	submission_time datetime  COMMENT '送检时间',
+	create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '综合产品';
+
+/*  申报产品 */
+DROP TABLE IF EXISTS mms_declare_product;
+CREATE TABLE mms_declare_product
+(
+	id varchar(64) NOT NULL COMMENT '编号',
+	inspection_report_time datetime  COMMENT '取送检报告时间',
+	send_body_time varchar(10)  COMMENT '送人体时间',
+	body_report_time datetime  COMMENT '取送人体报告时间',
+	report_time datetime  COMMENT '上报时间',
+	acceptance_time datetime  COMMENT '受理时间',
+	document_time datetime  COMMENT '批件时间',
+	next_opinion_time datetime  COMMENT '下意见时间',
+	reply_opinion datetime  COMMENT '回复意见',
+	create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '申报产品';
+
 -- 审评意见数据库
 DROP TABLE IF EXISTS mms_assess_suggestion;
 CREATE TABLE mms_assess_suggestion (
-  id varchar(64) NOT NULL COMMENT '编号',
-  sequence varchar(64) NOT NULL COMMENT '序号',
-  suggestion_type char(1) NOT NULL COMMENT '意见类别',
-  main_content text  NULL COMMENT '主要内容',
-  issuance_date datetime COMMENT '出具日期',
-  create_by varchar(64) COMMENT '创建者',
+	id varchar(64) NOT NULL COMMENT '编号',
+	sequence varchar(64) NOT NULL COMMENT '序号',
+	suggestion_type char(1) NOT NULL COMMENT '意见类别',
+	main_content text  NULL COMMENT '主要内容',
+	issuance_date datetime COMMENT '出具日期',
+	create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
 	update_date datetime COMMENT '更新时间',
@@ -179,5 +230,40 @@ CREATE TABLE mms_assess_suggestion (
 	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
 	PRIMARY KEY (id)
 ) COMMENT = '审评意见';
+
+-- Forbidden words 禁用语词汇数据库
+DROP TABLE IF EXISTS mms_forbidden_words;
+CREATE TABLE mms_forbidden_words (
+	id varchar(64) NOT NULL COMMENT '编号',
+	sequence varchar(64) NOT NULL COMMENT '序号',
+	forbidden_name char(64) NOT NULL COMMENT '禁用名称',
+	forbidden_explain  text  NULL COMMENT '禁用说明',
+	create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '禁用语词汇';
+
+-- Material use 原料使用数据库
+DROP TABLE IF EXISTS mms_material_use;
+CREATE TABLE mms_material_use (
+	id varchar(64) NOT NULL COMMENT '编号',
+	sequence varchar(64) NOT NULL COMMENT '序号',
+	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
+	actual_component_content varchar(32) COMMENT '实际成份含量（%）',
+	purpose_of_use varchar(100) COMMENT '使用目的',
+	risk_material varchar(100) COMMENT '风险物质',
+	create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '原料使用';
+
 
 
