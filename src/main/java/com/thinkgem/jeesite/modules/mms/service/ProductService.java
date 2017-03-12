@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.mms.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,9 @@ import com.thinkgem.jeesite.modules.mms.dao.ProductDao;
 @Service
 @Transactional(readOnly = true)
 public class ProductService extends CrudService<ProductDao, Product> {
+
+	@Autowired
+	private ProductDao productDao;
 
 	public Product get(String id) {
 		return super.get(id);
@@ -42,6 +46,15 @@ public class ProductService extends CrudService<ProductDao, Product> {
 	@Transactional(readOnly = false)
 	public void delete(Product product) {
 		super.delete(product);
+	}
+
+	/**
+	 * 根据市场产品id 查找对应的记录
+	 * @param marketProductId
+	 * @return
+	 */
+	public Product getByMarketProductId(String marketProductId) {
+		return productDao.getByMarketProductId(marketProductId);
 	}
 	
 }

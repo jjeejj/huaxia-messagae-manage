@@ -45,5 +45,24 @@ public class MmsConstant {
     public static final String PLANT_COMPONENT_YES = "1"; //1:是
     public static final String PLANT_COMPONENT_NO = "2"; //2:不是
 
+    /**
+     * 产品状态
+     *  初审---1
+     *  送检---2
+     *   申报----3
+     *   完善资料 ---4
+     *   取得批件 ----5
+     *   不予批准 ----6
+     *   终止申报 ----7
+     */
+    public static final String PRODUCT_STATUS_1 = "1"; //1:初审
+    public static final String PRODUCT_STATUS_2 = "2"; //2:送检
+    public static final String PRODUCT_STATUS_3 = "3"; //3:申报
+    public static final String PRODUCT_STATUS_4 = "4"; //4:完善资料
+    public static final String PRODUCT_STATUS_5 = "5"; //5:取得批件
+    public static final String PRODUCT_STATUS_6 = "6"; //6:不予批准
+    public static final String PRODUCT_STATUS_7 = "7"; //7:终止申报
+
+
 
 }

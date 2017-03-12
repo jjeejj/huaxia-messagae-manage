@@ -25,6 +25,9 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
+			<li><label>产品编号：</label>
+				<form:input path="productNumber" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
 			<li><label>中文名称：</label>
 				<form:input path="englishName" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
@@ -39,6 +42,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
+				<th>产品编号</th>
 				<th>中文名称</th>
 				<th>英文名称</th>
 				<th>产品负责人</th>
@@ -47,7 +51,7 @@
 				<th>实际生产企业</th>
 				<th>在华责任单位</th>
 				<th>立项时间</th>
-				<th>更新时间</th>
+				<th>合同签订时间</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:marketProduct:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -56,10 +60,13 @@
 		<c:forEach items="${page.list}" var="marketProduct">
 			<tr>
 				<td><a href="${ctx}/mms/marketProduct/form?id=${marketProduct.id}">
-					${marketProduct.englishName}
+					${marketProduct.productNumber}
 				</a></td>
 				<td>
 					${marketProduct.chineseName}
+				</td>
+				<td>
+					${marketProduct.englishName}
 				</td>
 				<td>
 					${marketProduct.productLeader}
@@ -80,7 +87,7 @@
 					<fmt:formatDate value="${marketProduct.projectTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${marketProduct.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${marketProduct.contractSigningTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
 					${marketProduct.remarks}

@@ -14,5 +14,11 @@ import com.thinkgem.jeesite.modules.mms.entity.Product;
  */
 @MyBatisDao
 public interface ProductDao extends CrudDao<Product> {
-	
+
+    /**
+     * 根据市场产品id 查找对应的记录
+     * @param marketProductId
+     * @return
+     */
+    Product getByMarketProductId(String marketProductId);
 }

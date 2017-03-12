@@ -18,8 +18,8 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 	
 	private static final long serialVersionUID = 1L;
 	private String productNumber;		// 产品编号
-	private String englishName;		// 中文名称
-	private String chineseName;		// 英文名称
+	private String englishName;		// 英文名称
+	private String chineseName;		// 中文名称
 	private String productType;		// 类别
 	private String workMatters;		// 工作事项
 	private String productLeader;		// 产品负责人
@@ -29,7 +29,10 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 	private String responsibleUnitInChina;		// 在华责任单位
 	private Date projectTime;		// 立项时间
 	private Date contractSigningTime;		// 合同签订时间
-	
+
+	private String productHandlePersonId;		// 产品处理人id
+	private String productNextHandlePersonId;		// 产品下一环节处理人id
+
 	public MarketProduct() {
 		super();
 	}
@@ -74,7 +77,7 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 		this.productType = productType;
 	}
 	
-	@Length(min=1, max=100, message="工作事项长度必须介于 1 和 100 之间")
+//	@Length(min=1, max=100, message="工作事项长度必须介于 1 和 100 之间")
 	public String getWorkMatters() {
 		return workMatters;
 	}
@@ -145,5 +148,20 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 	public void setContractSigningTime(Date contractSigningTime) {
 		this.contractSigningTime = contractSigningTime;
 	}
-	
+
+	public String getProductHandlePersonId() {
+		return productHandlePersonId;
+	}
+
+	public void setProductHandlePersonId(String productHandlePersonId) {
+		this.productHandlePersonId = productHandlePersonId;
+	}
+
+	public String getProductNextHandlePersonId() {
+		return productNextHandlePersonId;
+	}
+
+	public void setProductNextHandlePersonId(String productNextHandlePersonId) {
+		this.productNextHandlePersonId = productNextHandlePersonId;
+	}
 }

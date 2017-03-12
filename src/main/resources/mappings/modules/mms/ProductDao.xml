@@ -7,6 +7,7 @@
 		a.market_product_id AS "marketProductId",
 		a.comprehensive_product_id AS "comprehensiveProductId",
 		a.declare_product_id AS "declareProductId",
+		a.product_status AS "productStatus",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -25,6 +26,15 @@
 		<include refid="productJoins"/>
 		WHERE a.id = #{id}
 	</select>
+	<!--根据市场产品id 查找对应的记录-->
+	<select id="getByMarketProductId" resultType="Product">
+		SELECT
+		<include refid="productColumns"/>
+		FROM mms_product a
+		<include refid="productJoins"/>
+		WHERE a.market_product_id = #{marketProductId}
+	</select>
+
 	
 	<select id="findList" resultType="Product">
 		SELECT 
@@ -68,6 +78,7 @@
 			market_product_id,
 			comprehensive_product_id,
 			declare_product_id,
+			product_status,
 			create_by,
 			create_date,
 			update_by,
@@ -79,6 +90,7 @@
 			#{marketProductId},
 			#{comprehensiveProductId},
 			#{declareProductId},
+			#{productStatus},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -93,6 +105,7 @@
 			market_product_id = #{marketProductId},
 			comprehensive_product_id = #{comprehensiveProductId},
 			declare_product_id = #{declareProductId},
+			product_status = #{productStatus},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks}

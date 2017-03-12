@@ -18,7 +18,8 @@ public class Product extends DataEntity<Product> {
 	private String marketProductId;		// 市场产品id
 	private String comprehensiveProductId;		// 综合产品id
 	private String declareProductId;		// 申报产品id
-	
+	private String productStatus;		// 产品状态
+
 	public Product() {
 		super();
 	}
@@ -53,5 +54,12 @@ public class Product extends DataEntity<Product> {
 	public void setDeclareProductId(String declareProductId) {
 		this.declareProductId = declareProductId;
 	}
-	
+
+	public String getProductStatus() {
+		return productStatus;
+	}
+
+	public void setProductStatus(String productStatus) {
+		this.productStatus = productStatus;
+	}
 }
