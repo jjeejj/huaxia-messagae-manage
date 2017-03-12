@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.MarketProductDao">
+    
+	<sql id="marketProductColumns">
+		a.id AS "id",
+		a.product_number AS "productNumber",
+		a.english_name AS "englishName",
+		a.chinese_name AS "chineseName",
+		a.product_type AS "productType",
+		a.work_matters AS "workMatters",
+		a.product_leader AS "productLeader",
+		a.project_leader AS "projectLeader",
+		a.enterprise_application AS "enterpriseApplication",
+		a.actual_production_enterprise AS "actualProductionEnterprise",
+		a.responsible_unit_in_china AS "responsibleUnitInChina",
+		a.project_time AS "projectTime",
+		a.contract_signing_time AS "contractSigningTime",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="marketProductJoins">
+	</sql>
+    
+	<select id="get" resultType="MarketProduct">
+		SELECT 
+			<include refid="marketProductColumns"/>
+		FROM mms_market_product a
+		<include refid="marketProductJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MarketProduct">
+		SELECT 
+			<include refid="marketProductColumns"/>
+		FROM mms_market_product a
+		<include refid="marketProductJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="englishName != null and englishName != ''">
+				AND a.english_name = #{englishName}
+			</if>
+			<if test="chineseName != null and chineseName != ''">
+				AND a.chinese_name = #{chineseName}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MarketProduct">
+		SELECT 
+			<include refid="marketProductColumns"/>
+		FROM mms_market_product a
+		<include refid="marketProductJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_market_product(
+			id,
+			product_number,
+			english_name,
+			chinese_name,
+			product_type,
+			work_matters,
+			product_leader,
+			project_leader,
+			enterprise_application,
+			actual_production_enterprise,
+			responsible_unit_in_china,
+			project_time,
+			contract_signing_time,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{productNumber},
+			#{englishName},
+			#{chineseName},
+			#{productType},
+			#{workMatters},
+			#{productLeader},
+			#{projectLeader},
+			#{enterpriseApplication},
+			#{actualProductionEnterprise},
+			#{responsibleUnitInChina},
+			#{projectTime},
+			#{contractSigningTime},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_market_product SET 	
+			product_number = #{productNumber},
+			english_name = #{englishName},
+			chinese_name = #{chineseName},
+			product_type = #{productType},
+			work_matters = #{workMatters},
+			product_leader = #{productLeader},
+			project_leader = #{projectLeader},
+			enterprise_application = #{enterpriseApplication},
+			actual_production_enterprise = #{actualProductionEnterprise},
+			responsible_unit_in_china = #{responsibleUnitInChina},
+			project_time = #{projectTime},
+			contract_signing_time = #{contractSigningTime},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_market_product SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

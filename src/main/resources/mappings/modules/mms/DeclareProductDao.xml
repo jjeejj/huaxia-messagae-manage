@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.DeclareProductDao">
+    
+	<sql id="declareProductColumns">
+		a.id AS "id",
+		a.inspection_report_time AS "inspectionReportTime",
+		a.send_body_time AS "sendBodyTime",
+		a.body_report_time AS "bodyReportTime",
+		a.report_time AS "reportTime",
+		a.acceptance_time AS "acceptanceTime",
+		a.document_time AS "documentTime",
+		a.next_opinion_time AS "nextOpinionTime",
+		a.reply_opinion AS "replyOpinion",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="declareProductJoins">
+	</sql>
+    
+	<select id="get" resultType="DeclareProduct">
+		SELECT 
+			<include refid="declareProductColumns"/>
+		FROM mms_declare_product a
+		<include refid="declareProductJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="DeclareProduct">
+		SELECT 
+			<include refid="declareProductColumns"/>
+		FROM mms_declare_product a
+		<include refid="declareProductJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="inspectionReportTime != null and inspectionReportTime != ''">
+				AND a.inspection_report_time = #{inspectionReportTime}
+			</if>
+			<if test="sendBodyTime != null and sendBodyTime != ''">
+				AND a.send_body_time = #{sendBodyTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="DeclareProduct">
+		SELECT 
+			<include refid="declareProductColumns"/>
+		FROM mms_declare_product a
+		<include refid="declareProductJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_declare_product(
+			id,
+			inspection_report_time,
+			send_body_time,
+			body_report_time,
+			report_time,
+			acceptance_time,
+			document_time,
+			next_opinion_time,
+			reply_opinion,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{inspectionReportTime},
+			#{sendBodyTime},
+			#{bodyReportTime},
+			#{reportTime},
+			#{acceptanceTime},
+			#{documentTime},
+			#{nextOpinionTime},
+			#{replyOpinion},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_declare_product SET 	
+			inspection_report_time = #{inspectionReportTime},
+			send_body_time = #{sendBodyTime},
+			body_report_time = #{bodyReportTime},
+			report_time = #{reportTime},
+			acceptance_time = #{acceptanceTime},
+			document_time = #{documentTime},
+			next_opinion_time = #{nextOpinionTime},
+			reply_opinion = #{replyOpinion},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_declare_product SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

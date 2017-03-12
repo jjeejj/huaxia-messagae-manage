@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.ComprehensiveProductDao">
+    
+	<sql id="comprehensiveProductColumns">
+		a.id AS "id",
+		a.sample_time AS "sampleTime",
+		a.sample_quantity AS "sampleQuantity",
+		a.total_number_of_samples AS "totalNumberOfSamples",
+		a.submission_time AS "submissionTime",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="comprehensiveProductJoins">
+	</sql>
+    
+	<select id="get" resultType="ComprehensiveProduct">
+		SELECT 
+			<include refid="comprehensiveProductColumns"/>
+		FROM mms_comprehensive_product a
+		<include refid="comprehensiveProductJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ComprehensiveProduct">
+		SELECT 
+			<include refid="comprehensiveProductColumns"/>
+		FROM mms_comprehensive_product a
+		<include refid="comprehensiveProductJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sampleTime != null and sampleTime != ''">
+				AND a.sample_time = #{sampleTime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ComprehensiveProduct">
+		SELECT 
+			<include refid="comprehensiveProductColumns"/>
+		FROM mms_comprehensive_product a
+		<include refid="comprehensiveProductJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_comprehensive_product(
+			id,
+			sample_time,
+			sample_quantity,
+			total_number_of_samples,
+			submission_time,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sampleTime},
+			#{sampleQuantity},
+			#{totalNumberOfSamples},
+			#{submissionTime},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_comprehensive_product SET 	
+			sample_time = #{sampleTime},
+			sample_quantity = #{sampleQuantity},
+			total_number_of_samples = #{totalNumberOfSamples},
+			submission_time = #{submissionTime},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_comprehensive_product SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
