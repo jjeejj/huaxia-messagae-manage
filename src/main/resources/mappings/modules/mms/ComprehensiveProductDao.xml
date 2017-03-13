@@ -8,15 +8,22 @@
 		a.sample_quantity AS "sampleQuantity",
 		a.total_number_of_samples AS "totalNumberOfSamples",
 		a.submission_time AS "submissionTime",
+		a.product_handle_person_id AS "productHandlePersonId",
+		a.product_next_handle_person_id AS "productNextHandlePersonId",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		mp.product_number AS "marketProduct.productNumber",
+		mp.english_name AS "marketProduct.englishName",
+		mp.chinese_name AS "marketProduct.chineseName"
 	</sql>
 	
 	<sql id="comprehensiveProductJoins">
+		LEFT JOIN mms_product p on p.comprehensive_product_id = a.id
+		LEFT JOIN mms_market_product mp on p.market_product_id = mp.id
 	</sql>
     
 	<select id="get" resultType="ComprehensiveProduct">
@@ -73,6 +80,8 @@
 			sample_quantity,
 			total_number_of_samples,
 			submission_time,
+			product_handle_person_id,
+			product_next_handle_person_id,
 			create_by,
 			create_date,
 			update_by,
@@ -85,6 +94,8 @@
 			#{sampleQuantity},
 			#{totalNumberOfSamples},
 			#{submissionTime},
+			#{productHandlePersonId},
+			#{productNextHandlePersonId},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -100,6 +111,8 @@
 			sample_quantity = #{sampleQuantity},
 			total_number_of_samples = #{totalNumberOfSamples},
 			submission_time = #{submissionTime},
+			product_handle_person_id = #{productHandlePersonId},
+			product_next_handle_person_id = #{productNextHandlePersonId},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks}

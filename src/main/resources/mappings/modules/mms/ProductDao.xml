@@ -35,6 +35,15 @@
 		WHERE a.market_product_id = #{marketProductId}
 	</select>
 
+	<!--根据综合产品id 查找对应的记录-->
+	<select id="getByComprehensiveProductId" resultType="Product">
+		SELECT
+		<include refid="productColumns"/>
+		FROM mms_product a
+		<include refid="productJoins"/>
+		WHERE a.comprehensive_product_id = #{comprehensiveProductId}
+	</select>
+
 	
 	<select id="findList" resultType="Product">
 		SELECT 

@@ -21,4 +21,11 @@ public interface ProductDao extends CrudDao<Product> {
      * @return
      */
     Product getByMarketProductId(String marketProductId);
+
+    /**
+     * 根据综合产品id 查找对应的记录
+     * @param comprehensiveProductId
+     * @return
+     */
+    Product getByComprehensiveProductId(String comprehensiveProductId);
 }

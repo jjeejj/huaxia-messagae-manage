@@ -6,6 +6,13 @@ package com.thinkgem.jeesite.modules.mms.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
+import com.thinkgem.jeesite.modules.mms.entity.DeclareProduct;
+import com.thinkgem.jeesite.modules.mms.entity.Product;
+import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
+import com.thinkgem.jeesite.modules.mms.service.ProductService;
+import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +29,8 @@ import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.mms.entity.ComprehensiveProduct;
 import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
 
+import java.util.List;
+
 /**
  * 综合产品Controller
  * @author jiang
@@ -33,6 +42,15 @@ public class ComprehensiveProductController extends BaseController {
 
 	@Autowired
 	private ComprehensiveProductService comprehensiveProductService;
+
+	@Autowired
+	private SystemService systemService;
+
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private DeclareProductService declareProductService;
 	
 	@ModelAttribute
 	public ComprehensiveProduct get(@RequestParam(required=false) String id) {
@@ -57,6 +75,12 @@ public class ComprehensiveProductController extends BaseController {
 	@RequiresPermissions("mms:comprehensiveProduct:view")
 	@RequestMapping(value = "form")
 	public String form(ComprehensiveProduct comprehensiveProduct, Model model) {
+
+		//查询下发申报产品的所有人员
+		List<User> userList =systemService.findUserByOfficeId("5");
+
+		model.addAttribute("userList", userList);
+
 		model.addAttribute("comprehensiveProduct", comprehensiveProduct);
 		return "modules/mms/comprehensiveProductForm";
 	}
@@ -67,8 +91,38 @@ public class ComprehensiveProductController extends BaseController {
 		if (!beanValidator(model, comprehensiveProduct)){
 			return form(comprehensiveProduct, model);
 		}
-		comprehensiveProductService.save(comprehensiveProduct);
-		addMessage(redirectAttributes, "保存综合产品成功");
+
+		//查找对应的产品汇总及记录
+		Product product = productService.getByComprehensiveProductId(comprehensiveProduct.getId());
+
+		if(product !=null){
+			if(StringUtils.isEmpty(product.getDeclareProductId())){ //之前没有往下分配过
+				if(StringUtils.isNoneEmpty(comprehensiveProduct.getProductNextHandlePersonId())){ //往下分配了
+
+					comprehensiveProduct.setProductNextHandlePersonId(comprehensiveProduct.getProductNextHandlePersonId());
+
+					DeclareProduct declareProduct = new DeclareProduct();
+					declareProduct.setProductHandlePersonId(comprehensiveProduct.getProductNextHandlePersonId());
+
+					declareProductService.save(declareProduct);
+
+					product.setDeclareProductId(declareProduct.getId());
+					productService.save(product);
+				}
+			}
+
+			//产品状态的变更--取样时间有数据
+			if(comprehensiveProduct.getSampleTime() !=null){
+				product.setProductStatus(MmsConstant.PRODUCT_STATUS_2); //送检
+				productService.save(product);
+			}
+
+			comprehensiveProductService.save(comprehensiveProduct);
+			addMessage(redirectAttributes, "保存综合产品成功");
+
+		}else{
+			addMessage(redirectAttributes, "产品信息有哦错误");
+		}
 		return "redirect:"+Global.getAdminPath()+"/mms/comprehensiveProduct/?repage";
 	}
 	

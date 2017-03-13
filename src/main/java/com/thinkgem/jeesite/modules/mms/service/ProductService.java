@@ -56,5 +56,15 @@ public class ProductService extends CrudService<ProductDao, Product> {
 	public Product getByMarketProductId(String marketProductId) {
 		return productDao.getByMarketProductId(marketProductId);
 	}
+
+
+	/**
+	 * 根据综合产品id 查找对应的记录
+	 * @param comprehensiveProductId
+	 * @return
+	 */
+	public Product getByComprehensiveProductId(String comprehensiveProductId) {
+		return productDao.getByComprehensiveProductId(comprehensiveProductId);
+	}
 	
 }

@@ -21,6 +21,12 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 	private String sampleQuantity;		// 样品数量
 	private String totalNumberOfSamples;		// 送检总数
 	private Date submissionTime;		// 送检时间
+
+
+	private String productHandlePersonId;		// 产品处理人id
+	private String productNextHandlePersonId;		// 产品下一环节处理人id
+
+	private MarketProduct marketProduct;		// 市场产品
 	
 	public ComprehensiveProduct() {
 		super();
@@ -65,5 +71,28 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 	public void setSubmissionTime(Date submissionTime) {
 		this.submissionTime = submissionTime;
 	}
-	
+
+	public String getProductHandlePersonId() {
+		return productHandlePersonId;
+	}
+
+	public void setProductHandlePersonId(String productHandlePersonId) {
+		this.productHandlePersonId = productHandlePersonId;
+	}
+
+	public String getProductNextHandlePersonId() {
+		return productNextHandlePersonId;
+	}
+
+	public void setProductNextHandlePersonId(String productNextHandlePersonId) {
+		this.productNextHandlePersonId = productNextHandlePersonId;
+	}
+
+	public MarketProduct getMarketProduct() {
+		return marketProduct;
+	}
+
+	public void setMarketProduct(MarketProduct marketProduct) {
+		this.marketProduct = marketProduct;
+	}
 }

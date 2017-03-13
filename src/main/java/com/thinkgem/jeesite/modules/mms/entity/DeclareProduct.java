@@ -25,6 +25,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 	private Date documentTime;		// 批件时间
 	private Date nextOpinionTime;		// 下意见时间
 	private Date replyOpinion;		// 回复意见
+	private String productHandlePersonId;		// 产品处理人id
 	
 	public DeclareProduct() {
 		super();
@@ -105,5 +106,12 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 	public void setReplyOpinion(Date replyOpinion) {
 		this.replyOpinion = replyOpinion;
 	}
-	
+
+	public String getProductHandlePersonId() {
+		return productHandlePersonId;
+	}
+
+	public void setProductHandlePersonId(String productHandlePersonId) {
+		this.productHandlePersonId = productHandlePersonId;
+	}
 }

@@ -62,6 +62,15 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">下分给申报部人为：</label>
+			<div class="controls">
+				<form:select path="productNextHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge">
+					<form:option value="" label=""/>
+					<form:options items="${userList}"  itemLabel="name" itemValue="id" htmlEscape="false"/>
+				</form:select>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">备注信息：</label>
 			<div class="controls">
 				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
