@@ -4,6 +4,11 @@
 <head>
 	<title>申报产品管理</title>
 	<meta name="decorator" content="default"/>
+	<style>
+		.form-search .ul-form li label{
+			width:120px;
+		}
+	</style>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
@@ -19,7 +24,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/mms/declareProduct/">申报产品列表</a></li>
-		<shiro:hasPermission name="mms:declareProduct:edit"><li><a href="${ctx}/mms/declareProduct/form">申报产品添加</a></li></shiro:hasPermission>
+		<%--<shiro:hasPermission name="mms:declareProduct:edit"><li><a href="${ctx}/mms/declareProduct/form">申报产品添加</a></li></shiro:hasPermission>--%>
 	</ul>
 	<form:form id="searchForm" modelAttribute="declareProduct" action="${ctx}/mms/declareProduct/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -41,6 +46,9 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
+				<th>产品编号</th>
+				<th>中文名称</th>
+				<th>英文名称</th>
 				<th>取送检报告时间</th>
 				<th>送人体时间</th>
 				<th>取送人体报告时间</th>
@@ -56,9 +64,18 @@
 		<tbody>
 		<c:forEach items="${page.list}" var="declareProduct">
 			<tr>
-				<td><a href="${ctx}/mms/declareProduct/form?id=${declareProduct.id}">
-					<fmt:formatDate value="${declareProduct.inspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				<td><a  href="${ctx}/mms/declareProduct/form?id=${declareProduct.id}">
+						${declareProduct.marketProduct.productNumber}
 				</a></td>
+				<td>
+						${declareProduct.marketProduct.chineseName}
+				</td>
+				<td>
+						${declareProduct.marketProduct.englishName}
+				</td>
+				<td>
+					<fmt:formatDate value="${declareProduct.inspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
 				<td>
 					${declareProduct.sendBodyTime}
 				</td>

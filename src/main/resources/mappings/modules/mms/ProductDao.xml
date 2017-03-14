@@ -13,10 +13,19 @@
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		mp.product_number AS "marketProduct.productNumber",
+		mp.english_name AS "marketProduct.englishName",
+		mp.chinese_name AS "marketProduct.chineseName",
+		mp.product_type AS "marketProduct.productType",
+		mp.work_matters AS "marketProduct.workMatters",
+		mp.product_leader AS "marketProduct.productLeader"
 	</sql>
 	
 	<sql id="productJoins">
+		LEFT JOIN mms_market_product mp ON a.market_product_id = mp.id
+		LEFT JOIN mms_comprehensive_product cp ON a.comprehensive_product_id = cp.id
+		LEFT JOIN mms_declare_product dp ON a.declare_product_id = dp.id
 	</sql>
     
 	<select id="get" resultType="Product">
@@ -42,6 +51,15 @@
 		FROM mms_product a
 		<include refid="productJoins"/>
 		WHERE a.comprehensive_product_id = #{comprehensiveProductId}
+	</select>
+
+	<!--根据申报产品id 查找对应的记录-->
+	<select id="getByDeclareProductId" resultType="Product">
+		SELECT
+		<include refid="productColumns"/>
+		FROM mms_product a
+		<include refid="productJoins"/>
+		WHERE a.declare_product_id = #{declareProductId}
 	</select>
 
 	

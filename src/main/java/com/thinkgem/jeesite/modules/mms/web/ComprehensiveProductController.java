@@ -121,7 +121,7 @@ public class ComprehensiveProductController extends BaseController {
 			addMessage(redirectAttributes, "保存综合产品成功");
 
 		}else{
-			addMessage(redirectAttributes, "产品信息有哦错误");
+			addMessage(redirectAttributes, "产品信息有错误");
 		}
 		return "redirect:"+Global.getAdminPath()+"/mms/comprehensiveProduct/?repage";
 	}

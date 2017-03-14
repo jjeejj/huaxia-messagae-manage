@@ -6,6 +6,12 @@ package com.thinkgem.jeesite.modules.mms.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.thinkgem.jeesite.modules.mms.entity.ComprehensiveProduct;
+import com.thinkgem.jeesite.modules.mms.entity.DeclareProduct;
+import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
+import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
+import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
+import com.thinkgem.jeesite.modules.mms.service.MarketProductService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +39,15 @@ public class ProductController extends BaseController {
 
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private MarketProductService marketProductService;
+
+	@Autowired
+	private ComprehensiveProductService comprehensiveProductService;
+
+	@Autowired
+	private DeclareProductService declareProductService;
 	
 	@ModelAttribute
 	public Product get(@RequestParam(required=false) String id) {
@@ -57,7 +72,24 @@ public class ProductController extends BaseController {
 	@RequiresPermissions("mms:product:view")
 	@RequestMapping(value = "form")
 	public String form(Product product, Model model) {
+		//根据每个部门的产品id ，查询出具体的信息
+
+		String marketProductId = product.getMarketProductId();//市场产品id
+		String comprehensiveProductId = product.getComprehensiveProductId();//综合产品id
+		String declareProductId = product.getDeclareProductId();//申报产品id
+
+		MarketProduct marketProduct = marketProductService.get(marketProductId);
+		ComprehensiveProduct comprehensiveProduct = comprehensiveProductService.get(comprehensiveProductId);
+		DeclareProduct declareProduct = declareProductService.get(declareProductId);
+
+
+
 		model.addAttribute("product", product);
+		model.addAttribute("marketProduct", marketProduct);
+		model.addAttribute("comprehensiveProduct", comprehensiveProduct);
+		model.addAttribute("declareProduct", declareProduct);
+
+
 		return "modules/mms/productForm";
 	}
 

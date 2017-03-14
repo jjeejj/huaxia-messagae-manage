@@ -18,10 +18,15 @@
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		mp.product_number AS "marketProduct.productNumber",
+		mp.english_name AS "marketProduct.englishName",
+		mp.chinese_name AS "marketProduct.chineseName"
 	</sql>
 	
 	<sql id="declareProductJoins">
+		LEFT JOIN mms_product p on p.declare_product_id = a.id
+		LEFT JOIN mms_market_product mp on p.market_product_id = mp.id
 	</sql>
     
 	<select id="get" resultType="DeclareProduct">

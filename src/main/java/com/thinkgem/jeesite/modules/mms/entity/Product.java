@@ -20,6 +20,10 @@ public class Product extends DataEntity<Product> {
 	private String declareProductId;		// 申报产品id
 	private String productStatus;		// 产品状态
 
+	private MarketProduct marketProduct; //市场产品
+	private ComprehensiveProduct comprehensiveProduct; //综合产品
+	private DeclareProduct declareProduct; //申报产品
+
 	public Product() {
 		super();
 	}
@@ -61,5 +65,29 @@ public class Product extends DataEntity<Product> {
 
 	public void setProductStatus(String productStatus) {
 		this.productStatus = productStatus;
+	}
+
+	public MarketProduct getMarketProduct() {
+		return marketProduct;
+	}
+
+	public void setMarketProduct(MarketProduct marketProduct) {
+		this.marketProduct = marketProduct;
+	}
+
+	public ComprehensiveProduct getComprehensiveProduct() {
+		return comprehensiveProduct;
+	}
+
+	public void setComprehensiveProduct(ComprehensiveProduct comprehensiveProduct) {
+		this.comprehensiveProduct = comprehensiveProduct;
+	}
+
+	public DeclareProduct getDeclareProduct() {
+		return declareProduct;
+	}
+
+	public void setDeclareProduct(DeclareProduct declareProduct) {
+		this.declareProduct = declareProduct;
 	}
 }
