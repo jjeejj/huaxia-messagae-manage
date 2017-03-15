@@ -83,7 +83,6 @@ public class ProductController extends BaseController {
 		DeclareProduct declareProduct = declareProductService.get(declareProductId);
 
 
-
 		model.addAttribute("product", product);
 		model.addAttribute("marketProduct", marketProduct);
 		model.addAttribute("comprehensiveProduct", comprehensiveProduct);

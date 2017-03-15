@@ -25,6 +25,21 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
+			<li><label>产品编号：</label>
+				<form:input path="marketProduct.productNumber" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>中文名称：</label>
+				<form:input path="marketProduct.englishName" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>英文名称：</label>
+				<form:input path="marketProduct.chineseName" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>产品状态：</label>
+				<form:select path="productStatus" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('product_status')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
 		</ul>
@@ -40,7 +55,7 @@
 				<th>工作事项</th>
 				<th>产品负责人</th>
 				<th>项目进度</th>
-				<th>状态</th>
+				<th>产品状态</th>
 				<shiro:hasPermission name="mms:product:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
