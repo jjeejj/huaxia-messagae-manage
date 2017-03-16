@@ -60,16 +60,17 @@
 				<form:input path="productType" htmlEscape="false" maxlength="1" class="input-xlarge "/>
 			</div>
 		</div>
-		<%--<div class="control-group">--%>
-			<%--<label class="control-label">工作事项：</label>--%>
-			<%--<div class="controls">--%>
+		<div class="control-group">
+			<label class="control-label">工作事项：</label>
+			<div class="controls">
 				<%--<form:select path="workMatters" class="input-xlarge required">--%>
 					<%--<form:option value="" label=""/>--%>
 					<%--<form:options items="${fns:getDictList('product_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>--%>
 				<%--</form:select>--%>
+				<form:input path="productType" htmlEscape="false" maxlength="1" class="input-xlarge "/>
 				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
-			<%--</div>--%>
-		<%--</div>--%>
+			</div>
+		</div>
 		<div class="control-group">
 			<label class="control-label">产品负责人：</label>
 			<div class="controls">

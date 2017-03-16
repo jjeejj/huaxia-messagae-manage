@@ -203,7 +203,7 @@ CREATE TABLE mms_declare_product
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	inspection_report_time datetime  COMMENT '取送检报告时间',
-	send_body_time varchar(10)  COMMENT '送人体时间',
+	send_body_time datetime  COMMENT '送人体时间',
 	body_report_time datetime  COMMENT '取送人体报告时间',
 	report_time datetime  COMMENT '上报时间',
 	acceptance_time datetime  COMMENT '受理时间',

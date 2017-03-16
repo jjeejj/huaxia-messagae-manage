@@ -1,5 +1,7 @@
 package com.thinkgem.jeesite.modules.mms.vo;
 
+import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
+
 import java.util.Date;
 
 /**
@@ -7,6 +9,8 @@ import java.util.Date;
  * Created by jjeejj on 2017/3/15.
  */
 public class ProductVo {
+
+    private String id;
 
     private String productNumber;		// 产品编号
     private String englishName;		// 英文名称
@@ -27,15 +31,16 @@ public class ProductVo {
     private Date submissionTime;		// 送检时间
 
     private Date inspectionReportTime;		// 取送检报告时间
-    private String sendBodyTime;		// 送人体时间
+    private Date sendBodyTime;		// 送人体时间
     private Date bodyReportTime;		// 取送人体报告时间
     private Date reportTime;		// 上报时间
     private Date acceptanceTime;		// 受理时间
     private Date documentTime;		// 批件时间
     private Date nextOpinionTime;		// 下意见时间
-    private Date replyOpinion;		// 回复意见
+    private Date replyOpinion;		// 回复意见时间
     private String remarks;	// 备注
 
+    @ExcelField(title = "产品编号",sort = 10)
     public String getProductNumber() {
         return productNumber;
     }
@@ -44,6 +49,7 @@ public class ProductVo {
         this.productNumber = productNumber;
     }
 
+    @ExcelField(title = "英文名称",sort = 30)
     public String getEnglishName() {
         return englishName;
     }
@@ -52,6 +58,7 @@ public class ProductVo {
         this.englishName = englishName;
     }
 
+    @ExcelField(title = "中文名称",sort = 20)
     public String getChineseName() {
         return chineseName;
     }
@@ -60,6 +67,7 @@ public class ProductVo {
         this.chineseName = chineseName;
     }
 
+    @ExcelField(title = "类别",sort = 40)
     public String getProductType() {
         return productType;
     }
@@ -68,6 +76,7 @@ public class ProductVo {
         this.productType = productType;
     }
 
+    @ExcelField(title = "工作事项",sort = 50)
     public String getWorkMatters() {
         return workMatters;
     }
@@ -76,6 +85,7 @@ public class ProductVo {
         this.workMatters = workMatters;
     }
 
+    @ExcelField(title = "产品负责人",sort = 60)
     public String getProductLeader() {
         return productLeader;
     }
@@ -84,6 +94,7 @@ public class ProductVo {
         this.productLeader = productLeader;
     }
 
+    @ExcelField(title = "项目负责人",sort = 70)
     public String getProjectLeader() {
         return projectLeader;
     }
@@ -92,6 +103,7 @@ public class ProductVo {
         this.projectLeader = projectLeader;
     }
 
+    @ExcelField(title = "申请企业",sort = 80)
     public String getEnterpriseApplication() {
         return enterpriseApplication;
     }
@@ -100,6 +112,7 @@ public class ProductVo {
         this.enterpriseApplication = enterpriseApplication;
     }
 
+    @ExcelField(title = "实际生产企业",sort = 90)
     public String getActualProductionEnterprise() {
         return actualProductionEnterprise;
     }
@@ -108,6 +121,7 @@ public class ProductVo {
         this.actualProductionEnterprise = actualProductionEnterprise;
     }
 
+    @ExcelField(title = "在华责任单位",sort = 100)
     public String getResponsibleUnitInChina() {
         return responsibleUnitInChina;
     }
@@ -116,6 +130,7 @@ public class ProductVo {
         this.responsibleUnitInChina = responsibleUnitInChina;
     }
 
+    @ExcelField(title = "立项时间",sort = 110)
     public Date getProjectTime() {
         return projectTime;
     }
@@ -124,6 +139,7 @@ public class ProductVo {
         this.projectTime = projectTime;
     }
 
+    @ExcelField(title = "合同签订时间",sort = 120)
     public Date getContractSigningTime() {
         return contractSigningTime;
     }
@@ -132,6 +148,7 @@ public class ProductVo {
         this.contractSigningTime = contractSigningTime;
     }
 
+    @ExcelField(title = "来样时间",sort = 130)
     public Date getSampleTime() {
         return sampleTime;
     }
@@ -140,6 +157,7 @@ public class ProductVo {
         this.sampleTime = sampleTime;
     }
 
+    @ExcelField(title = "样品数量",sort = 140)
     public String getSampleQuantity() {
         return sampleQuantity;
     }
@@ -148,6 +166,7 @@ public class ProductVo {
         this.sampleQuantity = sampleQuantity;
     }
 
+    @ExcelField(title = "送检总数",sort = 150)
     public String getTotalNumberOfSamples() {
         return totalNumberOfSamples;
     }
@@ -156,6 +175,7 @@ public class ProductVo {
         this.totalNumberOfSamples = totalNumberOfSamples;
     }
 
+    @ExcelField(title = "送检时间",sort = 160)
     public Date getSubmissionTime() {
         return submissionTime;
     }
@@ -164,6 +184,7 @@ public class ProductVo {
         this.submissionTime = submissionTime;
     }
 
+    @ExcelField(title = "取送检报告时间",sort = 170)
     public Date getInspectionReportTime() {
         return inspectionReportTime;
     }
@@ -172,14 +193,15 @@ public class ProductVo {
         this.inspectionReportTime = inspectionReportTime;
     }
 
-    public String getSendBodyTime() {
+    @ExcelField(title = "送人体时间",sort = 180)
+    public Date getSendBodyTime() {
         return sendBodyTime;
     }
 
-    public void setSendBodyTime(String sendBodyTime) {
+    public void setSendBodyTime(Date sendBodyTime) {
         this.sendBodyTime = sendBodyTime;
     }
-
+    @ExcelField(title = "取送人体报告时间",sort = 190)
     public Date getBodyReportTime() {
         return bodyReportTime;
     }
@@ -188,6 +210,7 @@ public class ProductVo {
         this.bodyReportTime = bodyReportTime;
     }
 
+    @ExcelField(title = "上报时间",sort = 200)
     public Date getReportTime() {
         return reportTime;
     }
@@ -196,6 +219,7 @@ public class ProductVo {
         this.reportTime = reportTime;
     }
 
+    @ExcelField(title = "受理时间",sort = 210)
     public Date getAcceptanceTime() {
         return acceptanceTime;
     }
@@ -204,6 +228,7 @@ public class ProductVo {
         this.acceptanceTime = acceptanceTime;
     }
 
+    @ExcelField(title = "批件时间",sort = 220)
     public Date getDocumentTime() {
         return documentTime;
     }
@@ -212,6 +237,7 @@ public class ProductVo {
         this.documentTime = documentTime;
     }
 
+    @ExcelField(title = "下意见时间",sort = 230)
     public Date getNextOpinionTime() {
         return nextOpinionTime;
     }
@@ -220,6 +246,7 @@ public class ProductVo {
         this.nextOpinionTime = nextOpinionTime;
     }
 
+    @ExcelField(title = "回复意见时间",sort = 240)
     public Date getReplyOpinion() {
         return replyOpinion;
     }
@@ -228,11 +255,20 @@ public class ProductVo {
         this.replyOpinion = replyOpinion;
     }
 
+    @ExcelField(title = "备注",sort = 250)
     public String getRemarks() {
         return remarks;
     }
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

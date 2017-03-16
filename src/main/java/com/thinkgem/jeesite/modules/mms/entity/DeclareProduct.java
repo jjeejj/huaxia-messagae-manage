@@ -18,7 +18,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 	
 	private static final long serialVersionUID = 1L;
 	private Date inspectionReportTime;		// 取送检报告时间
-	private String sendBodyTime;		// 送人体时间
+	private Date sendBodyTime;		// 送人体时间
 	private Date bodyReportTime;		// 取送人体报告时间
 	private Date reportTime;		// 上报时间
 	private Date acceptanceTime;		// 受理时间
@@ -47,11 +47,11 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 	}
 	
 	@Length(min=0, max=10, message="送人体时间长度必须介于 0 和 10 之间")
-	public String getSendBodyTime() {
+	public Date getSendBodyTime() {
 		return sendBodyTime;
 	}
 
-	public void setSendBodyTime(String sendBodyTime) {
+	public void setSendBodyTime(Date sendBodyTime) {
 		this.sendBodyTime = sendBodyTime;
 	}
 	
