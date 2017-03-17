@@ -122,13 +122,15 @@ public class ProductController extends BaseController {
 	public String exportFile(Product product, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {
 			String fileName = "产品数据" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
+
 			List<Product>  productList = productService.findList(product);
 
 			List<ProductVo> productVoList = new ArrayList<ProductVo>();
 
 			if(productList !=null && productList.size() >0){
+				ProductVo productVo = new ProductVo();
 				for (Product productTemp:productList){
-					ProductVo productVo = this.getProductVo(productTemp);
+					 productVo = this.getProductVo(productTemp);
 					productVoList.add(productVo);
 				}
 			}

@@ -70,14 +70,14 @@
 		<include refid="productJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			<if test="marketProduct != null and marketProduct.productNumber != ''">
+			<if test="marketProduct != null and marketProduct.productNumber != '' and  marketProduct.productNumber != ''">
 				AND mp.product_number = #{marketProduct.productNumber}
 			</if>
-			<if test="marketProduct != null and marketProduct.chineseName != ''">
-				AND mp.chinese_name = #{chineseName}
+			<if test="marketProduct != null and  marketProduct.chineseName != null and  marketProduct.chineseName != ''">
+				AND mp.chinese_name = #{marketProduct.chineseName}
 			</if>
-			<if test="marketProduct != null and marketProduct.englishName != ''">
-				AND mp.english_name = #{englishName}
+			<if test="marketProduct != null and marketProduct.englishName != null and marketProduct.englishName != ''">
+				AND mp.english_name = #{marketProduct.englishName}
 			</if>
 			<if test="productStatus != null and productStatus != ''">
 				AND a.product_status = #{productStatus}
