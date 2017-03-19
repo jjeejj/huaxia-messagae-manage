@@ -41,16 +41,16 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">中文名称：</label>
+			<label class="control-label"> 中文名称：</label>
 			<div class="controls">
-				<form:input path="englishName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="chineseName" htmlEscape="false" maxlength="100" class="input-xlarge"/>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">英文名称：</label>
 			<div class="controls">
-				<form:input path="chineseName" htmlEscape="false" maxlength="100" class="input-xlarge"/>
+				<form:input path="englishName" htmlEscape="false" maxlength="100" class="input-xlarge"/>
 				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
 					<%--<form:option value="" label=""/>--%>
 					<%--<form:options items="${fns:getDictList('product_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>--%>
 				<%--</form:select>--%>
-				<form:input path="productType" htmlEscape="false" maxlength="1" class="input-xlarge "/>
+				<form:input path="workMatters" htmlEscape="false" maxlength="1" class="input-xlarge "/>
 				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			</div>
 		</div>
@@ -93,15 +93,78 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">申请企业地址：</label>
+			<div class="controls">
+				<form:input path="enterpriseApplicationAddress" htmlEscape="false" maxlength="64" class="input-xlarge"/>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">申请企业电话：</label>
+			<div class="controls">
+				<form:input path="enterpriseApplicationPhone" htmlEscape="false" maxlength="64" class="input-xlarge"/>
+					<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">申请企业联系人：</label>
+			<div class="controls">
+				<form:input path="enterpriseApplicationContacts" htmlEscape="false" maxlength="64" class="input-xlarge"/>
+					<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">实际生产企业：</label>
 			<div class="controls">
 				<form:input path="actualProductionEnterprise" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">实际生产企业地址：</label>
+			<div class="controls">
+				<form:input path="actualProductionEnterpriseAddress" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">实际生产企业电话：</label>
+			<div class="controls">
+				<form:input path="actualProductionEnterprisePhone" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">在华责任单位：</label>
 			<div class="controls">
 				<form:input path="responsibleUnitInChina" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">在华责任单位地址：</label>
+			<div class="controls">
+				<form:input path="responsibleUnitInChinaAddress" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">在华责任单位电话：</label>
+			<div class="controls">
+				<form:input path="responsibleUnitInChinaPhone" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">在华责任单位传真：</label>
+			<div class="controls">
+				<form:input path="responsibleUnitInChinaFax" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">在华责任单位邮编：</label>
+			<div class="controls">
+				<form:input path="responsibleUnitInChinaZipCode" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">合同编号：</label>
+			<div class="controls">
+				<form:input path="contractNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -121,7 +184,15 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">下分给综合部人为：</label>
+			<label class="control-label">来款时间：</label>
+			<div class="controls">
+				<input name="arrivalTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+					   value="<fmt:formatDate value="${marketProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">下分给申报部人为：</label>
 			<div class="controls">
 				<form:select path="productNextHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge">
 					<form:option value="" label=""/>

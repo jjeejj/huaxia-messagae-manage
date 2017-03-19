@@ -29,10 +29,10 @@
 				<form:input path="productNumber" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
 			<li><label>中文名称：</label>
-				<form:input path="englishName" htmlEscape="false" maxlength="100" class="input-medium"/>
+				<form:input path="chineseName" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
 			<li><label>英文名称：</label>
-				<form:input path="chineseName" htmlEscape="false" maxlength="100" class="input-medium"/>
+				<form:input path="englishName" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -45,13 +45,26 @@
 				<th>产品编号</th>
 				<th>中文名称</th>
 				<th>英文名称</th>
+				<th>类别</th>
+				<th>工作事项</th>
 				<th>产品负责人</th>
 				<th>项目负责人</th>
 				<th>申请企业</th>
+				<th>申请企业地址</th>
+				<th>申请企业电话</th>
+				<th>申请企业联系人</th>
 				<th>实际生产企业</th>
+				<th>实际生产企业地址</th>
+				<th>实际生产企业电话</th>
 				<th>在华责任单位</th>
+				<th>在华责任单位地址</th>
+				<th>在华责任单位电话</th>
+				<th>在华责任单位传真</th>
+				<th>在华责任单位邮编</th>
+				<th>合同编号</th>
 				<th>立项时间</th>
 				<th>合同签订时间</th>
+				<th>来款时间</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:marketProduct:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -69,6 +82,12 @@
 					${marketProduct.englishName}
 				</td>
 				<td>
+				  	${marketProduct.productType}
+				</td>
+				<td>
+						${marketProduct.workMatters}
+				</td>
+				<td>
 					${marketProduct.productLeader}
 				</td>
 				<td>
@@ -78,16 +97,49 @@
 					${marketProduct.enterpriseApplication}
 				</td>
 				<td>
+						${marketProduct.enterpriseApplicationAddress}
+				</td>
+				<td>
+						${marketProduct.enterpriseApplicationPhone}
+				</td>
+				<td>
+						${marketProduct.enterpriseApplicationContacts}
+				</td>
+				<td>
 					${marketProduct.actualProductionEnterprise}
 				</td>
 				<td>
+						${marketProduct.actualProductionEnterpriseAddress}
+				</td>
+				<td>
+						${marketProduct.actualProductionEnterprisePhone}
+				</td>
+				<td>
 					${marketProduct.responsibleUnitInChina}
+				</td>
+				<td>
+						${marketProduct.responsibleUnitInChinaAddress}
+				</td>
+				<td>
+						${marketProduct.responsibleUnitInChinaPhone}
+				</td>
+				<td>
+						${marketProduct.responsibleUnitInChinaFax}
+				</td>
+				<td>
+						${marketProduct.responsibleUnitInChinaZipCode}
+				</td>
+				<td>
+						${marketProduct.contractNumber}
 				</td>
 				<td>
 					<fmt:formatDate value="${marketProduct.projectTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
 					<fmt:formatDate value="${marketProduct.contractSigningTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					<fmt:formatDate value="${marketProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
 					${marketProduct.remarks}

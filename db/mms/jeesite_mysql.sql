@@ -228,12 +228,12 @@ CREATE TABLE mms_declare_product
 	send_body_time datetime  COMMENT '送人体检验时间',
 	send_body_organization  varchar(64)   COMMENT '送人体检验机构',
 	send_body_project  varchar(64)   COMMENT '送人体检验项目',
-	body_report_number varchar(64)  COMMENT '送人体报告数量',
+	send_body_number varchar(64)  COMMENT '送人体检验数量',
 
 	send_risk_test_time datetime  COMMENT '送风险检验时间',
 	send_risk_test_organization  varchar(64)   COMMENT '送风险检验机构',
 	send_risk_test_project  varchar(64)   COMMENT '送风险检验项目',
-	body_risk_test_number varchar(64)  COMMENT '送风险报告数量',
+	send_risk_test_number varchar(64)  COMMENT '送风险报告数量',
 
 	report_time datetime  COMMENT '上报时间',
 	acceptance_time datetime  COMMENT '受理时间',
@@ -242,7 +242,7 @@ CREATE TABLE mms_declare_product
 	document_number varchar(64)  COMMENT '批件编号',
 	next_opinion_time datetime  COMMENT '下意见时间',
 	opinion_content varchar(255) COMMENT '意见内容',
-	reply_opinion datetime  COMMENT '回复意见',
+	reply_opinion datetime  COMMENT '回复意见时间',
 
   color_character varchar(64)  COMMENT '颜色性状',
   sample_marking  varchar(64)  COMMENT '样品标记（生产日期或批号）',

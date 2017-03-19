@@ -24,11 +24,28 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 	private String workMatters;		// 工作事项
 	private String productLeader;		// 产品负责人
 	private String projectLeader;		// 项目负责人
+
 	private String enterpriseApplication;		// 申请企业
+	private String enterpriseApplicationAddress;		// 申请企业地址
+	private String enterpriseApplicationPhone;		// 申请企业电话
+	private String enterpriseApplicationContacts;		// 申请企业联系人
+
 	private String actualProductionEnterprise;		// 实际生产企业
+	private String actualProductionEnterpriseAddress;		// 实际生产企业地址
+	private String actualProductionEnterprisePhone;		// 实际生产企业电话
+
 	private String responsibleUnitInChina;		// 在华责任单位
+	private String responsibleUnitInChinaAddress;		// 在华责任单位地址
+	private String responsibleUnitInChinaPhone;		// 在华责任单位电话
+	private String responsibleUnitInChinaFax;		// 在华责任单位传真
+	private String responsibleUnitInChinaZipCode;		// 在华责任单位邮编
+
+	private String contractNumber;		// 合同编号
+
 	private Date projectTime;		// 立项时间
 	private Date contractSigningTime;		// 合同签订时间
+
+	private Date arrivalTime;		// 来款时间
 
 	private String productHandlePersonId;		// 产品处理人id
 	private String productNextHandlePersonId;		// 产品下一环节处理人id
@@ -163,5 +180,93 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 
 	public void setProductNextHandlePersonId(String productNextHandlePersonId) {
 		this.productNextHandlePersonId = productNextHandlePersonId;
+	}
+
+	public String getEnterpriseApplicationAddress() {
+		return enterpriseApplicationAddress;
+	}
+
+	public void setEnterpriseApplicationAddress(String enterpriseApplicationAddress) {
+		this.enterpriseApplicationAddress = enterpriseApplicationAddress;
+	}
+
+	public String getEnterpriseApplicationPhone() {
+		return enterpriseApplicationPhone;
+	}
+
+	public void setEnterpriseApplicationPhone(String enterpriseApplicationPhone) {
+		this.enterpriseApplicationPhone = enterpriseApplicationPhone;
+	}
+
+	public String getEnterpriseApplicationContacts() {
+		return enterpriseApplicationContacts;
+	}
+
+	public void setEnterpriseApplicationContacts(String enterpriseApplicationContacts) {
+		this.enterpriseApplicationContacts = enterpriseApplicationContacts;
+	}
+
+	public String getActualProductionEnterpriseAddress() {
+		return actualProductionEnterpriseAddress;
+	}
+
+	public void setActualProductionEnterpriseAddress(String actualProductionEnterpriseAddress) {
+		this.actualProductionEnterpriseAddress = actualProductionEnterpriseAddress;
+	}
+
+	public String getActualProductionEnterprisePhone() {
+		return actualProductionEnterprisePhone;
+	}
+
+	public void setActualProductionEnterprisePhone(String actualProductionEnterprisePhone) {
+		this.actualProductionEnterprisePhone = actualProductionEnterprisePhone;
+	}
+
+	public String getResponsibleUnitInChinaAddress() {
+		return responsibleUnitInChinaAddress;
+	}
+
+	public void setResponsibleUnitInChinaAddress(String responsibleUnitInChinaAddress) {
+		this.responsibleUnitInChinaAddress = responsibleUnitInChinaAddress;
+	}
+
+	public String getResponsibleUnitInChinaPhone() {
+		return responsibleUnitInChinaPhone;
+	}
+
+	public void setResponsibleUnitInChinaPhone(String responsibleUnitInChinaPhone) {
+		this.responsibleUnitInChinaPhone = responsibleUnitInChinaPhone;
+	}
+
+	public String getResponsibleUnitInChinaFax() {
+		return responsibleUnitInChinaFax;
+	}
+
+	public void setResponsibleUnitInChinaFax(String responsibleUnitInChinaFax) {
+		this.responsibleUnitInChinaFax = responsibleUnitInChinaFax;
+	}
+
+	public String getResponsibleUnitInChinaZipCode() {
+		return responsibleUnitInChinaZipCode;
+	}
+
+	public void setResponsibleUnitInChinaZipCode(String responsibleUnitInChinaZipCode) {
+		this.responsibleUnitInChinaZipCode = responsibleUnitInChinaZipCode;
+	}
+
+	public String getContractNumber() {
+		return contractNumber;
+	}
+
+	public void setContractNumber(String contractNumber) {
+		this.contractNumber = contractNumber;
+	}
+
+	public Date getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(Date arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 }

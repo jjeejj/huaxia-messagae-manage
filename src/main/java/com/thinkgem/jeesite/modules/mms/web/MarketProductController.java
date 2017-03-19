@@ -79,8 +79,8 @@ public class MarketProductController extends BaseController {
 	public String form(MarketProduct marketProduct, Model model) {
 		model.addAttribute("marketProduct", marketProduct);
 
-		//查询下发综合部的所有人员
-		List<User> userList =systemService.findUserByOfficeId("3");
+		//查询下发申报部的所有人员
+		List<User> userList =systemService.findUserByOfficeId("5");
 
 		model.addAttribute("userList", userList);
 		return "modules/mms/marketProductForm";
