@@ -43,9 +43,13 @@
 				<th>英文名称</th>
 				<th>来样时间</th>
 				<th>样品数量</th>
-				<th>送检总数</th>
-				<th>送检时间</th>
-				<th>更新时间</th>
+				<th>行政许可检验数据</th>
+				<th>行政许可检验编号</th>
+				<th>行政许可检验取报告时间</th>
+				<th>人体检验受理编号</th>
+				<th>人体检验取报告时间</th>
+				<th>风险检验受理编号</th>
+				<th>风险检验取报告时间</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:comprehensiveProduct:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -69,13 +73,25 @@
 					${comprehensiveProduct.sampleQuantity}
 				</td>
 				<td>
-					${comprehensiveProduct.totalNumberOfSamples}
+					${comprehensiveProduct.administrativeLicenseInspection}
 				</td>
 				<td>
-					<fmt:formatDate value="${comprehensiveProduct.submissionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						${comprehensiveProduct.administrativeLicenseInspectionNumber}
 				</td>
 				<td>
-					<fmt:formatDate value="${comprehensiveProduct.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${comprehensiveProduct.humanTestAcceptanceNumber}
+				</td>
+				<td>
+					<fmt:formatDate value="${comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${comprehensiveProduct.riskTestAcceptanceNumber}
+				</td>
+				<td>
+					<fmt:formatDate value="${comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
 					${comprehensiveProduct.remarks}

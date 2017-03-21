@@ -30,11 +30,6 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>取送检报告时间：</label>
-				<input name="inspectionReportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${declareProduct.inspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-			</li>
 			<li><label>送人体时间：</label>
 				<form:input path="sendBodyTime" htmlEscape="false" maxlength="10" class="input-medium"/>
 			</li>
@@ -49,14 +44,31 @@
 				<th>产品编号</th>
 				<th>中文名称</th>
 				<th>英文名称</th>
-				<th>取送检报告时间</th>
-				<th>送人体时间</th>
-				<th>取送人体报告时间</th>
+				<th>送检总数</th>
+				<th>行政许可检送检时间</th>
+				<th>行政许可检验机构</th>
+				<th>行政许可检验项目</th>
+				<th>行政许可送检数量</th>
+				<th>送人体检验时间</th>
+				<th>送人体检验机构</th>
+				<th>送人体检验项目</th>
+				<th>送人体报告数量</th>
+				<th>送风险检验时间</th>
+				<th>送风险检验机构</th>
+				<th>送风险检验项目</th>
+				<th>送风险报告数量</th>
 				<th>上报时间</th>
 				<th>受理时间</th>
+				<th>受理编号</th>
 				<th>批件时间</th>
+				<th>批件编号</th>
 				<th>下意见时间</th>
-				<th>回复意见</th>
+				<th>下意见内容</th>
+				<th>回复意见时间</th>
+				<th>颜色性状</th>
+				<th>样品标记（生产日期或批号）</th>
+				<th>保质期或限期使用日期</th>
+				<th>规格</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:declareProduct:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -74,13 +86,43 @@
 						${declareProduct.marketProduct.englishName}
 				</td>
 				<td>
-					<fmt:formatDate value="${declareProduct.inspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						${declareProduct.totalSubmission}
 				</td>
 				<td>
-					${declareProduct.sendBodyTime}
+					<fmt:formatDate value="${declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${declareProduct.bodyReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						${declareProduct.administrativeLicenseInspectionOrganization}
+				</td>
+				<td>
+						${declareProduct.administrativeLicenseInspectionProject}
+				</td>
+				<td>
+						${declareProduct.administrativeLicenseInspectionNumber}
+				</td>
+				<td>
+					<fmt:formatDate value="${declareProduct.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${declareProduct.sendBodyOrganization}
+				</td>
+				<td>
+						${declareProduct.sendBodyProject}
+				</td>
+				<td>
+						${declareProduct.sendBodyNumber}
+				</td>
+				<td>
+					<fmt:formatDate value="${declareProduct.sendRistTestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${declareProduct.sendRistTestOrganization}
+				</td>
+				<td>
+						${declareProduct.sendRistTestProject}
+				</td>
+				<td>
+						${declareProduct.sendRistTestNumber}
 				</td>
 				<td>
 					<fmt:formatDate value="${declareProduct.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -89,13 +131,34 @@
 					<fmt:formatDate value="${declareProduct.acceptanceTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
+						${declareProduct.acceptanceNumber}
+				</td>
+				<td>
 					<fmt:formatDate value="${declareProduct.documentTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${declareProduct.documentNumber}
 				</td>
 				<td>
 					<fmt:formatDate value="${declareProduct.nextOpinionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
+						${declareProduct.opinionContent}
+				</td>
+				<td>
 					<fmt:formatDate value="${declareProduct.replyOpinion}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${declareProduct.colorCharacter}
+				</td>
+				<td>
+						${declareProduct.sampleMarking}
+				</td>
+				<td>
+					<fmt:formatDate value="${declareProduct.dateOfExpiry}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${declareProduct.specifications}
 				</td>
 				<td>
 					${declareProduct.remarks}

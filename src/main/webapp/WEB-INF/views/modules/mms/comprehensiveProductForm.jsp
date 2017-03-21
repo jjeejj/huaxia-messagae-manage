@@ -48,26 +48,51 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送检总数：</label>
+			<label class="control-label">行政许可检验数据：</label>
 			<div class="controls">
-				<form:input path="totalNumberOfSamples" htmlEscape="false" maxlength="10" class="input-xlarge "/>
+				<form:input path="administrativeLicenseInspection" htmlEscape="false" maxlength="10" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送检时间：</label>
+			<label class="control-label">行政许可检验编号：</label>
 			<div class="controls">
-				<input name="submissionTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					value="<fmt:formatDate value="${comprehensiveProduct.submissionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+				<form:input path="administrativeLicenseInspectionNumber" htmlEscape="false" maxlength="10" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">行政许可检验取报告时间：</label>
+			<div class="controls">
+				<input name="administrativeLicenseInspectionReportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+					value="<fmt:formatDate value="${comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">下分给申报部人为：</label>
+			<label class="control-label">人体检验受理编号：</label>
 			<div class="controls">
-				<form:select path="productNextHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge">
-					<form:option value="" label=""/>
-					<form:options items="${userList}"  itemLabel="name" itemValue="id" htmlEscape="false"/>
-				</form:select>
+				<form:input path="humanTestAcceptanceNumber" htmlEscape="false" maxlength="10" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">人体检验取报告时间：</label>
+			<div class="controls">
+				<input name="humanTestAcceptanceReportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+					   value="<fmt:formatDate value="${comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">风险检验受理编号：</label>
+			<div class="controls">
+				<form:input path="riskTestAcceptanceNumber" htmlEscape="false" maxlength="10" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">风险检验取报告时间：</label>
+			<div class="controls">
+				<input name="riskTestAcceptanceReportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+					   value="<fmt:formatDate value="${comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">

@@ -19,9 +19,15 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 	private static final long serialVersionUID = 1L;
 	private Date sampleTime;		// 来样时间
 	private String sampleQuantity;		// 样品数量
-	private String totalNumberOfSamples;		// 送检总数
-	private Date submissionTime;		// 送检时间
+	private String administrativeLicenseInspection;//行政许可检验数据
+	private String administrativeLicenseInspectionNumber;//行政许可检验编号
+	private Date administrativeLicenseInspectionReportTime;		// 行政许可检验取报告时间
 
+	private String humanTestAcceptanceNumber;//人体检验受理编号
+	private Date humanTestAcceptanceReportTime;		// 人体检验取报告时间
+
+	private String riskTestAcceptanceNumber;//风险检验受理编号
+	private Date riskTestAcceptanceReportTime;		// 风险检验取报告时间
 
 	private String productHandlePersonId;		// 产品处理人id
 	private String productNextHandlePersonId;		// 产品下一环节处理人id
@@ -53,24 +59,6 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 	public void setSampleQuantity(String sampleQuantity) {
 		this.sampleQuantity = sampleQuantity;
 	}
-	
-	@Length(min=0, max=10, message="送检总数长度必须介于 0 和 10 之间")
-	public String getTotalNumberOfSamples() {
-		return totalNumberOfSamples;
-	}
-
-	public void setTotalNumberOfSamples(String totalNumberOfSamples) {
-		this.totalNumberOfSamples = totalNumberOfSamples;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getSubmissionTime() {
-		return submissionTime;
-	}
-
-	public void setSubmissionTime(Date submissionTime) {
-		this.submissionTime = submissionTime;
-	}
 
 	public String getProductHandlePersonId() {
 		return productHandlePersonId;
@@ -94,5 +82,61 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 
 	public void setMarketProduct(MarketProduct marketProduct) {
 		this.marketProduct = marketProduct;
+	}
+
+	public String getAdministrativeLicenseInspection() {
+		return administrativeLicenseInspection;
+	}
+
+	public void setAdministrativeLicenseInspection(String administrativeLicenseInspection) {
+		this.administrativeLicenseInspection = administrativeLicenseInspection;
+	}
+
+	public String getAdministrativeLicenseInspectionNumber() {
+		return administrativeLicenseInspectionNumber;
+	}
+
+	public void setAdministrativeLicenseInspectionNumber(String administrativeLicenseInspectionNumber) {
+		this.administrativeLicenseInspectionNumber = administrativeLicenseInspectionNumber;
+	}
+
+	public Date getAdministrativeLicenseInspectionReportTime() {
+		return administrativeLicenseInspectionReportTime;
+	}
+
+	public void setAdministrativeLicenseInspectionReportTime(Date administrativeLicenseInspectionReportTime) {
+		this.administrativeLicenseInspectionReportTime = administrativeLicenseInspectionReportTime;
+	}
+
+	public String getHumanTestAcceptanceNumber() {
+		return humanTestAcceptanceNumber;
+	}
+
+	public void setHumanTestAcceptanceNumber(String humanTestAcceptanceNumber) {
+		this.humanTestAcceptanceNumber = humanTestAcceptanceNumber;
+	}
+
+	public Date getHumanTestAcceptanceReportTime() {
+		return humanTestAcceptanceReportTime;
+	}
+
+	public void setHumanTestAcceptanceReportTime(Date humanTestAcceptanceReportTime) {
+		this.humanTestAcceptanceReportTime = humanTestAcceptanceReportTime;
+	}
+
+	public String getRiskTestAcceptanceNumber() {
+		return riskTestAcceptanceNumber;
+	}
+
+	public void setRiskTestAcceptanceNumber(String riskTestAcceptanceNumber) {
+		this.riskTestAcceptanceNumber = riskTestAcceptanceNumber;
+	}
+
+	public Date getRiskTestAcceptanceReportTime() {
+		return riskTestAcceptanceReportTime;
+	}
+
+	public void setRiskTestAcceptanceReportTime(Date riskTestAcceptanceReportTime) {
+		this.riskTestAcceptanceReportTime = riskTestAcceptanceReportTime;
 	}
 }

@@ -61,9 +61,6 @@
 		<include refid="declareProductJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			<if test="inspectionReportTime != null and inspectionReportTime != ''">
-				AND a.inspection_report_time = #{inspectionReportTime}
-			</if>
 			<if test="sendBodyTime != null and sendBodyTime != ''">
 				AND a.send_body_time = #{sendBodyTime}
 			</if>

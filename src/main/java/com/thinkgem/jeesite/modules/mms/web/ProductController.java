@@ -80,6 +80,21 @@ public class ProductController extends BaseController {
 		return "modules/mms/productList";
 	}
 
+	/**
+	 * 产品详细信息
+	 * @param product
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "productInformation")
+	public String productInformation(Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<Product> page = productService.findPage(new Page<Product>(request, response), product);
+		model.addAttribute("page", page);
+		return "modules/mms/productInformationList";
+	}
+
 	@RequiresPermissions("mms:product:view")
 	@RequestMapping(value = "form")
 	public String form(Product product, Model model) {
@@ -183,14 +198,14 @@ public class ProductController extends BaseController {
 		if(comprehensiveProduct!=null){
 			productVo.setSampleTime(comprehensiveProduct.getSampleTime());
 			productVo.setSampleQuantity(comprehensiveProduct.getSampleQuantity());
-			productVo.setTotalNumberOfSamples(comprehensiveProduct.getTotalNumberOfSamples());
-			productVo.setSubmissionTime(comprehensiveProduct.getSubmissionTime());
+//			productVo.setTotalNumberOfSamples(comprehensiveProduct.getTotalNumberOfSamples());
+//			productVo.setSubmissionTime(comprehensiveProduct.getSubmissionTime());
 		}
 		//申报产品
 		if(declareProduct !=null){
-			productVo.setInspectionReportTime(declareProduct.getInspectionReportTime());
+//			productVo.setInspectionReportTime(declareProduct.getInspectionReportTime());
 			productVo.setSendBodyTime(declareProduct.getSendBodyTime());
-			productVo.setBodyReportTime(declareProduct.getBodyReportTime());
+//			productVo.setBodyReportTime(declareProduct.getBodyReportTime());
 			productVo.setReportTime(declareProduct.getReportTime());
 			productVo.setAcceptanceTime(declareProduct.getAcceptanceTime());
 			productVo.setDocumentTime(declareProduct.getDocumentTime());

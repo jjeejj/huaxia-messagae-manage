@@ -219,22 +219,18 @@ CREATE TABLE mms_declare_product
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	total_submission varchar(64)  COMMENT '送检总数',
-
 	administrative_license_inspection_time  datetime  COMMENT '行政许可检送检时间',
 	administrative_license_inspection_organization varchar(64)  COMMENT '行政许可检验机构',
 	administrative_license_inspection_project varchar(64)  COMMENT '行政许可检验项目',
 	administrative_license_inspection_number varchar(64)  COMMENT '行政许可送检数量',
-
 	send_body_time datetime  COMMENT '送人体检验时间',
 	send_body_organization  varchar(64)   COMMENT '送人体检验机构',
 	send_body_project  varchar(64)   COMMENT '送人体检验项目',
 	send_body_number varchar(64)  COMMENT '送人体检验数量',
-
 	send_risk_test_time datetime  COMMENT '送风险检验时间',
 	send_risk_test_organization  varchar(64)   COMMENT '送风险检验机构',
 	send_risk_test_project  varchar(64)   COMMENT '送风险检验项目',
 	send_risk_test_number varchar(64)  COMMENT '送风险报告数量',
-
 	report_time datetime  COMMENT '上报时间',
 	acceptance_time datetime  COMMENT '受理时间',
 	acceptance_number varchar(64)  COMMENT '受理编号',
@@ -243,13 +239,10 @@ CREATE TABLE mms_declare_product
 	next_opinion_time datetime  COMMENT '下意见时间',
 	opinion_content varchar(255) COMMENT '意见内容',
 	reply_opinion datetime  COMMENT '回复意见时间',
-
   color_character varchar(64)  COMMENT '颜色性状',
   sample_marking  varchar(64)  COMMENT '样品标记（生产日期或批号）',
   date_of_expiry datetime  COMMENT '保质期或限期使用日期',
   specifications varchar(64) COMMENT '规格',
-
-
 	product_handle_person_id varchar(64) NOT NULL COMMENT '产品处理人id',
 	create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
