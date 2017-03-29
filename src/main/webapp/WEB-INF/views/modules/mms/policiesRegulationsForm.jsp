@@ -48,6 +48,14 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">上传文件：</label>
+			<div class="controls">
+				<form:hidden path="uploadAddress" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<sys:ckfinder input="uploadAddress" type="image" uploadPath="/mms"/>
+				<%--<form:input path="uploadAddress" htmlEscape="false" maxlength="64" class="input-xlarge" type="file"/>--%>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">文件原始链接：</label>
 			<div class="controls">
 				<form:input path="sourceHref" htmlEscape="false" maxlength="64" class="input-xlarge "/>
@@ -61,7 +69,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">文件分类（1：法规、2：标准、3：技术资料）：</label>
+			<label class="control-label">文件分类：</label>
 			<div class="controls">
 				<form:select path="fileType" class="input-xlarge required">
 					<form:option value="" label=""/>
@@ -71,7 +79,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">文件时效性（1：现行、2：征求意见、3：历史文件）：</label>
+			<label class="control-label">文件时效性：</label>
 			<div class="controls">
 				<form:select path="fileTimeliness" class="input-xlarge ">
 					<form:option value="" label=""/>

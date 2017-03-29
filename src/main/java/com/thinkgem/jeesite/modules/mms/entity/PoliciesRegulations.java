@@ -18,6 +18,7 @@ public class PoliciesRegulations extends DataEntity<PoliciesRegulations> {
 	private String sequence;		// 序号
 	private String fileName;		// 文件名称
 	private String sourceHref;		// 文件原始链接
+	private String uploadAddress;		// 文件上传地址
 	private String documentNumber;		// 文号
 	private String fileType;		// 文件分类（1：法规、2：标准、3：技术资料）
 	private String fileTimeliness;		// 文件时效性（1：现行、2：征求意见、3：历史文件）
@@ -82,6 +83,14 @@ public class PoliciesRegulations extends DataEntity<PoliciesRegulations> {
 
 	public void setFileTimeliness(String fileTimeliness) {
 		this.fileTimeliness = fileTimeliness;
+	}
+
+	public String getUploadAddress() {
+		return uploadAddress;
+	}
+
+	public void setUploadAddress(String uploadAddress) {
+		this.uploadAddress = uploadAddress;
 	}
 	
 }

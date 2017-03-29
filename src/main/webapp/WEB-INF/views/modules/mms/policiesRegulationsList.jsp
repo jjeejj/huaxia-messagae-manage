@@ -31,13 +31,13 @@
 			<li><label>文号：</label>
 				<form:input path="documentNumber" htmlEscape="false" maxlength="32" class="input-medium"/>
 			</li>
-			<li><label>文件分类（1：法规、2：标准、3：技术资料）：</label>
+			<li><label>文件分类：</label>
 				<form:select path="fileType" class="input-medium">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('file_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
-			<li><label>文件时效性（1：现行、2：征求意见、3：历史文件）：</label>
+			<li><label>文件时效性：</label>
 				<form:select path="fileTimeliness" class="input-medium">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('file_timeliness')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
@@ -55,8 +55,8 @@
 				<th>文件名称</th>
 				<th>文件原始链接</th>
 				<th>文号</th>
-				<th>文件分类（1：法规、2：标准、3：技术资料）</th>
-				<th>文件时效性（1：现行、2：征求意见、3：历史文件）</th>
+				<th>文件分类</th>
+				<th>文件时效性</th>
 				<th>更新时间</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:policiesRegulations:edit"><th>操作</th></shiro:hasPermission>
