@@ -16,7 +16,7 @@ import com.thinkgem.jeesite.modules.mms.dao.DeclareProductDao;
 /**
  * 申报产品Service
  * @author jiang
- * @version 2017-03-12
+ * @version 2017-03-28
  */
 @Service
 @Transactional(readOnly = true)

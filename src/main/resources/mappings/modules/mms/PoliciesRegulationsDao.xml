@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.PoliciesRegulationsDao">
+    
+	<sql id="policiesRegulationsColumns">
+		a.id AS "id",
+		a.sequence AS "sequence",
+		a.file_name AS "fileName",
+		a.source_href AS "sourceHref",
+		a.document_number AS "documentNumber",
+		a.file_type AS "fileType",
+		a.file_timeliness AS "fileTimeliness",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="policiesRegulationsJoins">
+	</sql>
+    
+	<select id="get" resultType="PoliciesRegulations">
+		SELECT 
+			<include refid="policiesRegulationsColumns"/>
+		FROM mms_policies_regulations a
+		<include refid="policiesRegulationsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PoliciesRegulations">
+		SELECT 
+			<include refid="policiesRegulationsColumns"/>
+		FROM mms_policies_regulations a
+		<include refid="policiesRegulationsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="fileName != null and fileName != ''">
+				AND a.file_name = #{fileName}
+			</if>
+			<if test="documentNumber != null and documentNumber != ''">
+				AND a.document_number = #{documentNumber}
+			</if>
+			<if test="fileType != null and fileType != ''">
+				AND a.file_type = #{fileType}
+			</if>
+			<if test="fileTimeliness != null and fileTimeliness != ''">
+				AND a.file_timeliness = #{fileTimeliness}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PoliciesRegulations">
+		SELECT 
+			<include refid="policiesRegulationsColumns"/>
+		FROM mms_policies_regulations a
+		<include refid="policiesRegulationsJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_policies_regulations(
+			id,
+			sequence,
+			file_name,
+			source_href,
+			document_number,
+			file_type,
+			file_timeliness,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sequence},
+			#{fileName},
+			#{sourceHref},
+			#{documentNumber},
+			#{fileType},
+			#{fileTimeliness},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_policies_regulations SET 	
+			sequence = #{sequence},
+			file_name = #{fileName},
+			source_href = #{sourceHref},
+			document_number = #{documentNumber},
+			file_type = #{fileType},
+			file_timeliness = #{fileTimeliness},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_policies_regulations SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

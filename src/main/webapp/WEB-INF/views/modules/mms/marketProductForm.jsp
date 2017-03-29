@@ -41,34 +41,37 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label"> 中文名称：</label>
+			<label class="control-label">英文名称：</label>
 			<div class="controls">
-				<form:input path="chineseName" htmlEscape="false" maxlength="100" class="input-xlarge"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="englishName" htmlEscape="false" maxlength="100" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">英文名称：</label>
+			<label class="control-label">中文名称：</label>
 			<div class="controls">
-				<form:input path="englishName" htmlEscape="false" maxlength="100" class="input-xlarge"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="chineseName" htmlEscape="false" maxlength="100" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">原产国：</label>
+			<div class="controls">
+				<form:input path="countryOfOrigin" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">类别：</label>
 			<div class="controls">
-				<form:input path="productType" htmlEscape="false" maxlength="1" class="input-xlarge "/>
+				<form:select path="productType" class="input-xlarge ">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('product_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">工作事项：</label>
 			<div class="controls">
-				<%--<form:select path="workMatters" class="input-xlarge required">--%>
-					<%--<form:option value="" label=""/>--%>
-					<%--<form:options items="${fns:getDictList('product_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>--%>
-				<%--</form:select>--%>
-				<form:input path="workMatters" htmlEscape="false" maxlength="1" class="input-xlarge "/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="workMatters" htmlEscape="false" maxlength="100" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -88,29 +91,25 @@
 		<div class="control-group">
 			<label class="control-label">申请企业：</label>
 			<div class="controls">
-				<form:input path="enterpriseApplication" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="enterpriseApplication" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">申请企业地址：</label>
 			<div class="controls">
-				<form:input path="enterpriseApplicationAddress" htmlEscape="false" maxlength="64" class="input-xlarge"/>
-				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="enterpriseApplicationAddress" htmlEscape="false" maxlength="100" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">申请企业电话：</label>
 			<div class="controls">
-				<form:input path="enterpriseApplicationPhone" htmlEscape="false" maxlength="64" class="input-xlarge"/>
-					<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="enterpriseApplicationPhone" htmlEscape="false" maxlength="32" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">申请企业联系人：</label>
 			<div class="controls">
-				<form:input path="enterpriseApplicationContacts" htmlEscape="false" maxlength="64" class="input-xlarge"/>
-					<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+				<form:input path="enterpriseApplicationContacts" htmlEscape="false" maxlength="100" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -123,12 +122,6 @@
 			<label class="control-label">实际生产企业地址：</label>
 			<div class="controls">
 				<form:input path="actualProductionEnterpriseAddress" htmlEscape="false" maxlength="64" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">实际生产企业电话：</label>
-			<div class="controls">
-				<form:input path="actualProductionEnterprisePhone" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -162,17 +155,17 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">合同编号：</label>
-			<div class="controls">
-				<form:input path="contractNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
 			<label class="control-label">立项时间：</label>
 			<div class="controls">
 				<input name="projectTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${marketProduct.projectTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">合同编号：</label>
+			<div class="controls">
+				<form:input path="contractNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -184,23 +177,20 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">来款时间：</label>
+			<label class="control-label">来款单位：</label>
 			<div class="controls">
-				<input name="arrivalTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					   value="<fmt:formatDate value="${marketProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+				<input name="arrivalCompany" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+					value="<fmt:formatDate value="${marketProduct.arrivalCompany}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label">下分给申报部人为：</label>
-			<div class="controls">
-				<form:select path="productNextHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge">
-					<form:option value="" label=""/>
-					<form:options items="${userList}"  itemLabel="name" itemValue="id" htmlEscape="false"/>
-				</form:select>
-			</div>
-		</div>
-
+		<%--<div class="control-group">--%>
+			<%--<label class="control-label">产品处理人id：</label>--%>
+			<%--<div class="controls">--%>
+				<%--<form:input path="productHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge required"/>--%>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="control-group">
 			<label class="control-label">备注信息：</label>
 			<div class="controls">

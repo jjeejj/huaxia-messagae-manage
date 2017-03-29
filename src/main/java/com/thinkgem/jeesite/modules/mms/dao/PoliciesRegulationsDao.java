@@ -5,14 +5,14 @@ package com.thinkgem.jeesite.modules.mms.dao;
 
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
-import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
+import com.thinkgem.jeesite.modules.mms.entity.PoliciesRegulations;
 
 /**
- * 市场产品DAO接口
+ * 政策法规数据库DAO接口
  * @author jiang
- * @version 2017-03-28
+ * @version 2017-03-29
  */
 @MyBatisDao
-public interface MarketProductDao extends CrudDao<MarketProduct> {
+public interface PoliciesRegulationsDao extends CrudDao<PoliciesRegulations> {
 	
 }

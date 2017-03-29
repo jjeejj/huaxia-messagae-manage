@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
+import com.thinkgem.jeesite.modules.mms.entity.DeclareProduct;
 import com.thinkgem.jeesite.modules.mms.entity.Product;
+import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
 import com.thinkgem.jeesite.modules.mms.service.ProductService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,6 @@ import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.mms.entity.DeclareProduct;
-import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
 
 import java.util.Date;
 

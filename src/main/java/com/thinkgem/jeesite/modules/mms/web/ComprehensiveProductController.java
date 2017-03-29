@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
+import com.thinkgem.jeesite.modules.mms.entity.ComprehensiveProduct;
 import com.thinkgem.jeesite.modules.mms.entity.DeclareProduct;
 import com.thinkgem.jeesite.modules.mms.entity.Product;
+import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
 import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
 import com.thinkgem.jeesite.modules.mms.service.ProductService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
@@ -26,8 +28,6 @@ import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.mms.entity.ComprehensiveProduct;
-import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
 
 import java.util.List;
 
@@ -97,18 +97,18 @@ public class ComprehensiveProductController extends BaseController {
 
 		if(product !=null){
 			if(StringUtils.isEmpty(product.getDeclareProductId())){ //之前没有往下分配过
-				if(StringUtils.isNoneEmpty(comprehensiveProduct.getProductNextHandlePersonId())){ //往下分配了
-
-					comprehensiveProduct.setProductNextHandlePersonId(comprehensiveProduct.getProductNextHandlePersonId());
+//				if(StringUtils.isNoneEmpty(comprehensiveProduct.getProductNextHandlePersonId())){ //往下分配了
+//
+//					comprehensiveProduct.setProductNextHandlePersonId(comprehensiveProduct.getProductNextHandlePersonId());
 
 					DeclareProduct declareProduct = new DeclareProduct();
-					declareProduct.setProductHandlePersonId(comprehensiveProduct.getProductNextHandlePersonId());
+//					declareProduct.setProductHandlePersonId(comprehensiveProduct.getProductNextHandlePersonId());
 
-					declareProductService.save(declareProduct);
-
-					product.setDeclareProductId(declareProduct.getId());
-					productService.save(product);
-				}
+//					declareProductService.save(declareProduct);
+//
+//					product.setDeclareProductId(declareProduct.getId());
+//					productService.save(product);
+//				}
 			}
 
 			//产品状态的变更--取样时间有数据

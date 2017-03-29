@@ -13,21 +13,25 @@
 		a.send_body_organization AS "sendBodyOrganization",
 		a.send_body_project AS "sendBodyProject",
 		a.send_body_number AS "sendBodyNumber",
-		a.send_risk_test_time AS "sendRistTestTime",
-		a.send_risk_test_organization AS "sendRistTestOrganization",
-		a.send_risk_test_project AS "sendRistTestProject",
-		a.send_risk_test_number AS "sendRistTestNumber",
+		a.send_risk_test_time AS "sendRiskTestTime",
+		a.send_risk_test_organization AS "sendRiskTestOrganization",
+		a.send_risk_test_project AS "sendRiskTestProject",
+		a.send_risk_test_number AS "sendRiskTestNumber",
 		a.report_time AS "reportTime",
 		a.acceptance_time AS "acceptanceTime",
 		a.acceptance_number AS "acceptanceNumber",
 		a.document_time AS "documentTime",
 		a.document_number AS "documentNumber",
+		a.product_status_remark AS "productStatusRemark",
 		a.next_opinion_time AS "nextOpinionTime",
 		a.opinion_content AS "opinionContent",
 		a.reply_opinion AS "replyOpinion",
+		a.other_description AS "otherDescription",
 		a.color_character AS "colorCharacter",
 		a.sample_marking AS "sampleMarking",
 		a.date_of_expiry AS "dateOfExpiry",
+		a.technology_date_of_expiry AS "technologyDateOfExpiry",
+		a.smell AS "smell",
 		a.specifications AS "specifications",
 		a.product_handle_person_id AS "productHandlePersonId",
 		a.create_by AS "createBy.id",
@@ -35,15 +39,11 @@
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag",
-		mp.product_number AS "marketProduct.productNumber",
-		mp.english_name AS "marketProduct.englishName",
-		mp.chinese_name AS "marketProduct.chineseName"
+		a.status_remarks AS "statusRemarks",
+		a.del_flag AS "delFlag"
 	</sql>
 	
 	<sql id="declareProductJoins">
-		LEFT JOIN mms_product p on p.declare_product_id = a.id
-		LEFT JOIN mms_market_product mp on p.market_product_id = mp.id
 	</sql>
     
 	<select id="get" resultType="DeclareProduct">
@@ -61,8 +61,11 @@
 		<include refid="declareProductJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			<if test="sendBodyTime != null and sendBodyTime != ''">
-				AND a.send_body_time = #{sendBodyTime}
+			<if test="totalSubmission != null and totalSubmission != ''">
+				AND a.total_submission = #{totalSubmission}
+			</if>
+			<if test="acceptanceNumber != null and acceptanceNumber != ''">
+				AND a.acceptance_number = #{acceptanceNumber}
 			</if>
 		</where>
 		<choose>
@@ -114,12 +117,16 @@
 			acceptance_number,
 			document_time,
 			document_number,
+			product_status_remark,
 			next_opinion_time,
 			opinion_content,
 			reply_opinion,
+			other_description,
 			color_character,
 			sample_marking,
 			date_of_expiry,
+			technology_date_of_expiry,
+			smell,
 			specifications,
 			product_handle_person_id,
 			create_by,
@@ -127,6 +134,7 @@
 			update_by,
 			update_date,
 			remarks,
+			status_remarks,
 			del_flag
 		) VALUES (
 			#{id},
@@ -139,21 +147,25 @@
 			#{sendBodyOrganization},
 			#{sendBodyProject},
 			#{sendBodyNumber},
-			#{sendRistTestTime},
-			#{sendRistTestOrganization},
-			#{sendRistTestProject},
-			#{sendRistTestNumber},
+			#{sendRiskTestTime},
+			#{sendRiskTestOrganization},
+			#{sendRiskTestProject},
+			#{sendRiskTestNumber},
 			#{reportTime},
 			#{acceptanceTime},
 			#{acceptanceNumber},
 			#{documentTime},
 			#{documentNumber},
+			#{productStatusRemark},
 			#{nextOpinionTime},
 			#{opinionContent},
 			#{replyOpinion},
+			#{otherDescription},
 			#{colorCharacter},
 			#{sampleMarking},
 			#{dateOfExpiry},
+			#{technologyDateOfExpiry},
+			#{smell},
 			#{specifications},
 			#{productHandlePersonId},
 			#{createBy.id},
@@ -161,6 +173,7 @@
 			#{updateBy.id},
 			#{updateDate},
 			#{remarks},
+			#{statusRemarks},
 			#{delFlag}
 		)
 	</insert>
@@ -176,26 +189,31 @@
 			send_body_organization = #{sendBodyOrganization},
 			send_body_project = #{sendBodyProject},
 			send_body_number = #{sendBodyNumber},
-			send_risk_test_time = #{sendRistTestTime},
-			send_risk_test_organization = #{sendRistTestOrganization},
-			send_risk_test_project = #{sendRistTestProject},
-			send_risk_test_number = #{sendRistTestNumber},
+			send_risk_test_time = #{sendRiskTestTime},
+			send_risk_test_organization = #{sendRiskTestOrganization},
+			send_risk_test_project = #{sendRiskTestProject},
+			send_risk_test_number = #{sendRiskTestNumber},
 			report_time = #{reportTime},
 			acceptance_time = #{acceptanceTime},
 			acceptance_number = #{acceptanceNumber},
 			document_time = #{documentTime},
 			document_number = #{documentNumber},
+			product_status_remark = #{productStatusRemark},
 			next_opinion_time = #{nextOpinionTime},
 			opinion_content = #{opinionContent},
 			reply_opinion = #{replyOpinion},
+			other_description = #{otherDescription},
 			color_character = #{colorCharacter},
 			sample_marking = #{sampleMarking},
 			date_of_expiry = #{dateOfExpiry},
+			technology_date_of_expiry = #{technologyDateOfExpiry},
+			smell = #{smell},
 			specifications = #{specifications},
 			product_handle_person_id = #{productHandlePersonId},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
-			remarks = #{remarks}
+			remarks = #{remarks},
+			status_remarks = #{statusRemarks}
 		WHERE id = #{id}
 	</update>
 	

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.ForbiddenComponentDao">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.MaterialUseDao">
     
-	<sql id="forbiddenComponentColumns">
+	<sql id="materialUseColumns">
 		a.id AS "id",
 		a.sequence AS "sequence",
 		a.standard_chinese_name AS "standardChineseName",
-		a.inic_name AS "inicName",
+		a.min_actual_component_content AS "minActualComponentContent",
+		a.max_actual_component_content AS "maxActualComponentContent",
+		a.purpose_of_use AS "purposeOfUse",
+		a.risk_material AS "riskMaterial",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -15,24 +18,27 @@
 		a.del_flag AS "delFlag"
 	</sql>
 	
-	<sql id="forbiddenComponentJoins">
+	<sql id="materialUseJoins">
 	</sql>
     
-	<select id="get" resultType="ForbiddenComponent">
+	<select id="get" resultType="MaterialUse">
 		SELECT 
-			<include refid="forbiddenComponentColumns"/>
-		FROM mms_forbidden_component a
-		<include refid="forbiddenComponentJoins"/>
+			<include refid="materialUseColumns"/>
+		FROM mms_material_use a
+		<include refid="materialUseJoins"/>
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="ForbiddenComponent">
+	<select id="findList" resultType="MaterialUse">
 		SELECT 
-			<include refid="forbiddenComponentColumns"/>
-		FROM mms_forbidden_component a
-		<include refid="forbiddenComponentJoins"/>
+			<include refid="materialUseColumns"/>
+		FROM mms_material_use a
+		<include refid="materialUseJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="sequence != null and sequence != ''">
+				AND a.sequence = #{sequence}
+			</if>
 			<if test="standardChineseName != null and standardChineseName != ''">
 				AND a.standard_chinese_name = #{standardChineseName}
 			</if>
@@ -47,11 +53,11 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="ForbiddenComponent">
+	<select id="findAllList" resultType="MaterialUse">
 		SELECT 
-			<include refid="forbiddenComponentColumns"/>
-		FROM mms_forbidden_component a
-		<include refid="forbiddenComponentJoins"/>
+			<include refid="materialUseColumns"/>
+		FROM mms_material_use a
+		<include refid="materialUseJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 		</where>		
@@ -66,11 +72,14 @@
 	</select>
 	
 	<insert id="insert">
-		INSERT INTO mms_forbidden_component(
+		INSERT INTO mms_material_use(
 			id,
 			sequence,
 			standard_chinese_name,
-			inic_name,
+			min_actual_component_content,
+			max_actual_component_content,
+			purpose_of_use,
+			risk_material,
 			create_by,
 			create_date,
 			update_by,
@@ -81,7 +90,10 @@
 			#{id},
 			#{sequence},
 			#{standardChineseName},
-			#{inicName},
+			#{minActualComponentContent},
+			#{maxActualComponentContent},
+			#{purposeOfUse},
+			#{riskMaterial},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -92,10 +104,13 @@
 	</insert>
 	
 	<update id="update">
-		UPDATE mms_forbidden_component SET 	
+		UPDATE mms_material_use SET 	
 			sequence = #{sequence},
 			standard_chinese_name = #{standardChineseName},
-			inic_name = #{inicName},
+			min_actual_component_content = #{minActualComponentContent},
+			max_actual_component_content = #{maxActualComponentContent},
+			purpose_of_use = #{purposeOfUse},
+			risk_material = #{riskMaterial},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks}
@@ -103,7 +118,7 @@
 	</update>
 	
 	<update id="delete">
-		UPDATE mms_forbidden_component SET 
+		UPDATE mms_material_use SET 
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>

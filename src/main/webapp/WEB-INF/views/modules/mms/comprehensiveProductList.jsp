@@ -19,12 +19,17 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/mms/comprehensiveProduct/">综合产品列表</a></li>
-		<%--<shiro:hasPermission name="mms:comprehensiveProduct:edit"><li><a href="${ctx}/mms/comprehensiveProduct/form">综合产品添加</a></li></shiro:hasPermission>--%>
+		<shiro:hasPermission name="mms:comprehensiveProduct:edit"><li><a href="${ctx}/mms/comprehensiveProduct/form">综合产品添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="comprehensiveProduct" action="${ctx}/mms/comprehensiveProduct/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
+			<li><label>来款时间：</label>
+				<input name="arrivalTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+					value="<fmt:formatDate value="${comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			</li>
 			<li><label>来样时间：</label>
 				<input name="sampleTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 					value="<fmt:formatDate value="${comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -38,18 +43,11 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>产品编号</th>
-				<th>中文名称</th>
-				<th>英文名称</th>
+				<th>来款时间</th>
 				<th>来样时间</th>
 				<th>样品数量</th>
-				<th>行政许可检验数据</th>
-				<th>行政许可检验编号</th>
 				<th>行政许可检验取报告时间</th>
-				<th>人体检验受理编号</th>
-				<th>人体检验取报告时间</th>
-				<th>风险检验受理编号</th>
-				<th>风险检验取报告时间</th>
+				<th>更新时间</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:comprehensiveProduct:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -58,14 +56,8 @@
 		<c:forEach items="${page.list}" var="comprehensiveProduct">
 			<tr>
 				<td><a href="${ctx}/mms/comprehensiveProduct/form?id=${comprehensiveProduct.id}">
-						${comprehensiveProduct.marketProduct.productNumber}
+					<fmt:formatDate value="${comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</a></td>
-				<td>
-						${comprehensiveProduct.marketProduct.chineseName}
-				</td>
-				<td>
-						${comprehensiveProduct.marketProduct.englishName}
-				</td>
 				<td>
 					<fmt:formatDate value="${comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
@@ -73,25 +65,10 @@
 					${comprehensiveProduct.sampleQuantity}
 				</td>
 				<td>
-					${comprehensiveProduct.administrativeLicenseInspection}
-				</td>
-				<td>
-						${comprehensiveProduct.administrativeLicenseInspectionNumber}
-				</td>
-				<td>
 					<fmt:formatDate value="${comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
-						${comprehensiveProduct.humanTestAcceptanceNumber}
-				</td>
-				<td>
-					<fmt:formatDate value="${comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-				</td>
-				<td>
-						${comprehensiveProduct.riskTestAcceptanceNumber}
-				</td>
-				<td>
-					<fmt:formatDate value="${comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${comprehensiveProduct.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
 					${comprehensiveProduct.remarks}

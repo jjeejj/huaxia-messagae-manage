@@ -10,7 +10,7 @@ import com.thinkgem.jeesite.modules.mms.entity.ComprehensiveProduct;
 /**
  * 综合产品DAO接口
  * @author jiang
- * @version 2017-03-12
+ * @version 2017-03-28
  */
 @MyBatisDao
 public interface ComprehensiveProductDao extends CrudDao<ComprehensiveProduct> {

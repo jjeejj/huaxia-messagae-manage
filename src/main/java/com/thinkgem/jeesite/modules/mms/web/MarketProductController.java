@@ -6,12 +6,14 @@ package com.thinkgem.jeesite.modules.mms.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
 import com.thinkgem.jeesite.modules.mms.entity.ComprehensiveProduct;
+import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
 import com.thinkgem.jeesite.modules.mms.entity.Product;
 import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
+import com.thinkgem.jeesite.modules.mms.service.MarketProductService;
 import com.thinkgem.jeesite.modules.mms.service.ProductService;
-import com.thinkgem.jeesite.modules.sys.entity.Office;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
@@ -28,8 +30,6 @@ import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
-import com.thinkgem.jeesite.modules.mms.service.MarketProductService;
 
 import java.util.List;
 
@@ -80,9 +80,9 @@ public class MarketProductController extends BaseController {
 		model.addAttribute("marketProduct", marketProduct);
 
 		//查询下发申报部的所有人员
-		List<User> userList =systemService.findUserByOfficeId("5");
+//		List<User> userList =systemService.findUserByOfficeId("5");
 
-		model.addAttribute("userList", userList);
+//		model.addAttribute("userList", userList);
 		return "modules/mms/marketProductForm";
 	}
 
@@ -93,22 +93,28 @@ public class MarketProductController extends BaseController {
 			return form(marketProduct, model);
 		}
 
-		//获取当前登录用户
+		//获取当前登录用户.处理人ID
 		User user  =UserUtils.getUser();
 		marketProduct.setProductHandlePersonId(user.getId());
+
+		//如果是新建产品，生成处理产品编号，规则：在输入的产品编号的首位添加 四位年份+四位流水，20170001
+		if(StringUtils.isEmpty(marketProduct.getId())){
+			//根据当前年 查找对应的最大的流水编号
+			String nowYear = DateUtils.getYear();
+		}
 		marketProductService.save(marketProduct);
 
 		//新建的产品，关联到产品汇总信息 中
 		Product product = productService.getByMarketProductId(marketProduct.getId());
 		Product	productSave = new Product();
 		if(product == null){ //第一次
-			if(StringUtils.isNoneEmpty(marketProduct.getProductNextHandlePersonId())) { // 有分配人
-				ComprehensiveProduct comprehensiveProduct = new ComprehensiveProduct();
-				comprehensiveProduct.setProductHandlePersonId(marketProduct.getProductNextHandlePersonId());
-
-				comprehensiveProductService.save(comprehensiveProduct);
-				productSave.setComprehensiveProductId(comprehensiveProduct.getId());
-			}
+//			if(StringUtils.isNoneEmpty(marketProduct.getProductNextHandlePersonId())) { // 有分配人
+//				ComprehensiveProduct comprehensiveProduct = new ComprehensiveProduct();
+//				comprehensiveProduct.setProductHandlePersonId(marketProduct.getProductNextHandlePersonId());
+//
+//				comprehensiveProductService.save(comprehensiveProduct);
+//				productSave.setComprehensiveProductId(comprehensiveProduct.getId());
+//			}
 			//产品状态判断
 			if(marketProduct.getProjectTime() != null){ //立项时间有 就是初审状态
 				productSave.setProductStatus(MmsConstant.PRODUCT_STATUS_1);
@@ -117,15 +123,15 @@ public class MarketProductController extends BaseController {
 			productService.save(productSave);
 		}else{
 			if(StringUtils.isEmpty(product.getComprehensiveProductId())){ //是否有对应的综合产品id ，如果有 就已经分配 ，没有及时没有分配
-				if(StringUtils.isNoneEmpty(marketProduct.getProductNextHandlePersonId())){ // 有分配人
-					ComprehensiveProduct comprehensiveProduct = new ComprehensiveProduct();
-					comprehensiveProduct.setProductHandlePersonId(marketProduct.getProductNextHandlePersonId());
-
-					comprehensiveProductService.save(comprehensiveProduct);
-
-					product.setComprehensiveProductId(comprehensiveProduct.getId());
-					productService.save(product);
-				}
+//				if(StringUtils.isNoneEmpty(marketProduct.getProductNextHandlePersonId())){ // 有分配人
+//					ComprehensiveProduct comprehensiveProduct = new ComprehensiveProduct();
+//					comprehensiveProduct.setProductHandlePersonId(marketProduct.getProductNextHandlePersonId());
+//
+//					comprehensiveProductService.save(comprehensiveProduct);
+//
+//					product.setComprehensiveProductId(comprehensiveProduct.getId());
+//					productService.save(product);
+//				}
 			}
 		}
 		addMessage(redirectAttributes, "保存市场产品成功");

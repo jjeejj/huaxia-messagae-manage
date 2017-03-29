@@ -32,87 +32,93 @@
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="declareProduct" action="${ctx}/mms/declareProduct/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
-		<sys:message content="${message}"/>
+		<sys:message content="${message}"/>		
 		<div class="control-group">
-			<label class="control-label">行政许可检送检时间：</label>
+			<label class="control-label">送检总数：</label>
+			<div class="controls">
+				<form:input path="totalSubmission" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">行政许可送检时间：</label>
 			<div class="controls">
 				<input name="administrativeLicenseInspectionTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					   value="<fmt:formatDate value="${declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					value="<fmt:formatDate value="${declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">行政许可检验机构：</label>
 			<div class="controls">
-				<form:input path="administrativeLicenseInspectionOrganization" htmlEscape="false" maxlength="10" class="input-xlarge "/>
+				<form:input path="administrativeLicenseInspectionOrganization" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">行政许可检验项目：</label>
 			<div class="controls">
-				<form:input path="administrativeLicenseInspectionProject" htmlEscape="false" maxlength="10" class="input-xlarge "/>
+				<form:input path="administrativeLicenseInspectionProject" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">行政许可送检数量：</label>
 			<div class="controls">
-				<form:input path="administrativeLicenseInspectionNumber" htmlEscape="false" maxlength="10" class="input-xlarge" type="number"/>
+				<form:input path="administrativeLicenseInspectionNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送人体检验时间：</label>
+			<label class="control-label">人体检验送检时间：</label>
 			<div class="controls">
 				<input name="sendBodyTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					   value="<fmt:formatDate value="${declareProduct.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					value="<fmt:formatDate value="${declareProduct.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送人体检验机构：</label>
+			<label class="control-label">人体检验送检机构：</label>
 			<div class="controls">
-				<form:input path="sendBodyOrganization" htmlEscape="false" maxlength="10" class="input-xlarge"/>
+				<form:input path="sendBodyOrganization" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送人体检验项目：</label>
+			<label class="control-label">人体检验项目：</label>
 			<div class="controls">
-				<form:input path="sendBodyProject" htmlEscape="false" maxlength="10" class="input-xlarge"/>
+				<form:input path="sendBodyProject" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送人体报告数量：</label>
+			<label class="control-label">人体检验数量：</label>
 			<div class="controls">
-				<form:input path="sendBodyNumber" htmlEscape="false" maxlength="10" class="input-xlarge" type="number"/>
+				<form:input path="sendBodyNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送风险检验时间：</label>
+			<label class="control-label">风险检验时间：</label>
 			<div class="controls">
-				<input name="sendRistTestTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					   value="<fmt:formatDate value="${declareProduct.sendRistTestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+				<input name="sendRiskTestTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+					value="<fmt:formatDate value="${declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送风险检验机构：</label>
+			<label class="control-label">风险检验机构：</label>
 			<div class="controls">
-				<form:input path="sendRistTestOrganization" htmlEscape="false" maxlength="10" class="input-xlarge"/>
+				<form:input path="sendRiskTestOrganization" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送风险检验项目：</label>
+			<label class="control-label">风险检验项目：</label>
 			<div class="controls">
-				<form:input path="sendRistTestProject" htmlEscape="false" maxlength="10" class="input-xlarge"/>
+				<form:input path="sendRiskTestProject" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">送风险报告数量：</label>
+			<label class="control-label">风险检验数量：</label>
 			<div class="controls">
-				<form:input path="sendRistTestNumber" htmlEscape="false" maxlength="10" class="input-xlarge" type="number"/>
+				<form:input path="sendRiskTestNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">上报时间：</label>
+			<label class="control-label">上报时间／申报时间：</label>
 			<div class="controls">
 				<input name="reportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${declareProduct.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -130,11 +136,11 @@
 		<div class="control-group">
 			<label class="control-label">受理编号：</label>
 			<div class="controls">
-				<form:input path="acceptanceNumber" htmlEscape="false" maxlength="10" class="input-xlarge" />
+				<form:input path="acceptanceNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">批件时间：</label>
+			<label class="control-label">取得批件时间：</label>
 			<div class="controls">
 				<input name="documentTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${declareProduct.documentTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -144,7 +150,16 @@
 		<div class="control-group">
 			<label class="control-label">批件编号：</label>
 			<div class="controls">
-				<form:input path="documentNumber" htmlEscape="false" maxlength="10" class="input-xlarge" />
+				<form:input path="documentNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">产品状态备注（1：通过审批，2：不予批准3：终止申报&rdquo;）：</label>
+			<div class="controls">
+				<form:select path="productStatusRemark" class="input-xlarge ">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('product_status_remark')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</div>
 		</div>
 		<div class="control-group">
@@ -156,9 +171,9 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">下意见内容：</label>
+			<label class="control-label">意见内容：</label>
 			<div class="controls">
-				<form:textarea path="opinionContent" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
+				<form:input path="opinionContent" htmlEscape="false" maxlength="255" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -170,35 +185,64 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">其他说明：</label>
+			<div class="controls">
+				<form:input path="otherDescription" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">颜色性状：</label>
 			<div class="controls">
-				<form:input path="colorCharacter" htmlEscape="false" maxlength="10" class="input-xlarge" />
+				<form:input path="colorCharacter" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">样品标记（生产日期或批号）：</label>
 			<div class="controls">
-				<form:input path="sampleMarking" htmlEscape="false" maxlength="10" class="input-xlarge" />
+				<form:input path="sampleMarking" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">保质期或限期使用日期：</label>
+			<label class="control-label">保质期或限期使用日期（包装标注的保质期或限期使用日期）：</label>
 			<div class="controls">
-				<input name="dateOfExpiry" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					   value="<fmt:formatDate value="${declareProduct.dateOfExpiry}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+				<form:input path="dateOfExpiry" htmlEscape="false" maxlength="32" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">保质期（技术要求中显示的保质期）：</label>
+			<div class="controls">
+				<form:input path="technologyDateOfExpiry" htmlEscape="false" maxlength="32" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">气味：</label>
+			<div class="controls">
+				<form:input path="smell" htmlEscape="false" maxlength="32" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">规格：</label>
 			<div class="controls">
-				<form:input path="specifications" htmlEscape="false" maxlength="10" class="input-xlarge" />
+				<form:input path="specifications" htmlEscape="false" maxlength="32" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">产品处理人id：</label>
+			<div class="controls">
+				<form:input path="productHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">备注信息：</label>
 			<div class="controls">
 				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">状态备注：</label>
+			<div class="controls">
+				<form:input path="statusRemarks" htmlEscape="false" maxlength="255" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="form-actions">

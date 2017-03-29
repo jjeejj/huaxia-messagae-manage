@@ -10,7 +10,7 @@ import com.thinkgem.jeesite.modules.mms.entity.DeclareProduct;
 /**
  * 申报产品DAO接口
  * @author jiang
- * @version 2017-03-12
+ * @version 2017-03-28
  */
 @MyBatisDao
 public interface DeclareProductDao extends CrudDao<DeclareProduct> {
