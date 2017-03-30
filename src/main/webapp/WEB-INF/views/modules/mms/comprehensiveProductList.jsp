@@ -19,7 +19,9 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/mms/comprehensiveProduct/">综合产品列表</a></li>
-		<shiro:hasPermission name="mms:comprehensiveProduct:edit"><li><a href="${ctx}/mms/comprehensiveProduct/form">综合产品添加</a></li></shiro:hasPermission>
+		<c:if test="${fns:isAdmin()}">
+			<shiro:hasPermission name="mms:comprehensiveProduct:edit"><li><a href="${ctx}/mms/comprehensiveProduct/form">综合产品添加</a></li></shiro:hasPermission>
+		</c:if>
 	</ul>
 	<form:form id="searchForm" modelAttribute="comprehensiveProduct" action="${ctx}/mms/comprehensiveProduct/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>

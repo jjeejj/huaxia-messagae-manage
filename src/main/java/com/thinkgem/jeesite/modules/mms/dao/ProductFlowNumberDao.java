@@ -14,5 +14,12 @@ import com.thinkgem.jeesite.modules.mms.entity.ProductFlowNumber;
  */
 @MyBatisDao
 public interface ProductFlowNumberDao extends CrudDao<ProductFlowNumber> {
+
+    /**
+     * 根据年选出该年最大的流水账号数字
+     * @param year 查询年份
+     * @return  最大的流水账号数字
+     */
+    String selectBigNumberByYear(String year);
 	
 }

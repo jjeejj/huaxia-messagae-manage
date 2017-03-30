@@ -1,6 +1,7 @@
 package com.thinkgem.jeesite.modules.mms.utils;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -20,5 +21,20 @@ public class MmsUtils {
         float f1 = b.setScale(effective, BigDecimal.ROUND_HALF_UP).floatValue();
         System.out.println(f1);
         return f1;
+    }
+
+
+    private static final String STR_FORMAT = "0000";
+
+    /**
+     * 处理4为流水号加一
+     * @param serialNumber
+     * @return
+     */
+    public static String handleSerialNumber(String serialNumber){
+        Integer intSerialNumber = Integer.parseInt(serialNumber);
+        intSerialNumber++;
+        DecimalFormat df = new DecimalFormat(STR_FORMAT);
+        return df.format(intSerialNumber);
     }
 }

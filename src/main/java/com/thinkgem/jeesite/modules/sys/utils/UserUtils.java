@@ -114,7 +114,16 @@ public class UserUtils {
 			CacheUtils.remove(USER_CACHE, USER_CACHE_LIST_BY_OFFICE_ID_ + user.getOffice().getId());
 		}
 	}
-	
+
+	/**
+	 * 是否试超级用户
+	 *
+	 * @return
+	 */
+	public static Boolean isAdmin() {
+		return getUser().isAdmin();
+	}
+
 	/**
 	 * 获取当前用户
 	 * @return 取不到返回 new User()

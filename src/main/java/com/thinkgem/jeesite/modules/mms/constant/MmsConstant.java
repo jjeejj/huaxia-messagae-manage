@@ -63,6 +63,23 @@ public class MmsConstant {
     public static final String PRODUCT_STATUS_6 = "6"; //6:不予批准
     public static final String PRODUCT_STATUS_7 = "7"; //7:终止申报
 
+    /**
+     * 产品进度
+     *  初审---20%
+     *  送检---40%
+     *   申报----60%
+     *   完善资料 ---80%
+     *   取得批件 ----100%
+     *   不予批准 ----100%
+     *   终止申报 ----100%
+     */
+    public static final String PRODUCT_PROCESS_1 = "20"; //1:初审
+    public static final String PRODUCT_PROCESS_2 = "40"; //2:送检
+    public static final String PRODUCT_PROCESS_3 = "60"; //3:申报
+    public static final String PRODUCT_PROCESS_4 = "80"; //4:完善资料
+    public static final String PRODUCT_PROCESS_5 = "100"; //5:取得批件
+    public static final String PRODUCT_PROCESS_6 = "100"; //6:不予批准
+    public static final String PRODUCT_PROCESS_7 = "100"; //7:终止申报
 
 
 }

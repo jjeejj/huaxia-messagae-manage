@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.mms.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,9 @@ import com.thinkgem.jeesite.modules.mms.dao.ProductFlowNumberDao;
 @Service
 @Transactional(readOnly = true)
 public class ProductFlowNumberService extends CrudService<ProductFlowNumberDao, ProductFlowNumber> {
+
+	@Autowired
+	private ProductFlowNumberDao productFlowNumberDao;
 
 	public ProductFlowNumber get(String id) {
 		return super.get(id);
@@ -42,6 +46,15 @@ public class ProductFlowNumberService extends CrudService<ProductFlowNumberDao, 
 	@Transactional(readOnly = false)
 	public void delete(ProductFlowNumber productFlowNumber) {
 		super.delete(productFlowNumber);
+	}
+
+	/**
+	 * 根据年选出该年最大的流水账号数字
+	 * @param year 查询年份
+	 * @return  最大的流水账号数字
+	 */
+	public String selectBigNumberByYear(String year){
+		return productFlowNumberDao.selectBigNumberByYear(year);
 	}
 	
 }

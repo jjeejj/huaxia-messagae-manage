@@ -141,6 +141,7 @@ CREATE TABLE mms_product
 	comprehensive_product_id varchar(64)  COMMENT '综合产品id',
 	declare_product_id varchar(64)  COMMENT '申报产品id',
 	product_status char(1)  COMMENT '产品状态',
+	product_process char(10)  COMMENT '产品进度（%）',
 	create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',

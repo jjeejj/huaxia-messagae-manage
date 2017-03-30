@@ -11,9 +11,12 @@ import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
 import com.thinkgem.jeesite.modules.mms.entity.ComprehensiveProduct;
 import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
 import com.thinkgem.jeesite.modules.mms.entity.Product;
+import com.thinkgem.jeesite.modules.mms.entity.ProductFlowNumber;
 import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
 import com.thinkgem.jeesite.modules.mms.service.MarketProductService;
+import com.thinkgem.jeesite.modules.mms.service.ProductFlowNumberService;
 import com.thinkgem.jeesite.modules.mms.service.ProductService;
+import com.thinkgem.jeesite.modules.mms.utils.MmsUtils;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
@@ -53,6 +56,9 @@ public class MarketProductController extends BaseController {
 
 	@Autowired
 	private ComprehensiveProductService comprehensiveProductService;
+
+	@Autowired
+	private ProductFlowNumberService productFlowNumberService;
 	
 	@ModelAttribute
 	public MarketProduct get(@RequestParam(required=false) String id) {
@@ -79,10 +85,6 @@ public class MarketProductController extends BaseController {
 	public String form(MarketProduct marketProduct, Model model) {
 		model.addAttribute("marketProduct", marketProduct);
 
-		//查询下发申报部的所有人员
-//		List<User> userList =systemService.findUserByOfficeId("5");
-
-//		model.addAttribute("userList", userList);
 		return "modules/mms/marketProductForm";
 	}
 
@@ -97,43 +99,47 @@ public class MarketProductController extends BaseController {
 		User user  =UserUtils.getUser();
 		marketProduct.setProductHandlePersonId(user.getId());
 
-		//如果是新建产品，生成处理产品编号，规则：在输入的产品编号的首位添加 四位年份+四位流水，20170001
-		if(StringUtils.isEmpty(marketProduct.getId())){
-			//根据当前年 查找对应的最大的流水编号
-			String nowYear = DateUtils.getYear();
-		}
 		marketProductService.save(marketProduct);
 
 		//新建的产品，关联到产品汇总信息 中
 		Product product = productService.getByMarketProductId(marketProduct.getId());
 		Product	productSave = new Product();
-		if(product == null){ //第一次
-//			if(StringUtils.isNoneEmpty(marketProduct.getProductNextHandlePersonId())) { // 有分配人
-//				ComprehensiveProduct comprehensiveProduct = new ComprehensiveProduct();
-//				comprehensiveProduct.setProductHandlePersonId(marketProduct.getProductNextHandlePersonId());
-//
-//				comprehensiveProductService.save(comprehensiveProduct);
-//				productSave.setComprehensiveProductId(comprehensiveProduct.getId());
-//			}
+		if(product == null){ //新建产品，第一次保存
 			//产品状态判断
-			if(marketProduct.getProjectTime() != null){ //立项时间有 就是初审状态
+			if(marketProduct.getProjectTime() != null){ //立项时间有 就是初审状态，如果是新建，该时间是必填的
 				productSave.setProductStatus(MmsConstant.PRODUCT_STATUS_1);
+				productSave.setProductProcess(MmsConstant.PRODUCT_PROCESS_1); //产品进度
 			}
 			productSave.setMarketProductId(marketProduct.getId());
 			productService.save(productSave);
-		}else{
-			if(StringUtils.isEmpty(product.getComprehensiveProductId())){ //是否有对应的综合产品id ，如果有 就已经分配 ，没有及时没有分配
-//				if(StringUtils.isNoneEmpty(marketProduct.getProductNextHandlePersonId())){ // 有分配人
-//					ComprehensiveProduct comprehensiveProduct = new ComprehensiveProduct();
-//					comprehensiveProduct.setProductHandlePersonId(marketProduct.getProductNextHandlePersonId());
-//
-//					comprehensiveProductService.save(comprehensiveProduct);
-//
-//					product.setComprehensiveProductId(comprehensiveProduct.getId());
-//					productService.save(product);
-//				}
+
+			//如果是新建产品，生成处理产品编号，规则：在输入的产品编号的首位添加 四位年份+四位流水，20170001
+			String productNumber = StringUtils.EMPTY;//产品编号
+			String flowNumber = StringUtils.EMPTY;//流水号
+			//流水编号记录
+			ProductFlowNumber productFlowNumber = new ProductFlowNumber();
+			//根据当前年 查找对应的最大的流水编号
+			String nowYear = DateUtils.getYear();
+			String bigNumber = productFlowNumberService.selectBigNumberByYear(nowYear);
+			if(StringUtils.isEmpty(bigNumber)){ //该年没有记录，重0001 开始
+				flowNumber = "0001";
+				productNumber = nowYear + flowNumber;
+			}else{
+				flowNumber = MmsUtils.handleSerialNumber(bigNumber);
+				productNumber = nowYear + flowNumber;
 			}
+
+			//保存该流水记录
+			productFlowNumber.setFlowNumber(flowNumber);
+			productFlowNumber.setFlowYear(nowYear);
+			productFlowNumber.setProductId(productSave.getId());
+			productFlowNumberService.save(productFlowNumber);
+
+			//更新产品编号
+			marketProduct.setProductNumber(productNumber+marketProduct.getProductNumber());
+			marketProductService.save(marketProduct);
 		}
+
 		addMessage(redirectAttributes, "保存市场产品成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/marketProduct/?repage";
 	}

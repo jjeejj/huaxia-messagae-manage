@@ -104,5 +104,14 @@
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
+
+	<!--根据年选出该年最大的流水账号数字-->
+	<select id="selectBigNumberByYear" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT
+			MAX(a.flow_number) AS "bigNumber"
+		FROM mms_product_flow_number a
+		WHERE
+			a.flow_year = #{year}
+	</select>
 	
 </mapper>
