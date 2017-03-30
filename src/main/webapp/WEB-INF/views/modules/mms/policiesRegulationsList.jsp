@@ -6,8 +6,26 @@
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
-		});
+//			$('#fileDownload').on('click',function () {
+//				var href = $(this).data("href");
+//				top.$.jBox.confirm("确认要下载该文件吗？","系统提示",function(v,h,f){
+//					if(v=="ok"){
+//                        $.ajax({
+//                            url:href,
+//                            type:'GET',
+//                            success:function () {
+//                                $.jBox.info('下载成功');
+//                            },
+//                            error:function (err) {
+//                                console.log(err,err);
+//                                $.jBox.error('下载失败');
+//                            }
+//                        })
+//					}
+//				},{buttonsFocus:1});
+//				top.$('.jbox-body .jbox-icon').css('top','55px');
+//            })
+        });
 		function page(n,s){
 			$("#pageNo").val(n);
 			$("#pageSize").val(s);
@@ -65,11 +83,17 @@
 		<tbody>
 		<c:forEach items="${page.list}" var="policiesRegulations">
 			<tr>
-				<td><a href="${ctx}/mms/policiesRegulations/form?id=${policiesRegulations.id}">
-					${policiesRegulations.sequence}
-				</a></td>
 				<td>
-					${policiesRegulations.fileName}
+					<%--<a href="${ctx}/mms/policiesRegulations/form?id=${policiesRegulations.id}">--%>
+					${policiesRegulations.sequence}
+					<%--</a>--%>
+				</td>
+				<td>
+					<a id="fileDownload" href="${policiesRegulations.uploadAddress}"
+					   download="${policiesRegulations.fileName}.${fn:substringAfter(policiesRegulations.uploadAddress,'.')}">
+						${policiesRegulations.fileName}
+					</a>
+					</a>
 				</td>
 				<td>
 					${policiesRegulations.sourceHref}

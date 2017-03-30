@@ -331,7 +331,7 @@ CREATE TABLE mms_policies_regulations (
 	sequence varchar(64) NOT NULL COMMENT '序号',
 	file_name varchar(64) NOT NULL COMMENT '文件名称',
 	source_href varchar(64)  COMMENT '文件原始链接',
-	upload_address varchar(64)  COMMENT '文件上传地址',
+	upload_address varchar(1000)  COMMENT '文件上传地址',
 	document_number varchar(32) NOT NULL COMMENT '文号',
 	file_type char(1) NOT NULL COMMENT '政策法规件分类（1：法规、2：标准、3：技术资料）',
 	file_timeliness char(1) COMMENT '政策法规文件时效性（1：现行、2：征求意见、3：历史文件）',

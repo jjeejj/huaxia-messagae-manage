@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +45,8 @@ public class UserfilesDownloadServlet extends HttpServlet {
 		try {
 			FileCopyUtils.copy(new FileInputStream(file), resp.getOutputStream());
 			resp.setHeader("Content-Type", "application/octet-stream");
-			return;
+//			resp.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("ssss", "UTF-8"));
+//			return;
 		} catch (FileNotFoundException e) {
 			req.setAttribute("exception", new FileNotFoundException("请求的文件不存在"));
 			req.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(req, resp);

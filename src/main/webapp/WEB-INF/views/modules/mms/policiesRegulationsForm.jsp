@@ -50,9 +50,10 @@
 		<div class="control-group">
 			<label class="control-label">上传文件：</label>
 			<div class="controls">
-				<form:hidden path="uploadAddress" htmlEscape="false" maxlength="255" class="input-xlarge"/>
-				<sys:ckfinder input="uploadAddress" type="image" uploadPath="/mms"/>
+				<form:hidden id="uploadFileAddress" path="uploadAddress" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<sys:ckfinder input="uploadFileAddress" type="files" uploadPath="/mms"/>
 				<%--<form:input path="uploadAddress" htmlEscape="false" maxlength="64" class="input-xlarge" type="file"/>--%>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
@@ -81,10 +82,11 @@
 		<div class="control-group">
 			<label class="control-label">文件时效性：</label>
 			<div class="controls">
-				<form:select path="fileTimeliness" class="input-xlarge ">
+				<form:select path="fileTimeliness" class="input-xlarge required">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('file_timeliness')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
