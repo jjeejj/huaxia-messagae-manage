@@ -19,9 +19,9 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/mms/declareProduct/">申报产品列表</a></li>
-		<c:if test="${fns:isAdmin()}">
-			<shiro:hasPermission name="mms:declareProduct:edit"><li><a href="${ctx}/mms/declareProduct/form">申报产品添加</a></li></shiro:hasPermission>
-		</c:if>
+		<%--<c:if test="${fns:isAdmin()}">--%>
+			<%--<shiro:hasPermission name="mms:declareProduct:edit"><li><a href="${ctx}/mms/declareProduct/form">申报产品添加</a></li></shiro:hasPermission>--%>
+		<%--</c:if>--%>
 	</ul>
 	<form:form id="searchForm" modelAttribute="declareProduct" action="${ctx}/mms/declareProduct/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -73,7 +73,9 @@
 				</td>
 				<shiro:hasPermission name="mms:declareProduct:edit"><td>
     				<a href="${ctx}/mms/declareProduct/form?id=${declareProduct.id}">修改</a>
-					<a href="${ctx}/mms/declareProduct/delete?id=${declareProduct.id}" onclick="return confirmx('确认要删除该申报产品吗？', this.href)">删除</a>
+					<%--<c:if test="${fns:isAdmin()}">--%>
+						<%--<a href="${ctx}/mms/declareProduct/delete?id=${declareProduct.id}" onclick="return confirmx('确认要删除该申报产品吗？', this.href)">删除</a>--%>
+					<%--</c:if>--%>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

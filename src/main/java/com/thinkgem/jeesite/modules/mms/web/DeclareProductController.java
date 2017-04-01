@@ -86,28 +86,37 @@ public class DeclareProductController extends BaseController {
 			 * 取得批件	--------5---------->立项时间、来样时间、上报、下意见、批件五项有日期数据
 			 * 完善资料	-----4--------> 立项时间、来样时间、上报、下意见四项有日期数据
 			 * 申报	---------3-------->立项时间、来样时间、上报三项有日期数据
+			 *
+			 *  初审	--仅立项时间一项有日期数据								20%
+			 	送检==	立项时间和来样时间两项有日期数据								40%
+			 	申报---	立项时间、来样时间、申报时间三项有日期数据								60%
+			 	完善资料---	下意见时间项有日期数据								80%	橙色标记
+			 	取得批件---	取得批件时间项有日期数据								100%	绿色标记  --最优先判断
+			 	不予批准---	产品备注有“不予批准”字段								100%	红色标记
+			 	终止申报---	产品备注有“终止申报”字段								100%	灰色标记
 			 */
 
 			Date reportTime = declareProduct.getReportTime();//上报时间
 			Date nextOpinionTime = declareProduct.getNextOpinionTime(); //下意见时间
 			Date documentTime = declareProduct.getDocumentTime();//批件时间
-			String remarks =  declareProduct.getRemarks();//备注
+			String productStatusRemark =  declareProduct.getProductStatusRemark();//备注
 
-			if(remarks.contains("终止申报")){ //这个优先
-				product.setProductStatus(MmsConstant.PRODUCT_STATUS_7);
-			}else{
+			if(productStatusRemark.equals(MmsConstant.PRODUCT_STATUS_REMARK_3)){ //这个优先,//3:终止申报
+				product.setProductStatus(MmsConstant.PRODUCT_STATUS_7); //3:终止申报
+				product.setProductProcess(MmsConstant.PRODUCT_PROCESS_7);
+			}else if(productStatusRemark.equals(MmsConstant.PRODUCT_STATUS_REMARK_2)){ //2:不予批准
+				product.setProductStatus(MmsConstant.PRODUCT_STATUS_6);
+				product.setProductProcess(MmsConstant.PRODUCT_PROCESS_7); //100
+			} else{
 				if(reportTime!=null){ //上报时间
 					product.setProductStatus(MmsConstant.PRODUCT_STATUS_3);
-
+					product.setProductProcess(MmsConstant.PRODUCT_PROCESS_3); //60
 					if(nextOpinionTime!=null){ //下意见时间
 						product.setProductStatus(MmsConstant.PRODUCT_STATUS_4);
-
+						product.setProductProcess(MmsConstant.PRODUCT_PROCESS_4); //80
 						if(documentTime !=null){ //批件时间
 							product.setProductStatus(MmsConstant.PRODUCT_STATUS_5);
-
-							if(remarks.contains("不予批准")){
-								product.setProductStatus(MmsConstant.PRODUCT_STATUS_6);
-							}
+							product.setProductProcess(MmsConstant.PRODUCT_PROCESS_7); //100
 						}
 					}
 				}

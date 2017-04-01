@@ -4,6 +4,11 @@
 <head>
 	<title>综合产品管理</title>
 	<meta name="decorator" content="default"/>
+	<style>
+		.form-search .ul-form li label{
+			width:150px;
+		}
+	</style>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
@@ -19,23 +24,22 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/mms/comprehensiveProduct/">综合产品列表</a></li>
-		<c:if test="${fns:isAdmin()}">
-			<shiro:hasPermission name="mms:comprehensiveProduct:edit"><li><a href="${ctx}/mms/comprehensiveProduct/form">综合产品添加</a></li></shiro:hasPermission>
-		</c:if>
+		<%--<c:if test="${fns:isAdmin()}">--%>
+			<%--<shiro:hasPermission name="mms:comprehensiveProduct:edit"><li><a href="${ctx}/mms/comprehensiveProduct/form">综合产品添加</a></li></shiro:hasPermission>--%>
+		<%--</c:if>--%>
 	</ul>
 	<form:form id="searchForm" modelAttribute="comprehensiveProduct" action="${ctx}/mms/comprehensiveProduct/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>来款时间：</label>
-				<input name="arrivalTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			<li><label>行政许可检验受理编号：</label>
+				<form:input path="administrativeLicenseInspectionNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>来样时间：</label>
-				<input name="sampleTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			<li><label>人体检验受理编号：</label>
+				<form:input path="humanTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
+			</li>
+			<li><label>风险检验受理编号：</label>
+				<form:input path="riskTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -57,9 +61,9 @@
 		<tbody>
 		<c:forEach items="${page.list}" var="comprehensiveProduct">
 			<tr>
-				<td><a href="${ctx}/mms/comprehensiveProduct/form?id=${comprehensiveProduct.id}">
+				<td>
 					<fmt:formatDate value="${comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-				</a></td>
+				</td>
 				<td>
 					<fmt:formatDate value="${comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
@@ -77,7 +81,9 @@
 				</td>
 				<shiro:hasPermission name="mms:comprehensiveProduct:edit"><td>
     				<a href="${ctx}/mms/comprehensiveProduct/form?id=${comprehensiveProduct.id}">修改</a>
-					<a href="${ctx}/mms/comprehensiveProduct/delete?id=${comprehensiveProduct.id}" onclick="return confirmx('确认要删除该综合产品吗？', this.href)">删除</a>
+					<%--<c:if test="${fns:isAdmin()}">--%>
+						<%--<a href="${ctx}/mms/comprehensiveProduct/delete?id=${comprehensiveProduct.id}" onclick="return confirmx('确认要删除该综合产品吗？', this.href)">删除</a>--%>
+					<%--</c:if>--%>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

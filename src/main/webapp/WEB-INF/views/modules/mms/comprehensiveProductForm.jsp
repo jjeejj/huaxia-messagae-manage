@@ -97,13 +97,13 @@
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label">产品处理人id：</label>
-			<div class="controls">
-				<form:input path="productHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
+		<%--<div class="control-group">--%>
+			<%--<label class="control-label">产品处理人id：</label>--%>
+			<%--<div class="controls">--%>
+				<%--<form:input path="productHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge required"/>--%>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="control-group">
 			<label class="control-label">备注信息：</label>
 			<div class="controls">

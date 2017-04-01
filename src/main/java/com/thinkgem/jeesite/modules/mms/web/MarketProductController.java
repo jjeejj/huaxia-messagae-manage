@@ -8,14 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
-import com.thinkgem.jeesite.modules.mms.entity.ComprehensiveProduct;
-import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
-import com.thinkgem.jeesite.modules.mms.entity.Product;
-import com.thinkgem.jeesite.modules.mms.entity.ProductFlowNumber;
-import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
-import com.thinkgem.jeesite.modules.mms.service.MarketProductService;
-import com.thinkgem.jeesite.modules.mms.service.ProductFlowNumberService;
-import com.thinkgem.jeesite.modules.mms.service.ProductService;
+import com.thinkgem.jeesite.modules.mms.entity.*;
+import com.thinkgem.jeesite.modules.mms.service.*;
 import com.thinkgem.jeesite.modules.mms.utils.MmsUtils;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
@@ -52,10 +46,10 @@ public class MarketProductController extends BaseController {
 	private ProductService productService;
 
 	@Autowired
-	private SystemService systemService;
+	private ComprehensiveProductService comprehensiveProductService;
 
 	@Autowired
-	private ComprehensiveProductService comprehensiveProductService;
+	private DeclareProductService declareProductService;
 
 	@Autowired
 	private ProductFlowNumberService productFlowNumberService;
@@ -105,12 +99,21 @@ public class MarketProductController extends BaseController {
 		Product product = productService.getByMarketProductId(marketProduct.getId());
 		Product	productSave = new Product();
 		if(product == null){ //新建产品，第一次保存
+
+			//自动创建综合产品记录和申报产品记录
+			ComprehensiveProduct comprehensiveProduct = new ComprehensiveProduct();
+			DeclareProduct declareProduct = new DeclareProduct();
+			comprehensiveProductService.save(comprehensiveProduct);
+			declareProductService.save(declareProduct);
+
 			//产品状态判断
 			if(marketProduct.getProjectTime() != null){ //立项时间有 就是初审状态，如果是新建，该时间是必填的
 				productSave.setProductStatus(MmsConstant.PRODUCT_STATUS_1);
 				productSave.setProductProcess(MmsConstant.PRODUCT_PROCESS_1); //产品进度
 			}
 			productSave.setMarketProductId(marketProduct.getId());
+			productSave.setComprehensiveProductId(comprehensiveProduct.getId());
+			productSave.setDeclareProductId(declareProduct.getId());
 			productService.save(productSave);
 
 			//如果是新建产品，生成处理产品编号，规则：在输入的产品编号的首位添加 四位年份+四位流水，20170001
@@ -138,6 +141,7 @@ public class MarketProductController extends BaseController {
 			//更新产品编号
 			marketProduct.setProductNumber(productNumber+marketProduct.getProductNumber());
 			marketProductService.save(marketProduct);
+
 		}
 
 		addMessage(redirectAttributes, "保存市场产品成功");
@@ -147,6 +151,20 @@ public class MarketProductController extends BaseController {
 	@RequiresPermissions("mms:marketProduct:edit")
 	@RequestMapping(value = "delete")
 	public String delete(MarketProduct marketProduct, RedirectAttributes redirectAttributes) {
+		//市场部 删除产品 则每个部门都要删除的，有关该产品的所有记录
+
+		//找到该产品总记录
+		Product product = productService.getByMarketProductId(marketProduct.getId());
+
+		String comprehensiveProductId = product.getComprehensiveProductId();//综合产品id
+		if(StringUtils.isNoneEmpty(comprehensiveProductId)){ //有综合产品记录
+			comprehensiveProductService.delete(comprehensiveProductService.get(comprehensiveProductId));
+		}
+		String declareProductId = product.getDeclareProductId();//综合产品id
+		if(StringUtils.isNoneEmpty(declareProductId)){ //综合产品记录
+			declareProductService.delete(declareProductService.get(declareProductId));
+		}
+		productService.delete(product);
 		marketProductService.delete(marketProduct);
 		addMessage(redirectAttributes, "删除市场产品成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/marketProduct/?repage";

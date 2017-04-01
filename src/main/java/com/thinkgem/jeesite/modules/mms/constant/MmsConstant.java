@@ -64,6 +64,16 @@ public class MmsConstant {
     public static final String PRODUCT_STATUS_7 = "7"; //7:终止申报
 
     /**
+     * 产品备注状态
+     * 1：通过审批，
+     * 2：不予批准
+     * 3：终止申报
+     */
+    public static final String PRODUCT_STATUS_REMARK_1 = "1"; //1:通过审批
+    public static final String PRODUCT_STATUS_REMARK_2 = "2"; //2:不予批准
+    public static final String PRODUCT_STATUS_REMARK_3 = "3"; //3:终止申报
+
+    /**
      * 产品进度
      *  初审---20%
      *  送检---40%
@@ -80,6 +90,8 @@ public class MmsConstant {
     public static final String PRODUCT_PROCESS_5 = "100"; //5:取得批件
     public static final String PRODUCT_PROCESS_6 = "100"; //6:不予批准
     public static final String PRODUCT_PROCESS_7 = "100"; //7:终止申报
+
+
 
 
 }

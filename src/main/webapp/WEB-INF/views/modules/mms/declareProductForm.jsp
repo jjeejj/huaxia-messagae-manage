@@ -33,12 +33,12 @@
 	<form:form id="inputForm" modelAttribute="declareProduct" action="${ctx}/mms/declareProduct/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
-		<div class="control-group">
-			<label class="control-label">送检总数：</label>
-			<div class="controls">
-				<form:input path="totalSubmission" htmlEscape="false" maxlength="64" class="input-xlarge "/>
-			</div>
-		</div>
+		<%--<div class="control-group">--%>
+			<%--<label class="control-label">送检总数：</label>--%>
+			<%--<div class="controls">--%>
+				<%--<form:input path="totalSubmission" htmlEscape="false" maxlength="64" class="input-xlarge "/>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="control-group">
 			<label class="control-label">行政许可送检时间：</label>
 			<div class="controls">
@@ -62,7 +62,7 @@
 		<div class="control-group">
 			<label class="control-label">行政许可送检数量：</label>
 			<div class="controls">
-				<form:input path="administrativeLicenseInspectionNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<form:input path="administrativeLicenseInspectionNumber" type="number" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -88,7 +88,7 @@
 		<div class="control-group">
 			<label class="control-label">人体检验数量：</label>
 			<div class="controls">
-				<form:input path="sendBodyNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<form:input path="sendBodyNumber" htmlEscape="false" type="number" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -114,7 +114,7 @@
 		<div class="control-group">
 			<label class="control-label">风险检验数量：</label>
 			<div class="controls">
-				<form:input path="sendRiskTestNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<form:input path="sendRiskTestNumber" htmlEscape="false" type="number" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -154,7 +154,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">产品状态备注（1：通过审批，2：不予批准3：终止申报&rdquo;）：</label>
+			<label class="control-label">产品状态备注：</label>
 			<div class="controls">
 				<form:select path="productStatusRemark" class="input-xlarge ">
 					<form:option value="" label=""/>
@@ -226,13 +226,13 @@
 				<form:input path="specifications" htmlEscape="false" maxlength="32" class="input-xlarge "/>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label">产品处理人id：</label>
-			<div class="controls">
-				<form:input path="productHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
+		<%--<div class="control-group">--%>
+			<%--<label class="control-label">产品处理人id：</label>--%>
+			<%--<div class="controls">--%>
+				<%--<form:input path="productHandlePersonId" htmlEscape="false" maxlength="64" class="input-xlarge required"/>--%>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="control-group">
 			<label class="control-label">备注信息：</label>
 			<div class="controls">

@@ -76,10 +76,6 @@ public class ComprehensiveProductController extends BaseController {
 	@RequestMapping(value = "form")
 	public String form(ComprehensiveProduct comprehensiveProduct, Model model) {
 
-		//查询下发申报产品的所有人员
-		List<User> userList =systemService.findUserByOfficeId("5");
-
-		model.addAttribute("userList", userList);
 
 		model.addAttribute("comprehensiveProduct", comprehensiveProduct);
 		return "modules/mms/comprehensiveProductForm";
@@ -92,37 +88,29 @@ public class ComprehensiveProductController extends BaseController {
 			return form(comprehensiveProduct, model);
 		}
 
-		//查找对应的产品汇总及记录
+		//根据来样时间判断产品状态，因为这个状态是中间的状态，所有要进行和现在的产品状态进行对比
+
+		/**
+		 * 1:先查处产品的信息
+		 * 2:取得产品现在的状态在进行对比
+		 * 3：更新产品的状态
+		 */
 		Product product = productService.getByComprehensiveProductId(comprehensiveProduct.getId());
 
 		if(product !=null){
-			if(StringUtils.isEmpty(product.getDeclareProductId())){ //之前没有往下分配过
-//				if(StringUtils.isNoneEmpty(comprehensiveProduct.getProductNextHandlePersonId())){ //往下分配了
-//
-//					comprehensiveProduct.setProductNextHandlePersonId(comprehensiveProduct.getProductNextHandlePersonId());
-
-					DeclareProduct declareProduct = new DeclareProduct();
-//					declareProduct.setProductHandlePersonId(comprehensiveProduct.getProductNextHandlePersonId());
-
-//					declareProductService.save(declareProduct);
-//
-//					product.setDeclareProductId(declareProduct.getId());
-//					productService.save(product);
-//				}
-			}
-
-			//产品状态的变更--取样时间有数据
-			if(comprehensiveProduct.getSampleTime() !=null){
-				product.setProductStatus(MmsConstant.PRODUCT_STATUS_2); //送检
+			String nowProductProcess = product.getProductProcess();
+			if(Integer.valueOf(nowProductProcess) < Integer.valueOf(MmsConstant.PRODUCT_PROCESS_2)){ //小于 40
+				product.setProductProcess(MmsConstant.PRODUCT_PROCESS_2);
+				product.setProductStatus(MmsConstant.PRODUCT_STATUS_2);
 				productService.save(product);
 			}
 
-			comprehensiveProductService.save(comprehensiveProduct);
 			addMessage(redirectAttributes, "保存综合产品成功");
-
 		}else{
 			addMessage(redirectAttributes, "产品信息有错误");
 		}
+
+		comprehensiveProductService.save(comprehensiveProduct);
 		return "redirect:"+Global.getAdminPath()+"/mms/comprehensiveProduct/?repage";
 	}
 	
