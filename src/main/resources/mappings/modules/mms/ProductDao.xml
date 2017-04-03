@@ -16,6 +16,7 @@
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
+		mp.id AS "marketProduct.id",
 		mp.product_number AS "marketProduct.productNumber",
 		mp.english_name AS "marketProduct.englishName",
 		mp.chinese_name AS "marketProduct.chineseName",
@@ -39,6 +40,7 @@
 		mp.contract_number AS "marketProduct.contractNumber",
 		mp.contract_signing_time AS "marketProduct.contractSigningTime",
 		mp.arrival_company AS "marketProduct.arrivalCompany",
+		dp.id AS "declareProduct.id",
 		dp.total_submission AS "declareProduct.totalSubmission",
 		dp.administrative_license_inspection_time AS "declareProduct.administrativeLicenseInspectionTime",
 		dp.administrative_license_inspection_organization AS "declareProduct.administrativeLicenseInspectionOrganization",
@@ -68,6 +70,7 @@
 		dp.technology_date_of_expiry AS "declareProduct.technologyDateOfExpiry",
 		dp.smell AS "declareProduct.smell",
 		dp.specifications AS "declareProduct.specifications",
+		cp.id AS "comprehensiveProduct.id",
 		cp.arrival_time AS "comprehensiveProduct.arrivalTime",
 		cp.sample_time AS "comprehensiveProduct.sampleTime",
 		cp.sample_quantity AS "comprehensiveProduct.sampleQuantity",
@@ -138,6 +141,12 @@
 			</if>
 			<if test="productStatus != null and productStatus != ''">
 				AND a.product_status = #{productStatus}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				AND DATE_FORMAT(a.create_date,'%Y-%m-%d') &gt;= #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND DATE_FORMAT(a.create_date,'%Y-%m-%d') &lt;= #{endDate}
 			</if>
 
 		</where>

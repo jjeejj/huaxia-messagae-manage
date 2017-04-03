@@ -26,6 +26,10 @@ public class Product extends DataEntity<Product> {
 	private ComprehensiveProduct comprehensiveProduct; //综合产品
 	private DeclareProduct declareProduct; //申报产品
 
+
+	private String startDate;//开始日期
+	private String endDate; //结束日期
+
 	public Product() {
 		super();
 	}
@@ -107,5 +111,22 @@ public class Product extends DataEntity<Product> {
 
 	public void setProductLeader(String productLeader) {
 		this.productLeader = productLeader;
+	}
+
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 }

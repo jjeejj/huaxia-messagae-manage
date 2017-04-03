@@ -14,6 +14,7 @@ import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
 import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
 import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
 import com.thinkgem.jeesite.modules.mms.service.MarketProductService;
+import com.thinkgem.jeesite.modules.mms.vo.InspectionExportProductVo;
 import com.thinkgem.jeesite.modules.mms.vo.ProductStatusVo;
 import com.thinkgem.jeesite.modules.mms.vo.ProductVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -256,8 +257,6 @@ public class ProductController extends BaseController {
 
 			List<ProductStatusVo>  productStatusVoList = productService.selectByProductLeader(productStatusVo);
 
-			List<ProductStatusVo> productVoList = new ArrayList<ProductStatusVo>();
-
 			new ExportExcel("产品负责人统计数据", ProductStatusVo.class).setDataList(productStatusVoList).write(response, fileName).dispose();
 			return null;
 		} catch (Exception e) {
@@ -265,6 +264,82 @@ public class ProductController extends BaseController {
 			logger.info("导出产品负责人统计数据！失败信息：" + e.getMessage());
 		}
 		return "redirect:"+Global.getAdminPath()+"/mms/product/selectByProductLeader/?repage";
+
+	}
+
+	/**
+	 * 送检导出产品信息
+	 * @param product
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "inspectionExportProductInfo")
+	public String inspectionExportProductInfo(Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<Product> page = productService.findPage(new Page<Product>(request, response), product);
+		model.addAttribute("page", page);
+		return "modules/mms/inspectionExportProduct";
+	}
+
+	/**
+	 * 送检导出产品信息的excel 处理
+	 * @param product
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "inspectionExportProductInfo/export")
+	public String inspectionExportProductInfoExport(Product product, HttpServletRequest request, HttpServletResponse response,
+											  Model model, RedirectAttributes redirectAttributes) {
+
+		try {
+			String fileName = "送检导出产品信息" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
+
+			List<Product>  productList = productService.findList(product);
+
+			List<InspectionExportProductVo> inspectionExportProductVoList = new ArrayList<InspectionExportProductVo>();
+			//把产品信息，转换到导出的vo中
+			if(productList !=null && productList.size() > 0){
+				for (Product productTemp : productList){
+					InspectionExportProductVo inspectionExportProductVo = new InspectionExportProductVo();
+					MarketProduct marketProduct = productTemp.getMarketProduct();//市场产品
+					DeclareProduct declareProduct = productTemp.getDeclareProduct();//申报产品Entity
+
+					inspectionExportProductVo.setProductNumber(marketProduct.getProductNumber());// 产品编号
+					inspectionExportProductVo.setEnglishName(marketProduct.getEnglishName());
+					inspectionExportProductVo.setChineseName(marketProduct.getChineseName());
+					inspectionExportProductVo.setProductLeader(marketProduct.getProductLeader());
+					inspectionExportProductVo.setEnterpriseApplicationAddress(marketProduct.getEnterpriseApplicationAddress());
+					inspectionExportProductVo.setEnterpriseApplicationContacts(marketProduct.getEnterpriseApplicationContacts());
+					inspectionExportProductVo.setEnterpriseApplicationPhone(marketProduct.getEnterpriseApplicationPhone());
+					inspectionExportProductVo.setResponsibleUnitInChina(marketProduct.getResponsibleUnitInChina());
+					inspectionExportProductVo.setResponsibleUnitInChinaAddress(marketProduct.getResponsibleUnitInChinaAddress());
+					inspectionExportProductVo.setResponsibleUnitInChinaPhone(marketProduct.getResponsibleUnitInChinaPhone());
+					inspectionExportProductVo.setResponsibleUnitInChinaFax(marketProduct.getResponsibleUnitInChinaFax());
+					inspectionExportProductVo.setResponsibleUnitInChinaZipCode(marketProduct.getResponsibleUnitInChinaZipCode());
+					inspectionExportProductVo.setColorCharacter(declareProduct.getColorCharacter());
+					inspectionExportProductVo.setSampleMarking(declareProduct.getSampleMarking());
+					inspectionExportProductVo.setDateOfExpiry(declareProduct.getDateOfExpiry());
+//					inspectionExportProductVo.setTechnologyDateOfExpiry(declareProduct.getTechnologyDateOfExpiry());
+					inspectionExportProductVo.setSpecifications(declareProduct.getSpecifications());
+					inspectionExportProductVo.setAdministrativeLicenseInspectionTime(declareProduct.getAdministrativeLicenseInspectionTime());
+					inspectionExportProductVo.setAdministrativeLicenseInspectionOrganization(declareProduct.getAdministrativeLicenseInspectionOrganization());
+					inspectionExportProductVo.setAdministrativeLicenseInspectionProject(declareProduct.getAdministrativeLicenseInspectionProject());
+					inspectionExportProductVo.setAdministrativeLicenseInspectionNumber(declareProduct.getAdministrativeLicenseInspectionNumber());
+
+					inspectionExportProductVoList.add(inspectionExportProductVo);
+				}
+			}
+			new ExportExcel("送检导出产品信息", InspectionExportProductVo.class).setDataList(inspectionExportProductVoList).write(response, fileName).dispose();
+			return null;
+		} catch (Exception e) {
+			addMessage(redirectAttributes, "送检导出产品信息！失败信息：" + e.getMessage());
+			logger.info("送检导出产品信息！失败信息：" + e.getMessage());
+		}
+		return "redirect:"+Global.getAdminPath()+"/mms/product/inspectionExportProductInfo/?repage";
 
 	}
 

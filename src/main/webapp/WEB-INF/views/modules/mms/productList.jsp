@@ -103,10 +103,6 @@
 				<td>
 						${fns:getDictLabels(product.productStatus, 'product_status', '')}
 				</td>
-				<%--<shiro:hasPermission name="mms:product:edit"><td>--%>
-    				<%--<a href="${ctx}/mms/product/form?id=${product.id}">查看</a>--%>
-					<%--<a href="${ctx}/mms/product/delete?id=${product.id}" onclick="return confirmx('确认要删除该产品吗？', this.href)">删除</a>--%>
-				<%--</td></shiro:hasPermission>--%>
 			</tr>
 		</c:forEach>
 		</tbody>
