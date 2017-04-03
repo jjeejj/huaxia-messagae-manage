@@ -224,9 +224,9 @@ public class ProductController extends BaseController {
 			List<ProductVo> productVoList = new ArrayList<ProductVo>();
 
 			if(productList !=null && productList.size() >0){
-				ProductVo productVo = new ProductVo();
 				for (Product productTemp:productList){
-					 productVo = this.getProductVo(productTemp);
+					ProductVo productVo = new ProductVo();
+					productVo = this.getProductVo(productTemp);
 					productVoList.add(productVo);
 				}
 			}
@@ -265,36 +265,81 @@ public class ProductController extends BaseController {
 			productVo.setProductNumber(marketProduct.getProductNumber()); //产品编号
 			productVo.setEnglishName(marketProduct.getEnglishName());
 			productVo.setChineseName(marketProduct.getChineseName());
+			productVo.setCountryOfOrigin(marketProduct.getCountryOfOrigin());
 			productVo.setProductType(marketProduct.getProductType());
 			productVo.setWorkMatters(marketProduct.getWorkMatters());
 			productVo.setProductLeader(marketProduct.getProductLeader());
 			productVo.setProjectLeader(marketProduct.getProjectLeader());
 			productVo.setEnterpriseApplication(marketProduct.getEnterpriseApplication());
+			productVo.setEnterpriseApplicationAddress(marketProduct.getEnterpriseApplicationAddress());
+			productVo.setEnterpriseApplicationPhone(marketProduct.getEnterpriseApplicationPhone());
+			productVo.setEnterpriseApplicationContacts(marketProduct.getEnterpriseApplicationContacts());
 			productVo.setActualProductionEnterprise(marketProduct.getActualProductionEnterprise());
+			productVo.setActualProductionEnterpriseAddress(marketProduct.getActualProductionEnterpriseAddress());
 			productVo.setResponsibleUnitInChina(marketProduct.getResponsibleUnitInChina());
+			productVo.setResponsibleUnitInChinaAddress(marketProduct.getResponsibleUnitInChinaAddress());
+			productVo.setResponsibleUnitInChinaPhone(marketProduct.getResponsibleUnitInChinaPhone());
+			productVo.setResponsibleUnitInChinaFax(marketProduct.getResponsibleUnitInChinaFax());
+			productVo.setResponsibleUnitInChinaZipCode(marketProduct.getResponsibleUnitInChinaZipCode());
+
 			productVo.setProjectTime(marketProduct.getProjectTime());
+			productVo.setContractNumber(marketProduct.getContractNumber());
 			productVo.setContractSigningTime(marketProduct.getContractSigningTime());
+			productVo.setArrivalCompany(marketProduct.getArrivalCompany());
 		}
 		//综合产品信息
 		if(comprehensiveProduct!=null){
+			productVo.setArrivalTime(comprehensiveProduct.getArrivalTime());
 			productVo.setSampleTime(comprehensiveProduct.getSampleTime());
 			productVo.setSampleQuantity(comprehensiveProduct.getSampleQuantity());
-//			productVo.setTotalNumberOfSamples(comprehensiveProduct.getTotalNumberOfSamples());
-//			productVo.setSubmissionTime(comprehensiveProduct.getSubmissionTime());
+			productVo.setAdministrativeLicenseInspectionNo(comprehensiveProduct.getAdministrativeLicenseInspectionNo());
+			productVo.setAdministrativeLicenseInspectionReportTime(comprehensiveProduct.getAdministrativeLicenseInspectionReportTime());
+
+			productVo.setHumanTestAcceptanceNo(comprehensiveProduct.getHumanTestAcceptanceNo());
+			productVo.setHumanTestAcceptanceReportTime(comprehensiveProduct.getHumanTestAcceptanceReportTime());
+
+			productVo.setRiskTestAcceptanceNo(comprehensiveProduct.getRiskTestAcceptanceNo());
+			productVo.setRiskTestAcceptanceReportTime(comprehensiveProduct.getRiskTestAcceptanceReportTime());
+
 		}
 		//申报产品
 		if(declareProduct !=null){
-//			productVo.setInspectionReportTime(declareProduct.getInspectionReportTime());
+
+			productVo.setTotalNumberOfSamples(declareProduct.getAcceptanceNumber());
+			productVo.setColorCharacter(declareProduct.getColorCharacter());
+			productVo.setSampleMarking(declareProduct.getSampleMarking());
+			productVo.setDateOfExpiry(declareProduct.getDateOfExpiry());
+			productVo.setTechnologyDateOfExpiry(declareProduct.getTechnologyDateOfExpiry());
+			productVo.setSmell(declareProduct.getSmell());
+			productVo.setSpecifications(declareProduct.getSpecifications());
+
+			productVo.setAdministrativeLicenseInspectionTime(declareProduct.getAdministrativeLicenseInspectionTime());
+			productVo.setAdministrativeLicenseInspectionOrganization(declareProduct.getAdministrativeLicenseInspectionOrganization());
+			productVo.setAdministrativeLicenseInspectionProject(declareProduct.getAdministrativeLicenseInspectionProject());
+			productVo.setAdministrativeLicenseInspectionNumber(declareProduct.getAdministrativeLicenseInspectionNumber());
+
 			productVo.setSendBodyTime(declareProduct.getSendBodyTime());
-//			productVo.setBodyReportTime(declareProduct.getBodyReportTime());
+			productVo.setSendBodyNumber(declareProduct.getSendBodyNumber());
+			productVo.setSendBodyProject(declareProduct.getSendBodyProject());
+			productVo.setSendBodyOrganization(declareProduct.getSendBodyOrganization());
+
+
+			productVo.setSendRiskTestNumber(declareProduct.getSendRiskTestNumber());
+			productVo.setSendRiskTestOrganization(declareProduct.getSendRiskTestOrganization());
+			productVo.setSendRiskTestTime(declareProduct.getSendRiskTestTime());
+			productVo.setSendRiskTestProject(declareProduct.getSendRiskTestProject());
+
 			productVo.setReportTime(declareProduct.getReportTime());
 			productVo.setAcceptanceTime(declareProduct.getAcceptanceTime());
+			productVo.setAcceptanceNumber(declareProduct.getAcceptanceNumber());
 			productVo.setDocumentTime(declareProduct.getDocumentTime());
+			productVo.setDocumentNumber(declareProduct.getDocumentNumber());
+			productVo.setProductStatusRemark(declareProduct.getProductStatusRemark());
 			productVo.setNextOpinionTime(declareProduct.getNextOpinionTime());
+			productVo.setOpinionContent(declareProduct.getOpinionContent());
 			productVo.setReplyOpinion(declareProduct.getReplyOpinion());
-			productVo.setRemarks(declareProduct.getRemarks());
+			productVo.setOtherDescription(declareProduct.getOtherDescription());
 		}
-
 		return productVo;
 	}
 

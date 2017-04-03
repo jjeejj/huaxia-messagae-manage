@@ -58,7 +58,7 @@
 		<div class="control-group">
 			<label class="control-label">行政许可检验受理编号：</label>
 			<div class="controls">
-				<form:input path="administrativeLicenseInspectionNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<form:input path="administrativeLicenseInspectionNo" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -72,7 +72,7 @@
 		<div class="control-group">
 			<label class="control-label">人体检验受理编号：</label>
 			<div class="controls">
-				<form:input path="humanTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<form:input path="humanTestAcceptanceNo" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -86,7 +86,7 @@
 		<div class="control-group">
 			<label class="control-label">风险检验受理编号：</label>
 			<div class="controls">
-				<form:input path="riskTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<form:input path="riskTestAcceptanceNo" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">

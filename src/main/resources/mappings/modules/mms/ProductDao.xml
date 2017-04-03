@@ -74,11 +74,11 @@
 		cp.arrival_time AS "comprehensiveProduct.arrivalTime",
 		cp.sample_time AS "comprehensiveProduct.sampleTime",
 		cp.sample_quantity AS "comprehensiveProduct.sampleQuantity",
-		cp.administrative_license_inspection_number AS "comprehensiveProduct.administrativeLicenseInspectionNumber",
+		cp.administrative_license_inspection_no AS "comprehensiveProduct.administrativeLicenseInspectionNo",
 		cp.administrative_license_inspection_report_time AS "comprehensiveProduct.administrativeLicenseInspectionReportTime",
-		cp.human_test_acceptance_number AS "comprehensiveProduct.humanTestAcceptanceNumber",
+		cp.human_test_acceptance_no AS "comprehensiveProduct.humanTestAcceptanceNo",
 		cp.human_test_acceptance_report_time AS "comprehensiveProduct.humanTestAcceptanceReportTime",
-		cp.risk_test_acceptance_number AS "comprehensiveProduct.riskTestAcceptanceNumber",
+		cp.risk_test_acceptance_no AS "comprehensiveProduct.riskTestAcceptanceNo",
 		cp.risk_test_acceptance_report_time AS "comprehensiveProduct.riskTestAcceptanceReportTime"
 	</sql>
 	

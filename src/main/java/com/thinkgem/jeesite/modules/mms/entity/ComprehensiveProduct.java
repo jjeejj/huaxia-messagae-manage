@@ -20,11 +20,11 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 	private Date arrivalTime;		// 来款时间
 	private Date sampleTime;		// 来样时间
 	private String sampleQuantity;		// 样品数量
-	private String administrativeLicenseInspectionNumber;		// 行政许可检验受理编号
+	private String administrativeLicenseInspectionNo;		// 行政许可检验受理编号
 	private Date administrativeLicenseInspectionReportTime;		// 行政许可检验取报告时间
-	private String humanTestAcceptanceNumber;		// 人体检验受理编号
+	private String humanTestAcceptanceNo;		// 人体检验受理编号
 	private Date humanTestAcceptanceReportTime;		// 人体检验取报告时间
-	private String riskTestAcceptanceNumber;		// 风险检验受理编号
+	private String riskTestAcceptanceNo;		// 风险检验受理编号
 	private Date riskTestAcceptanceReportTime;		// 风险检验取报告时间
 	private String productHandlePersonId;		// 产品处理人id
 	
@@ -64,12 +64,12 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 	}
 	
 	@Length(min=0, max=64, message="行政许可检验受理编号长度必须介于 0 和 64 之间")
-	public String getAdministrativeLicenseInspectionNumber() {
-		return administrativeLicenseInspectionNumber;
+	public String getAdministrativeLicenseInspectionNo() {
+		return administrativeLicenseInspectionNo;
 	}
 
-	public void setAdministrativeLicenseInspectionNumber(String administrativeLicenseInspectionNumber) {
-		this.administrativeLicenseInspectionNumber = administrativeLicenseInspectionNumber;
+	public void setAdministrativeLicenseInspectionNo(String administrativeLicenseInspectionNo) {
+		this.administrativeLicenseInspectionNo = administrativeLicenseInspectionNo;
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -82,12 +82,12 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 	}
 	
 	@Length(min=0, max=64, message="人体检验受理编号长度必须介于 0 和 64 之间")
-	public String getHumanTestAcceptanceNumber() {
-		return humanTestAcceptanceNumber;
+	public String getHumanTestAcceptanceNo() {
+		return humanTestAcceptanceNo;
 	}
 
-	public void setHumanTestAcceptanceNumber(String humanTestAcceptanceNumber) {
-		this.humanTestAcceptanceNumber = humanTestAcceptanceNumber;
+	public void setHumanTestAcceptanceNo(String humanTestAcceptanceNo) {
+		this.humanTestAcceptanceNo = humanTestAcceptanceNo;
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -100,12 +100,12 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 	}
 	
 	@Length(min=0, max=64, message="风险检验受理编号长度必须介于 0 和 64 之间")
-	public String getRiskTestAcceptanceNumber() {
-		return riskTestAcceptanceNumber;
+	public String getRiskTestAcceptanceNo() {
+		return riskTestAcceptanceNo;
 	}
 
-	public void setRiskTestAcceptanceNumber(String riskTestAcceptanceNumber) {
-		this.riskTestAcceptanceNumber = riskTestAcceptanceNumber;
+	public void setRiskTestAcceptanceNo(String riskTestAcceptanceNo) {
+		this.riskTestAcceptanceNo = riskTestAcceptanceNo;
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

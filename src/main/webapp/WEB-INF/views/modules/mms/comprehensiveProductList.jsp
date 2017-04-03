@@ -33,13 +33,13 @@
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
 			<li><label>行政许可检验受理编号：</label>
-				<form:input path="comprehensiveProduct.administrativeLicenseInspectionNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
+				<form:input path="comprehensiveProduct.administrativeLicenseInspectionNo" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
 			<li><label>人体检验受理编号：</label>
-				<form:input path="comprehensiveProduct.humanTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
+				<form:input path="comprehensiveProduct.humanTestAcceptanceNo" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
 			<li><label>风险检验受理编号：</label>
-				<form:input path="comprehensiveProduct.riskTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
+				<form:input path="comprehensiveProduct.riskTestAcceptanceNo" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -158,7 +158,7 @@
 						${product.declareProduct.administrativeLicenseInspectionOrganization}
 				</td>
 				<td>
-						${product.comprehensiveProduct.administrativeLicenseInspectionNumber}
+						${product.comprehensiveProduct.administrativeLicenseInspectionNo}
 				</td>
 				<td>
 						${product.declareProduct.administrativeLicenseInspectionProject}
@@ -176,7 +176,7 @@
 						${product.declareProduct.sendBodyOrganization}
 				</td>
 				<td>
-						${product.comprehensiveProduct.humanTestAcceptanceNumber}
+						${product.comprehensiveProduct.humanTestAcceptanceNo}
 				</td>
 				<td>
 						${product.declareProduct.sendBodyProject}
@@ -194,7 +194,7 @@
 						${product.declareProduct.sendRiskTestOrganization}
 				</td>
 				<td>
-						${product.comprehensiveProduct.riskTestAcceptanceNumber}
+						${product.comprehensiveProduct.riskTestAcceptanceNo}
 				</td>
 				<td>
 						${product.declareProduct.sendRiskTestProject}

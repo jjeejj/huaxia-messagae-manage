@@ -151,7 +151,7 @@
                     ${product.declareProduct.administrativeLicenseInspectionProject}
             </td>
             <td>
-                    ${declareProduct.administrativeLicenseInspectionNumber}
+                    ${product.declareProduct.administrativeLicenseInspectionNumber}
             </td>
             <td>
                 <fmt:formatDate value="${product.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>

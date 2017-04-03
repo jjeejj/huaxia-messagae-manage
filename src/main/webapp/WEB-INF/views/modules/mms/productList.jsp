@@ -28,7 +28,7 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/mms/product/">产品列表</a></li>
+		<li class="active"><a href="${ctx}/mms/product/">产品概况</a></li>
 		<%--<shiro:hasPermission name="mms:product:edit"><li><a href="${ctx}/mms/product/form">产品添加</a></li></shiro:hasPermission>--%>
 	</ul>
 	<form:form id="searchForm" modelAttribute="product" action="${ctx}/mms/product/" method="post" class="breadcrumb form-search">
