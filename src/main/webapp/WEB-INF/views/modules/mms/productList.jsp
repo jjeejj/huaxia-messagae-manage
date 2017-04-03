@@ -51,7 +51,7 @@
 				</form:select>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
-			<li class="btns"><input id="btnExport" class="btn btn-primary" type="button" value="导出"/></li>
+			<%--<li class="btns"><input id="btnExport" class="btn btn-primary" type="button" value="导出"/></li>--%>
 			<li class="clearfix"></li>
 		</ul>
 	</form:form>
@@ -67,7 +67,8 @@
 				<th>产品负责人</th>
 				<th>项目进度</th>
 				<th>产品状态</th>
-				<shiro:hasPermission name="mms:product:edit"><th>操作</th></shiro:hasPermission>
+				<th>办理时限</th>
+				<%--<shiro:hasPermission name="mms:product:edit"><th>操作</th></shiro:hasPermission>--%>
 			</tr>
 		</thead>
 		<tbody>
@@ -83,7 +84,7 @@
 						${product.marketProduct.englishName}
 				</td>
 				<td>
-						${product.marketProduct.productType}
+						${fns:getDictLabel(product.marketProduct.productType, 'product_type', '')}
 				</td>
 				<td>
 						${product.marketProduct.workMatters}
@@ -92,15 +93,20 @@
 						${product.marketProduct.productLeader}
 				</td>
 				<td>
-						进度
+					<progress value="${product.productProcess}" max="100"></progress>&nbsp;&nbsp;${product.productProcess}%
+
 				</td>
 				<td>
 						${fns:getDictLabels(product.productStatus, 'product_status', '')}
 				</td>
-				<shiro:hasPermission name="mms:product:edit"><td>
-    				<a href="${ctx}/mms/product/form?id=${product.id}">查看</a>
+
+				<td>
+						${fns:getDictLabels(product.productStatus, 'product_status', '')}
+				</td>
+				<%--<shiro:hasPermission name="mms:product:edit"><td>--%>
+    				<%--<a href="${ctx}/mms/product/form?id=${product.id}">查看</a>--%>
 					<%--<a href="${ctx}/mms/product/delete?id=${product.id}" onclick="return confirmx('确认要删除该产品吗？', this.href)">删除</a>--%>
-				</td></shiro:hasPermission>
+				<%--</td></shiro:hasPermission>--%>
 			</tr>
 		</c:forEach>
 		</tbody>

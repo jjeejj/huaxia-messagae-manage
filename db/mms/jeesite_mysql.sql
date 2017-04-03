@@ -141,6 +141,7 @@ CREATE TABLE mms_product
 	comprehensive_product_id varchar(64)  COMMENT '综合产品id',
 	declare_product_id varchar(64)  COMMENT '申报产品id',
 	product_status char(1)  COMMENT '产品状态',
+	product_leader varchar(64)  COMMENT '产品负责人',
 	product_process char(10)  COMMENT '产品进度（%）',
 	create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
@@ -158,7 +159,7 @@ CREATE TABLE mms_market_product
 	product_number varchar(64) NOT NULL COMMENT '产品编号',
 	english_name varchar(100) COMMENT '英文名称',
 	chinese_name varchar(100) NOT NULL COMMENT '中文名称',
-	Country_of_origin varchar(64)COMMENT '原产国',
+	country_of_origin varchar(64)COMMENT '原产国',
 	product_type char(1) COMMENT '类别(1：非特，2：特殊，3：延续，4：变更，5：其他)',
 	work_matters varchar(100)  COMMENT '工作事项',
 	product_leader varchar(64) NOT NULL COMMENT '产品负责人',
@@ -252,7 +253,7 @@ CREATE TABLE mms_declare_product
 	update_by varchar(64) COMMENT '更新者',
 	update_date datetime COMMENT '更新时间',
 	remarks varchar(255) COMMENT '备注信息',
-	status_remarks varchar(255) COMMENT '状态备注',
+	status_remarks varchar(255) COMMENT '状态备注(目前该字段没有作用)',
 	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
 	PRIMARY KEY (id)
 ) COMMENT = '申报产品';

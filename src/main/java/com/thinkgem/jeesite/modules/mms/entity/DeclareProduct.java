@@ -35,7 +35,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 	private String acceptanceNumber;		// 受理编号
 	private Date documentTime;		// 取得批件时间
 	private String documentNumber;		// 批件编号
-	private String productStatusRemark;		// 产品状态备注（1：通过审批，2：不予批准3：终止申报&rdquo;）
+	private String productStatusRemark;		// 产品状态备注（1：通过审批，2：不予批准3：终止申报;）
 	private Date nextOpinionTime;		// 下意见时间
 	private String opinionContent;		// 意见内容
 	private Date replyOpinion;		// 回复意见时间
@@ -47,7 +47,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 	private String smell;		// 气味
 	private String specifications;		// 规格
 	private String productHandlePersonId;		// 产品处理人id
-	private String statusRemarks;		// 状态备注
+	private String statusRemarks;		// 状态备注(现该字段没有作用)
 	
 	public DeclareProduct() {
 		super();

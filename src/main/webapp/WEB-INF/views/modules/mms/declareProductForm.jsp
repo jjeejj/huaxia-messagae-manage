@@ -184,12 +184,12 @@
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label">其他说明：</label>
-			<div class="controls">
-				<form:input path="otherDescription" htmlEscape="false" maxlength="64" class="input-xlarge "/>
-			</div>
-		</div>
+		<%--<div class="control-group">--%>
+			<%--<label class="control-label">其他说明：</label>--%>
+			<%--<div class="controls">--%>
+				<%--<form:input path="otherDescription" htmlEscape="false" maxlength="64" class="input-xlarge "/>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="control-group">
 			<label class="control-label">颜色性状：</label>
 			<div class="controls">
@@ -233,14 +233,14 @@
 				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			<%--</div>--%>
 		<%--</div>--%>
+		<%--<div class="control-group">--%>
+			<%--<label class="control-label">备注信息：</label>--%>
+			<%--<div class="controls">--%>
+				<%--<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="control-group">
-			<label class="control-label">备注信息：</label>
-			<div class="controls">
-				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">状态备注：</label>
+			<label class="control-label">其他说明：</label>
 			<div class="controls">
 				<form:input path="statusRemarks" htmlEscape="false" maxlength="255" class="input-xlarge "/>
 			</div>

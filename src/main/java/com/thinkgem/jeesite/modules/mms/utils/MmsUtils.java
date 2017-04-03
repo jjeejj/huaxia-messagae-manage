@@ -37,4 +37,8 @@ public class MmsUtils {
         DecimalFormat df = new DecimalFormat(STR_FORMAT);
         return df.format(intSerialNumber);
     }
+
+    /**
+     * 查到总产品，进行翻页
+     */
 }

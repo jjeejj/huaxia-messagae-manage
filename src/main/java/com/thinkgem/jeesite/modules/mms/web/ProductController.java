@@ -14,6 +14,7 @@ import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
 import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
 import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
 import com.thinkgem.jeesite.modules.mms.service.MarketProductService;
+import com.thinkgem.jeesite.modules.mms.vo.ProductStatusVo;
 import com.thinkgem.jeesite.modules.mms.vo.ProductVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -215,6 +216,56 @@ public class ProductController extends BaseController {
 		}
 
 		return productVo;
+	}
+
+	/**
+	 * 根据 产品负责人进行分组,统计每个状态的数量
+	 * @param productStatusVo
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "selectByProductLeader")
+	public String selectByProductLeader(ProductStatusVo productStatusVo, HttpServletRequest request, HttpServletResponse response,
+										Model model, RedirectAttributes redirectAttributes) {
+
+		Page<ProductStatusVo> page = productService.findPageSelectByProductLeader(new Page<ProductStatusVo>(request, response), productStatusVo);
+//		List<ProductStatusVo> productStatusVoList = productService.selectByProductLeader(productStatusVo);
+//		model.addAttribute("productStatusVoList", productStatusVoList);
+		model.addAttribute("page", page);
+		return "modules/mms/producStatustList";
+	}
+
+	/**
+	 * 导出 产品负责人进行分组,统计每个状态的数量 的数据
+	 * @param productStatusVo
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "selectByProductLeader/export")
+	public String selectByProductLeaderExport(ProductStatusVo productStatusVo, HttpServletRequest request, HttpServletResponse response,
+										Model model, RedirectAttributes redirectAttributes) {
+
+		try {
+			String fileName = "产品负责人统计数据" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
+
+			List<ProductStatusVo>  productStatusVoList = productService.selectByProductLeader(productStatusVo);
+
+			List<ProductStatusVo> productVoList = new ArrayList<ProductStatusVo>();
+
+			new ExportExcel("产品负责人统计数据", ProductStatusVo.class).setDataList(productStatusVoList).write(response, fileName).dispose();
+			return null;
+		} catch (Exception e) {
+			addMessage(redirectAttributes, "导出产品负责人统计数据！失败信息：" + e.getMessage());
+			logger.info("导出产品负责人统计数据！失败信息：" + e.getMessage());
+		}
+		return "redirect:"+Global.getAdminPath()+"/mms/product/selectByProductLeader/?repage";
+
 	}
 
 }

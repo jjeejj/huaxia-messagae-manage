@@ -68,8 +68,8 @@ public class MarketProductController extends BaseController {
 	
 	@RequiresPermissions("mms:marketProduct:view")
 	@RequestMapping(value = {"list", ""})
-	public String list(MarketProduct marketProduct, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<MarketProduct> page = marketProductService.findPage(new Page<MarketProduct>(request, response), marketProduct); 
+	public String list(Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<Product> page = productService.findPage(new Page<Product>(request, response), product);
 		model.addAttribute("page", page);
 		return "modules/mms/marketProductList";
 	}
@@ -96,7 +96,7 @@ public class MarketProductController extends BaseController {
 		marketProductService.save(marketProduct);
 
 		//新建的产品，关联到产品汇总信息 中
-		Product product = productService.getByMarketProductId(marketProduct.getId());
+		Product product = productService.getByMarketProductId(marketProduct.getId()); //产品信息
 		Product	productSave = new Product();
 		if(product == null){ //新建产品，第一次保存
 
@@ -142,6 +142,12 @@ public class MarketProductController extends BaseController {
 			marketProduct.setProductNumber(productNumber+marketProduct.getProductNumber());
 			marketProductService.save(marketProduct);
 
+		}
+
+		//更新产品负责人---保存代汇总产品表中
+		if(StringUtils.isNoneEmpty(marketProduct.getProjectLeader())){
+			product.setProductLeader(marketProduct.getProductLeader());
+			productService.save(product);
 		}
 
 		addMessage(redirectAttributes, "保存市场产品成功");

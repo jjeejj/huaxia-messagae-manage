@@ -6,6 +6,9 @@ package com.thinkgem.jeesite.modules.mms.dao;
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.mms.entity.Product;
+import com.thinkgem.jeesite.modules.mms.vo.ProductStatusVo;
+
+import java.util.List;
 
 /**
  * 产品DAO接口
@@ -35,4 +38,10 @@ public interface ProductDao extends CrudDao<Product> {
      * @return
      */
     Product getByDeclareProductId(String declareProductId);
+
+    /**
+     * 根据 产品负责人进行分组,统计每个状态的数量
+     * @return
+     */
+    List<ProductStatusVo> selectByProductLeader (ProductStatusVo productStatusVo);
 }

@@ -11,6 +11,8 @@ import com.thinkgem.jeesite.modules.mms.entity.DeclareProduct;
 import com.thinkgem.jeesite.modules.mms.entity.Product;
 import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
 import com.thinkgem.jeesite.modules.mms.service.ProductService;
+import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,8 +58,9 @@ public class DeclareProductController extends BaseController {
 	
 	@RequiresPermissions("mms:declareProduct:view")
 	@RequestMapping(value = {"list", ""})
-	public String list(DeclareProduct declareProduct, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<DeclareProduct> page = declareProductService.findPage(new Page<DeclareProduct>(request, response), declareProduct); 
+	public String list(Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
+//		Page<DeclareProduct> page = declareProductService.findPage(new Page<DeclareProduct>(request, response), declareProduct);
+		Page<Product> page = productService.findPage(new Page<Product>(request, response), product);
 		model.addAttribute("page", page);
 		return "modules/mms/declareProductList";
 	}
@@ -76,6 +79,9 @@ public class DeclareProductController extends BaseController {
 			return form(declareProduct, model);
 		}
 
+		//获取当前登录用户.处理人ID
+		User user  = UserUtils.getUser();
+		declareProduct.setProductHandlePersonId(user.getId());
 		//查找对应的产品汇总及记录
 		Product product = productService.getByDeclareProductId(declareProduct.getId());
 		if(product != null){
@@ -122,6 +128,22 @@ public class DeclareProductController extends BaseController {
 				}
 			}
 			productService.save(product);
+
+			//送检总数的处理
+			String administrativeLicenseInspectionNumber = declareProduct.getAdministrativeLicenseInspectionNumber();//行政许可送检数量
+			if(StringUtils.isEmpty(administrativeLicenseInspectionNumber)){
+				administrativeLicenseInspectionNumber = "0";
+			}
+			String sendBodyNumber = declareProduct.getSendBodyNumber();//人体检验数量
+			if(StringUtils.isEmpty(sendBodyNumber)){
+				sendBodyNumber = "0";
+			}
+			String sendRiskTestNumber = declareProduct.getSendRiskTestNumber();//风险检验数量
+			if(StringUtils.isEmpty(sendRiskTestNumber)){
+				sendRiskTestNumber = "0";
+			}
+			declareProduct.setTotalSubmission(String.valueOf(Integer.valueOf(administrativeLicenseInspectionNumber) + Integer.valueOf(sendBodyNumber)
+												+ Integer.valueOf(sendRiskTestNumber)));//送检总数
 
 			declareProductService.save(declareProduct);
 			addMessage(redirectAttributes, "保存申报产品成功");

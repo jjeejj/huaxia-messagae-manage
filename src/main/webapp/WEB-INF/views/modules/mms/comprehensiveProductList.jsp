@@ -28,18 +28,18 @@
 			<%--<shiro:hasPermission name="mms:comprehensiveProduct:edit"><li><a href="${ctx}/mms/comprehensiveProduct/form">综合产品添加</a></li></shiro:hasPermission>--%>
 		<%--</c:if>--%>
 	</ul>
-	<form:form id="searchForm" modelAttribute="comprehensiveProduct" action="${ctx}/mms/comprehensiveProduct/" method="post" class="breadcrumb form-search">
+	<form:form id="searchForm" modelAttribute="product" action="${ctx}/mms/comprehensiveProduct/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
 			<li><label>行政许可检验受理编号：</label>
-				<form:input path="administrativeLicenseInspectionNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
+				<form:input path="comprehensiveProduct.administrativeLicenseInspectionNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
 			<li><label>人体检验受理编号：</label>
-				<form:input path="humanTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
+				<form:input path="comprehensiveProduct.humanTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
 			<li><label>风险检验受理编号：</label>
-				<form:input path="riskTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
+				<form:input path="comprehensiveProduct.riskTestAcceptanceNumber" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -49,41 +49,164 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
+				<th>产品编号</th>
+				<th>英文名称</th>
+				<th>中文名称</th>
+				<th>原产国</th>
+				<th>类别</th>
+				<th>工作事项</th>
+				<th>产品负责人</th>
+				<th>项目负责人</th>
+				<th>申请企业</th>
+				<th>立项时间</th>
+				<th>合同编号</th>
+				<th>来款单位</th>
 				<th>来款时间</th>
 				<th>来样时间</th>
 				<th>样品数量</th>
-				<th>行政许可检验取报告时间</th>
-				<th>更新时间</th>
-				<th>备注信息</th>
+				<th>生产日期或批号</th>
+				<th>保质期或限期使用日期</th>
+				<th>保质期</th>
+				<th>送检总数</th>
+				<th>行政许可送检时间</th>
+				<th>行政许可检验机构</th>
+				<th>行政许可检验受理编号</th>
+				<th>行政许可检验项目</th>
+				<th>行政许可送检数量</th>
+				<th>行政许可报告到达时间</th>
+				<th>人体检验送检时间</th>
+				<th>人体检验机构</th>
+				<th>人体检验受理编号</th>
+				<th>人体检验项目</th>
+				<th>人体送检数量</th>
+				<th>人体报告到达时间</th>
+				<th>风险检验送检时间</th>
+				<th>风险检验机构</th>
+				<th>风险检验受理编号</th>
+				<th>风险检验项目</th>
+				<th>风险送检数量</th>
+				<th>风险报告到达时间</th>
 				<shiro:hasPermission name="mms:comprehensiveProduct:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${page.list}" var="comprehensiveProduct">
+		<c:forEach items="${page.list}" var="product">
 			<tr>
 				<td>
-					<fmt:formatDate value="${comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<a href="${ctx}/mms/comprehensiveProduct/form?id=${product.comprehensiveProductId}"
+						${product.marketProduct.productNumber}
+					</a>
 				</td>
 				<td>
-					<fmt:formatDate value="${comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						${product.marketProduct.englishName}
 				</td>
 				<td>
-					${comprehensiveProduct.sampleQuantity}
+						${product.marketProduct.chineseName}
 				</td>
 				<td>
-					<fmt:formatDate value="${comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						${product.marketProduct.countryOfOrigin}
 				</td>
 				<td>
-					<fmt:formatDate value="${comprehensiveProduct.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						${fns:getDictLabel(product.marketProduct.productType, 'product_type', '')}
 				</td>
 				<td>
-					${comprehensiveProduct.remarks}
+						${product.marketProduct.workMatters}
+				</td>
+				<td>
+						${product.marketProduct.productLeader}
+				</td>
+				<td>
+						${product.marketProduct.projectLeader}
+				</td>
+				<td>
+						${product.marketProduct.enterpriseApplication}
+				</td>
+				<td>
+					<fmt:formatDate value="${product.marketProduct.projectTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${product.marketProduct.contractNumber}
+				</td>
+				<td>
+						${product.marketProduct.arrivalCompany}
+				</td>
+				<td>
+					<fmt:formatDate value="${product.comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					<fmt:formatDate value="${product.comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					${product.comprehensiveProduct.sampleQuantity}
+				</td>
+				<td>
+						${product.declareProduct.sampleMarking}
+				</td>
+				<td>
+						${product.declareProduct.dateOfExpiry}
+				</td>
+				<td>
+						${product.declareProduct.technologyDateOfExpiry}
+				</td>
+				<td>
+						${product.declareProduct.totalSubmission}
+				</td>
+				<td>
+					<fmt:formatDate value="${product.declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${product.declareProduct.administrativeLicenseInspectionOrganization}
+				</td>
+				<td>
+						${product.comprehensiveProduct.administrativeLicenseInspectionNumber}
+				</td>
+				<td>
+						${product.declareProduct.administrativeLicenseInspectionProject}
+				</td>
+				<td>
+						${product.declareProduct.administrativeLicenseInspectionNumber}
+				</td>
+				<td>
+					<fmt:formatDate value="${product.comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					<fmt:formatDate value="${product.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${product.declareProduct.sendBodyOrganization}
+				</td>
+				<td>
+						${product.comprehensiveProduct.humanTestAcceptanceNumber}
+				</td>
+				<td>
+						${product.declareProduct.sendBodyProject}
+				</td>
+				<td>
+						${product.declareProduct.sendBodyNumber}
+				</td>
+				<td>
+					<fmt:formatDate value="${product.comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					<fmt:formatDate value="${product.declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+						${product.declareProduct.sendRiskTestOrganization}
+				</td>
+				<td>
+						${product.comprehensiveProduct.riskTestAcceptanceNumber}
+				</td>
+				<td>
+						${product.declareProduct.sendRiskTestProject}
+				</td>
+				<td>
+						${product.declareProduct.sendRiskTestNumber}
+				</td>
+				<td>
+					<fmt:formatDate value="${product.comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<shiro:hasPermission name="mms:comprehensiveProduct:edit"><td>
-    				<a href="${ctx}/mms/comprehensiveProduct/form?id=${comprehensiveProduct.id}">修改</a>
-					<%--<c:if test="${fns:isAdmin()}">--%>
-						<%--<a href="${ctx}/mms/comprehensiveProduct/delete?id=${comprehensiveProduct.id}" onclick="return confirmx('确认要删除该综合产品吗？', this.href)">删除</a>--%>
-					<%--</c:if>--%>
+    				<a href="${ctx}/mms/comprehensiveProduct/form?id=${product.comprehensiveProductId}">修改</a>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

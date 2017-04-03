@@ -20,6 +20,7 @@ public class Product extends DataEntity<Product> {
 	private String declareProductId;		// 申报产品id
 	private String productStatus;		// 产品状态
 	private String productProcess;		// 产品进度
+	private String productLeader;		// 产品负责人
 
 	private MarketProduct marketProduct; //市场产品
 	private ComprehensiveProduct comprehensiveProduct; //综合产品
@@ -98,5 +99,13 @@ public class Product extends DataEntity<Product> {
 
 	public void setProductProcess(String productProcess) {
 		this.productProcess = productProcess;
+	}
+
+	public String getProductLeader() {
+		return productLeader;
+	}
+
+	public void setProductLeader(String productLeader) {
+		this.productLeader = productLeader;
 	}
 }

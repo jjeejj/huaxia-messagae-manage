@@ -15,6 +15,7 @@ import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
 import com.thinkgem.jeesite.modules.mms.service.ProductService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,8 +67,9 @@ public class ComprehensiveProductController extends BaseController {
 	
 	@RequiresPermissions("mms:comprehensiveProduct:view")
 	@RequestMapping(value = {"list", ""})
-	public String list(ComprehensiveProduct comprehensiveProduct, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<ComprehensiveProduct> page = comprehensiveProductService.findPage(new Page<ComprehensiveProduct>(request, response), comprehensiveProduct); 
+	public String list(Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
+//		Page<ComprehensiveProduct> page = comprehensiveProductService.findPage(new Page<ComprehensiveProduct>(request, response), comprehensiveProduct);
+		Page<Product> page = productService.findPage(new Page<Product>(request, response), product);
 		model.addAttribute("page", page);
 		return "modules/mms/comprehensiveProductList";
 	}
@@ -87,7 +89,9 @@ public class ComprehensiveProductController extends BaseController {
 		if (!beanValidator(model, comprehensiveProduct)){
 			return form(comprehensiveProduct, model);
 		}
-
+		//获取当前登录用户.处理人ID
+		User user  = UserUtils.getUser();
+		comprehensiveProduct.setProductHandlePersonId(user.getId());
 		//根据来样时间判断产品状态，因为这个状态是中间的状态，所有要进行和现在的产品状态进行对比
 
 		/**

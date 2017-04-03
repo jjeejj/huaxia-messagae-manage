@@ -8,6 +8,7 @@
 		a.comprehensive_product_id AS "comprehensiveProductId",
 		a.declare_product_id AS "declareProductId",
 		a.product_status AS "productStatus",
+		a.product_leader AS "productLeader",
 		a.product_process AS "productProcess",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
@@ -18,9 +19,64 @@
 		mp.product_number AS "marketProduct.productNumber",
 		mp.english_name AS "marketProduct.englishName",
 		mp.chinese_name AS "marketProduct.chineseName",
+		mp.country_of_origin AS "marketProduct.countryOfOrigin",
 		mp.product_type AS "marketProduct.productType",
 		mp.work_matters AS "marketProduct.workMatters",
-		mp.product_leader AS "marketProduct.productLeader"
+		mp.product_leader AS "marketProduct.productLeader",
+		mp.project_leader AS "marketProduct.projectLeader",
+		mp.enterprise_application AS "marketProduct.enterpriseApplication",
+		mp.enterprise_application_address AS "marketProduct.enterpriseApplicationAddress",
+		mp.enterprise_application_phone AS "marketProduct.enterpriseApplicationPhone",
+		mp.enterprise_application_contacts AS "marketProduct.enterpriseApplicationContacts",
+		mp.actual_production_enterprise AS "marketProduct.actualProductionEnterprise",
+		mp.actual_production_enterprise_address AS "marketProduct.actualProductionEnterpriseAddress",
+		mp.responsible_unit_in_china AS "marketProduct.responsibleUnitInChina",
+		mp.responsible_unit_in_china_address AS "marketProduct.responsibleUnitInChinaAddress",
+		mp.responsible_unit_in_china_phone AS "marketProduct.responsibleUnitInChinaPhone",
+		mp.responsible_unit_in_china_fax AS "marketProduct.responsibleUnitInChinaFax",
+		mp.responsible_unit_in_china_zip_code AS "marketProduct.responsibleUnitInChinaZipCode",
+		mp.project_time AS "marketProduct.projectTime",
+		mp.contract_number AS "marketProduct.contractNumber",
+		mp.contract_signing_time AS "marketProduct.contractSigningTime",
+		mp.arrival_company AS "marketProduct.arrivalCompany",
+		dp.total_submission AS "declareProduct.totalSubmission",
+		dp.administrative_license_inspection_time AS "declareProduct.administrativeLicenseInspectionTime",
+		dp.administrative_license_inspection_organization AS "declareProduct.administrativeLicenseInspectionOrganization",
+		dp.administrative_license_inspection_project AS "declareProduct.administrativeLicenseInspectionProject",
+		dp.administrative_license_inspection_number AS "declareProduct.administrativeLicenseInspectionNumber",
+		dp.send_body_time AS "declareProduct.sendBodyTime",
+		dp.send_body_organization AS "declareProduct.sendBodyOrganization",
+		dp.send_body_project AS "declareProduct.sendBodyProject",
+		dp.send_body_number AS "declareProduct.sendBodyNumber",
+		dp.send_risk_test_time AS "declareProduct.sendRiskTestTime",
+		dp.send_risk_test_organization AS "declareProduct.sendRiskTestOrganization",
+		dp.send_risk_test_project AS "declareProduct.sendRiskTestProject",
+		dp.send_risk_test_number AS "declareProduct.sendRiskTestNumber",
+		dp.report_time AS "declareProduct.reportTime",
+		dp.acceptance_time AS "declareProduct.acceptanceTime",
+		dp.acceptance_number AS "declareProduct.acceptanceNumber",
+		dp.document_time AS "declareProduct.documentTime",
+		dp.document_number AS "declareProduct.documentNumber",
+		dp.product_status_remark AS "declareProduct.productStatusRemark",
+		dp.next_opinion_time AS "declareProduct.nextOpinionTime",
+		dp.opinion_content AS "declareProduct.opinionContent",
+		dp.reply_opinion AS "declareProduct.replyOpinion",
+		dp.other_description AS "declareProduct.otherDescription",
+		dp.color_character AS "declareProduct.colorCharacter",
+		dp.sample_marking AS "declareProduct.sampleMarking",
+		dp.date_of_expiry AS "declareProduct.dateOfExpiry",
+		dp.technology_date_of_expiry AS "declareProduct.technologyDateOfExpiry",
+		dp.smell AS "declareProduct.smell",
+		dp.specifications AS "declareProduct.specifications",
+		cp.arrival_time AS "comprehensiveProduct.arrivalTime",
+		cp.sample_time AS "comprehensiveProduct.sampleTime",
+		cp.sample_quantity AS "comprehensiveProduct.sampleQuantity",
+		cp.administrative_license_inspection_number AS "comprehensiveProduct.administrativeLicenseInspectionNumber",
+		cp.administrative_license_inspection_report_time AS "comprehensiveProduct.administrativeLicenseInspectionReportTime",
+		cp.human_test_acceptance_number AS "comprehensiveProduct.humanTestAcceptanceNumber",
+		cp.human_test_acceptance_report_time AS "comprehensiveProduct.humanTestAcceptanceReportTime",
+		cp.risk_test_acceptance_number AS "comprehensiveProduct.riskTestAcceptanceNumber",
+		cp.risk_test_acceptance_report_time AS "comprehensiveProduct.riskTestAcceptanceReportTime"
 	</sql>
 	
 	<sql id="productJoins">
@@ -120,6 +176,7 @@
 			comprehensive_product_id,
 			declare_product_id,
 			product_status,
+			product_leader,
 			product_process,
 			create_by,
 			create_date,
@@ -133,6 +190,7 @@
 			#{comprehensiveProductId},
 			#{declareProductId},
 			#{productStatus},
+			#{productLeader},
 			#{productProcess},
 			#{createBy.id},
 			#{createDate},
@@ -149,6 +207,7 @@
 			comprehensive_product_id = #{comprehensiveProductId},
 			declare_product_id = #{declareProductId},
 			product_status = #{productStatus},
+			product_leader = #{productLeader},
 			product_process = #{productProcess},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
@@ -161,5 +220,46 @@
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
-	
+
+	<!--根据 产品负责人进行分组,统计每个状态的数量-->
+	<select id="selectByProductLeader" resultType="com.thinkgem.jeesite.modules.mms.vo.ProductStatusVo" parameterType="com.thinkgem.jeesite.modules.mms.vo.ProductStatusVo">
+		SELECT
+			a.product_leader AS productLeader,
+			SUM( CASE WHEN (
+				a.product_status = 1
+			) THEN 1 ELSE 0 END ) AS trialProductNumber,
+			SUM( CASE WHEN (
+				a.product_status = 2
+			) THEN 1 ELSE 0 END ) AS inspectionProductNumber,
+			SUM( CASE WHEN (
+				a.product_status = 3
+			) THEN 1 ELSE 0 END ) AS declareProductNumber,
+			SUM( CASE WHEN (
+				a.product_status = 4
+			) THEN 1 ELSE 0 END ) AS perfectInformationProductNumber,
+			SUM( CASE WHEN (
+				a.product_status = 5
+			) THEN 1 ELSE 0 END ) AS getApprovalProductNumber,
+
+			SUM( CASE WHEN (
+				a.product_status = 6
+			) THEN 1 ELSE 0 END ) AS notApprovedProductNumber,
+			SUM( CASE WHEN (
+				a.product_status = 7
+			) THEN 1 ELSE 0 END ) AS terminationDeclarationProductNumber
+		FROM mms_product a
+		WHERE
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="productLeader != null and productLeader != '' ">
+				AND a.product_leader = #{productLeader}
+			</if>
+			<if test="startDate != null and startDate != '' ">
+				AND DATE_FORMAT(a.create_date,'%Y-%m-%d') &gt;= #{startDate}
+			</if>
+			<if test="endDate != null and endDate != '' ">
+				AND DATE_FORMAT(a.create_date,'%Y-%m-%d') &lt;= #{endDate}
+			</if>
+		GROUP BY a.product_leader
+	</select>
+
 </mapper>

@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.mms.service;
 
 import java.util.List;
 
+import com.thinkgem.jeesite.modules.mms.vo.ProductStatusVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,6 +75,20 @@ public class ProductService extends CrudService<ProductDao, Product> {
 	 */
 	public Product getByDeclareProductId(String declareProductId) {
 		return productDao.getByDeclareProductId(declareProductId);
+	}
+
+	/**
+	 * 根据 产品负责人进行分组,统计每个状态的数量
+	 * @return
+	 */
+	public List<ProductStatusVo> selectByProductLeader(ProductStatusVo productStatusVo){
+		return productDao.selectByProductLeader(productStatusVo);
+	}
+
+	public Page<ProductStatusVo> findPageSelectByProductLeader(Page<ProductStatusVo> page, ProductStatusVo productStatusVo) {
+		productStatusVo.setPage(page);
+		page.setList(dao.selectByProductLeader(productStatusVo));
+		return page;
 	}
 	
 }
