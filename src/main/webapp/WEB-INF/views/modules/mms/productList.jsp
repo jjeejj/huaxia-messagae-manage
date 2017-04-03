@@ -93,15 +93,29 @@
 						${product.marketProduct.productLeader}
 				</td>
 				<td>
-					<progress value="${product.productProcess}" max="100"></progress>&nbsp;&nbsp;${product.productProcess}%
-
+					<progress value="${product.productProcess}" max="100"></progress>
+					<c:if test="${product.productStatus eq '7'}">
+						<font color="#dcdcdc">&nbsp;&nbsp;${product.productProcess}%</font>
+					</c:if>
+					<c:if test="${product.productStatus eq '6'}">
+						<font color="red">&nbsp;&nbsp;${product.productProcess}%</font>
+					</c:if>
+					<c:if test="${product.productStatus eq '5'}">
+						<font color="green">&nbsp;&nbsp;${product.productProcess}%</font>
+					</c:if>
+					<c:if test="${product.productStatus eq '4'}">
+						<font color="#ff8c00">&nbsp;&nbsp;${product.productProcess}%</font>
+					</c:if>
+					<c:if test="${product.productStatus eq '3' || product.productStatus eq '2' ||product.productStatus eq '1' }">
+						<font>&nbsp;&nbsp;${product.productProcess}%</font>
+					</c:if>
 				</td>
 				<td>
 						${fns:getDictLabels(product.productStatus, 'product_status', '')}
 				</td>
 
 				<td>
-						${fns:getDictLabels(product.productStatus, 'product_status', '')}
+						${product.dateLimitContent}
 				</td>
 			</tr>
 		</c:forEach>

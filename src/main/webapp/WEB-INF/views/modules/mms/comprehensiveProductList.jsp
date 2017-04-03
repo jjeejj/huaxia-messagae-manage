@@ -93,7 +93,7 @@
 		<c:forEach items="${page.list}" var="product">
 			<tr>
 				<td>
-					<a href="${ctx}/mms/comprehensiveProduct/form?id=${product.comprehensiveProductId}"
+					<a href="${ctx}/mms/comprehensiveProduct/form?id=${product.comprehensiveProductId}">
 						${product.marketProduct.productNumber}
 					</a>
 				</td>

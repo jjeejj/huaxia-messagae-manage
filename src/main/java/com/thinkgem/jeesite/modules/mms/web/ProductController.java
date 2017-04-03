@@ -37,6 +37,7 @@ import com.thinkgem.jeesite.modules.mms.entity.Product;
 import com.thinkgem.jeesite.modules.mms.service.ProductService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,9 +78,87 @@ public class ProductController extends BaseController {
 	@RequiresPermissions("mms:product:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<Product> page = productService.findPage(new Page<Product>(request, response), product); 
+		Page<Product> page = productService.findPage(new Page<Product>(request, response), product);
+
+		page.setList(handleDateLimitContent(page.getList()));
+
 		model.addAttribute("page", page);
 		return "modules/mms/productList";
+	}
+
+	/**
+	 * 处理办理时限的内容显示
+	 * 办理时限,显示内容	判定项
+	 	送检，剩7天	     来样时间选择后显示，倒计时			超过7天后变为红色叹号标记,行政许可送检时间有值时停止计时
+	 	申报，剩7天	     行政许可报告到达时间选择后显示，倒计时超过7天后变为红色叹号标记，如填写后续送人体检验时间则停止计算，填写人体报告到达时间重新计算7天,后续送风险检验时间停止计算
+	 	回复意见时间，剩15天	 下意见时间选择后显示，倒计时			超过15天后变为红色叹号标记
+	 * @param productList
+	 * @return
+	 */
+	private List<Product> handleDateLimitContent(List<Product> productList){
+
+		for (Product product : productList){
+			Date replyOpinion = product.getDeclareProduct().getReplyOpinion();//回复意见时间
+			Date nextOpinionTime = product.getDeclareProduct().getNextOpinionTime();//下意见时间
+
+			Date humanTestAcceptanceReportTime = product.getComprehensiveProduct().getHumanTestAcceptanceReportTime();//人体检验取报告时间
+			Date sendBodyTime = product.getDeclareProduct().getSendBodyTime();//人体检验送检时间
+			Date sendRiskTestTime = product.getDeclareProduct().getSendRiskTestTime();//风险检验时间
+			Date administrativeLicenseInspectionReportTime = product.getComprehensiveProduct().getAdministrativeLicenseInspectionReportTime();//行政许可检验取报告时间
+
+			Date administrativeLicenseInspectionTime = product.getDeclareProduct().getAdministrativeLicenseInspectionTime();//行政许可送检时间
+			Date sampleTime = product.getComprehensiveProduct().getSampleTime();//来样时间
+
+
+			double dateBetween = 0L; //时间间隔
+
+			//第一种情况
+			if(nextOpinionTime !=null && replyOpinion ==null){ //下意见时间 有，回复意见没有
+				 dateBetween = DateUtils.getDistanceOfTwoDate(nextOpinionTime,new Date());
+				if(dateBetween > 15){
+					product.setDateLimitContent("回复意见时间，剩15天 <font color='red'>!</font>");
+				}else{
+					product.setDateLimitContent("回复意见时间，剩"+(15 - dateBetween) +"天");
+				}
+
+				continue;
+			}
+			if(sendRiskTestTime == null){ //第二种情况
+				if(humanTestAcceptanceReportTime !=null){ //人体报告到达时间
+					 dateBetween = DateUtils.getDistanceOfTwoDate(humanTestAcceptanceReportTime,new Date());
+					if(dateBetween > 7){
+						product.setDateLimitContent("申报，剩7天 <font color='red'>!</font>");
+					}else{
+						product.setDateLimitContent("申报，剩"+(7 - dateBetween) +"天");
+					}
+
+					continue;
+				}else{
+					if(sendBodyTime ==null && administrativeLicenseInspectionReportTime !=null){
+
+						dateBetween = DateUtils.getDistanceOfTwoDate(administrativeLicenseInspectionReportTime,new Date());
+
+						if(dateBetween > 7){
+							product.setDateLimitContent("申报，剩7天 <font color='red'>!</font>");
+						}else{
+							product.setDateLimitContent("申报，剩"+(7 - dateBetween) +"天");
+						}
+						continue;
+					}
+				}
+			}
+
+			if(administrativeLicenseInspectionTime == null && sampleTime !=null){ //第3种情况
+				dateBetween = DateUtils.getDistanceOfTwoDate(sampleTime,new Date());
+				if(dateBetween > 7){
+					product.setDateLimitContent("送检，剩7天 <font color='red'>!</font>");
+				}else{
+					product.setDateLimitContent("送检，剩"+(7 - dateBetween) +"天");
+				}
+				continue;
+			}
+		}
+		return productList;
 	}
 
 	/**

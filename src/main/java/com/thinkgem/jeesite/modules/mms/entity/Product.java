@@ -30,6 +30,8 @@ public class Product extends DataEntity<Product> {
 	private String startDate;//开始日期
 	private String endDate; //结束日期
 
+	private String dateLimitContent;//办理时限说明
+
 	public Product() {
 		super();
 	}
@@ -128,5 +130,13 @@ public class Product extends DataEntity<Product> {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getDateLimitContent() {
+		return dateLimitContent;
+	}
+
+	public void setDateLimitContent(String dateLimitContent) {
+		this.dateLimitContent = dateLimitContent;
 	}
 }
