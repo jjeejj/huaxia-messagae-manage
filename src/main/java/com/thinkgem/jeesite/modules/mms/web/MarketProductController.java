@@ -145,7 +145,7 @@ public class MarketProductController extends BaseController {
 		}
 
 		//更新产品负责人---保存代汇总产品表中
-		if(StringUtils.isNoneEmpty(marketProduct.getProjectLeader())){
+		if(StringUtils.isNoneEmpty(marketProduct.getProductLeader())){
 			product.setProductLeader(marketProduct.getProductLeader());
 			productService.save(product);
 		}

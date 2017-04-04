@@ -171,7 +171,24 @@ public class ProductController extends BaseController {
 	 */
 	@RequestMapping(value = "productInformation")
 	public String productInformation(Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String isFirst = request.getParameter("isFirst"); //判断是不是首次进来
 		Page<Product> page = productService.findPage(new Page<Product>(request, response), product);
+
+		if(StringUtils.isNoneEmpty(isFirst) && isFirst.equals("1")){ //首次进入，需要赋默认显示项
+			product.setFirst(false);
+			product.setIsShowProductNumber("1");
+			product.setIsShowChineseName("1");
+			product.setIsShowEnglishName("1");
+			product.setIsShowProductLeader("1");
+			product.setIsShowEnterpriseApplication("1");
+			product.setIsShowActualProductionEnterprise("1");
+			product.setIsShowProjectTime("1");
+			product.setIsShowContractNumber("1");
+			product.setIsShowArrivalCompany("1");
+			product.setIsShowArrivalTime("1");
+			product.setIsShowReportTime("1");
+		}
 		model.addAttribute("page", page);
 		return "modules/mms/productInformationList";
 	}
