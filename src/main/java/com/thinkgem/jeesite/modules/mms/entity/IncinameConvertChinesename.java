@@ -3,6 +3,7 @@
  */
 package com.thinkgem.jeesite.modules.mms.entity;
 
+import com.thinkgem.jeesite.common.utils.excel.annotation.ExcelField;
 import org.hibernate.validator.constraints.Length;
 
 import com.thinkgem.jeesite.common.persistence.DataEntity;
@@ -27,7 +28,8 @@ public class IncinameConvertChinesename extends DataEntity<IncinameConvertChines
 		super(id);
 	}
 
-	@Length(min=1, max=100, message="标准中文名称长度必须介于 1 和 100 之间")
+	@Length(min=0, max=200, message="标准中文名称长度必须介于 1 和 200 之间")
+	@ExcelField(title = "标准中文名称",sort = 20)
 	public String getStandardChineseName() {
 		return standardChineseName;
 	}
@@ -36,7 +38,8 @@ public class IncinameConvertChinesename extends DataEntity<IncinameConvertChines
 		this.standardChineseName = standardChineseName;
 	}
 	
-	@Length(min=0, max=100, message="INCI名长度必须介于 0 和 100 之间")
+	@Length(min=0, max=200, message="INCI名长度必须介于 0 和 200 之间")
+	@ExcelField(title = "INCI名",sort = 10)
 	public String getInciName() {
 		return inciName;
 	}
@@ -45,7 +48,8 @@ public class IncinameConvertChinesename extends DataEntity<IncinameConvertChines
 		this.inciName = inciName;
 	}
 	
-	@Length(min=0, max=64, message="CAS号长度必须介于 0 和 64 之间")
+	@Length(min=0, max=200, message="CAS号长度必须介于 0 和 200 之间")
+	@ExcelField(title = "CAS号",sort = 30)
 	public String getCasNumber() {
 		return casNumber;
 	}

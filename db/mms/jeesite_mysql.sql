@@ -6,9 +6,9 @@ DROP TABLE IF EXISTS mms_inciname_convert_chinesename;
 CREATE TABLE mms_inciname_convert_chinesename
 (
   id varchar(64) NOT NULL COMMENT '编号',
-  standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
-	inci_name varchar(100) COMMENT 'INCI名',
-	cas_number varchar(64) COMMENT 'CAS号',
+  standard_chinese_name varchar(200) NOT NULL COMMENT '标准中文名称',
+	inci_name varchar(200) COMMENT 'INCI名',
+	cas_number varchar(200) COMMENT 'CAS号',
 	create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
