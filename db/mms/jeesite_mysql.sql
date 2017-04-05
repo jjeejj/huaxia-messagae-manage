@@ -149,6 +149,26 @@ CREATE TABLE mms_raw_material_list
 	PRIMARY KEY (id)
 ) COMMENT = '已使用原料目录';
 
+-- 原料使用数据库，即对配方的给个原料进行统计分析，包括该原料的使用实际成分含量的最大值和最小值，使用目的和风向物质
+DROP TABLE IF EXISTS mms_material_used_database;
+CREATE TABLE mms_material_used_database
+(
+	id varchar(64) NOT NULL COMMENT '编号',
+	sequence varchar(64) NOT NULL COMMENT '序号',
+	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称(即原料名称)',
+	min_actual_component_content varchar(32) COMMENT '最小实际成份含量（%）',
+	max_actual_component_content varchar(32) COMMENT '最大实际成份含量（%）',
+  purposes_of_use text COMMENT '所有使用目的',
+  risk_materials text COMMENT '所有风险物质'
+  create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '原料使用数据库';
+
 /* 产品汇总信息 */
 DROP TABLE IF EXISTS mms_product;
 CREATE TABLE mms_product
