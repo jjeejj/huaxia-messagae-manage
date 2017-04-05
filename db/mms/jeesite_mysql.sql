@@ -1,6 +1,23 @@
 SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Create Tables */
+-- inci 名与标准中文名相互转换
+DROP TABLE IF EXISTS mms_inciname_convert_chinesename;
+CREATE TABLE mms_inciname_convert_chinesename
+(
+  id varchar(64) NOT NULL COMMENT '编号',
+  standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
+	inci_name varchar(100) COMMENT 'INCI名',
+	cas_number varchar(64) COMMENT 'CAS号',
+	create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = 'inci名与标准中文名相互转换';
+
 /* 该只是查询看没有业务逻辑 */
 DROP TABLE IF EXISTS mms_risk_material_assessment;
 CREATE TABLE mms_risk_material_assessment
