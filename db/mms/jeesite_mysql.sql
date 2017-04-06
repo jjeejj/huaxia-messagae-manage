@@ -159,7 +159,7 @@ CREATE TABLE mms_material_used_database
 	min_actual_component_content varchar(32) COMMENT '最小实际成份含量（%）',
 	max_actual_component_content varchar(32) COMMENT '最大实际成份含量（%）',
   purposes_of_use text COMMENT '所有使用目的',
-  risk_materials text COMMENT '所有风险物质'
+  risk_materials text COMMENT '所有风险物质',
   create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',

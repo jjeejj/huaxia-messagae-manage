@@ -933,7 +933,7 @@
 									onerror="continue" encoding="${project.build.sourceEncoding}">
 									<classpath refid="maven.test.classpath" />
 									<transaction src="db/sys/jeesite_${jdbc.type}.sql"/>
-									<transaction src="db/cms/jeesite_${jdbc.type}.sql"/>
+									<!--<transaction src="db/cms/jeesite_${jdbc.type}.sql"/>-->
 									<transaction src="db/mms/jeesite_${jdbc.type}.sql"/>
 									<transaction src="db/gen/jeesite_${jdbc.type}.sql"/>
 								</sql>
@@ -953,7 +953,7 @@
 									</dbconfig>
 									<classpath refid="maven.test.classpath" />
 									<operation type="INSERT" src="db/sys/jeesite_data.xls" format="xls" transaction="true"/>
-									<operation type="INSERT" src="db/cms/jeesite_data.xls" format="xls" transaction="true"/>
+									<!--<operation type="INSERT" src="db/cms/jeesite_data.xls" format="xls" transaction="true"/>-->
 									<operation type="INSERT" src="db/mms/jeesite_data.xls" format="xls" transaction="true"/>
 								</dbunit>
 								

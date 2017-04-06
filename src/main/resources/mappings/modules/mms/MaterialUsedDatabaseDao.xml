@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.MaterialUsedDatabaseDao">
+    
+	<sql id="materialUsedDatabaseColumns">
+		a.id AS "id",
+		a.sequence AS "sequence",
+		a.standard_chinese_name AS "standardChineseName",
+		a.min_actual_component_content AS "minActualComponentContent",
+		a.max_actual_component_content AS "maxActualComponentContent",
+		a.purposes_of_use AS "purposesOfUse",
+		a.risk_materials AS "riskMaterials",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="materialUsedDatabaseJoins">
+	</sql>
+    
+	<select id="get" resultType="MaterialUsedDatabase">
+		SELECT 
+			<include refid="materialUsedDatabaseColumns"/>
+		FROM mms_material_used_database a
+		<include refid="materialUsedDatabaseJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MaterialUsedDatabase">
+		SELECT 
+			<include refid="materialUsedDatabaseColumns"/>
+		FROM mms_material_used_database a
+		<include refid="materialUsedDatabaseJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="standardChineseName != null and standardChineseName != ''">
+				AND a.standard_chinese_name = #{standardChineseName}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MaterialUsedDatabase">
+		SELECT 
+			<include refid="materialUsedDatabaseColumns"/>
+		FROM mms_material_used_database a
+		<include refid="materialUsedDatabaseJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_material_used_database(
+			id,
+			sequence,
+			standard_chinese_name,
+			min_actual_component_content,
+			max_actual_component_content,
+			purposes_of_use,
+			risk_materials,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sequence},
+			#{standardChineseName},
+			#{minActualComponentContent},
+			#{maxActualComponentContent},
+			#{purposesOfUse},
+			#{riskMaterials},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_material_used_database SET 	
+			sequence = #{sequence},
+			standard_chinese_name = #{standardChineseName},
+			min_actual_component_content = #{minActualComponentContent},
+			max_actual_component_content = #{maxActualComponentContent},
+			purposes_of_use = #{purposesOfUse},
+			risk_materials = #{riskMaterials},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_material_used_database SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
