@@ -65,6 +65,9 @@ public class FormulaController extends BaseController {
 	@Autowired
 	private NameToRiskMaterialService nameToRiskMaterialService;
 
+	@Autowired
+	private MaterialUsedDatabaseService materialUsedDatabaseService;
+
 
 	@ModelAttribute
 	public Formula get(@RequestParam(required=false) String id) {
@@ -436,6 +439,25 @@ public class FormulaController extends BaseController {
 			}
 		}
 		return riskMaterial;
+	}
+
+	/**
+	 * 配方导入 ，重新统计原料使用数据库
+	 * 之前的时间进行逻辑删除
+	 *
+	 */
+	private void handleMaterialUsedDatabase(){
+		//删除之前的统计信息，逻辑删除
+		List<MaterialUsedDatabase> materialUsedDatabaseList =  materialUsedDatabaseService.findList(new MaterialUsedDatabase());
+
+		for (MaterialUsedDatabase materialUsedDatabase :materialUsedDatabaseList){
+			materialUsedDatabaseService.delete(materialUsedDatabase);
+		}
+		//统计新的数据
+		List<MaterialUsedDatabase> materialUsedDatabases = formulaDetailsService.selectGroupStandardChineseName();
+		for (MaterialUsedDatabase materialUsedDatabase : materialUsedDatabases){
+			materialUsedDatabaseService.save(materialUsedDatabase);
+		}
 	}
 
 }

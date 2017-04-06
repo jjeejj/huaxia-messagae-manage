@@ -42,26 +42,20 @@
 		<thead>
 			<tr>
 				<th>标准中文名称(即原料名称)</th>
-				<th>最小实际成份含量（%）</th>
-				<th>最大实际成份含量（%）</th>
+				<th>实际成份含量（%）</th>
 				<th>所有使用目的</th>
 				<th>所有风险物质</th>
-				<th>更新时间</th>
-				<th>备注信息</th>
-				<shiro:hasPermission name="mms:materialUsedDatabase:edit"><th>操作</th></shiro:hasPermission>
+				<%--<shiro:hasPermission name="mms:materialUsedDatabase:edit"><th>操作</th></shiro:hasPermission>--%>
 			</tr>
 		</thead>
 		<tbody>
 		<c:forEach items="${page.list}" var="materialUsedDatabase">
 			<tr>
-				<td><a href="${ctx}/mms/materialUsedDatabase/form?id=${materialUsedDatabase.id}">
-					${materialUsedDatabase.standardChineseName}
-				</a></td>
 				<td>
-					${materialUsedDatabase.minActualComponentContent}
+					${materialUsedDatabase.standardChineseName}
 				</td>
 				<td>
-					${materialUsedDatabase.maxActualComponentContent}
+					${materialUsedDatabase.minActualComponentContent}%-${materialUsedDatabase.maxActualComponentContent}%
 				</td>
 				<td>
 					${materialUsedDatabase.purposesOfUse}
@@ -69,16 +63,10 @@
 				<td>
 					${materialUsedDatabase.riskMaterials}
 				</td>
-				<td>
-					<fmt:formatDate value="${materialUsedDatabase.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-				</td>
-				<td>
-					${materialUsedDatabase.remarks}
-				</td>
-				<shiro:hasPermission name="mms:materialUsedDatabase:edit"><td>
-    				<a href="${ctx}/mms/materialUsedDatabase/form?id=${materialUsedDatabase.id}">修改</a>
-					<a href="${ctx}/mms/materialUsedDatabase/delete?id=${materialUsedDatabase.id}" onclick="return confirmx('确认要删除该原料使用数据库吗？', this.href)">删除</a>
-				</td></shiro:hasPermission>
+				<%--<shiro:hasPermission name="mms:materialUsedDatabase:edit"><td>--%>
+    				<%--<a href="${ctx}/mms/materialUsedDatabase/form?id=${materialUsedDatabase.id}">修改</a>--%>
+					<%--<a href="${ctx}/mms/materialUsedDatabase/delete?id=${materialUsedDatabase.id}" onclick="return confirmx('确认要删除该原料使用数据库吗？', this.href)">删除</a>--%>
+				<%--</td></shiro:hasPermission>--%>
 			</tr>
 		</c:forEach>
 		</tbody>

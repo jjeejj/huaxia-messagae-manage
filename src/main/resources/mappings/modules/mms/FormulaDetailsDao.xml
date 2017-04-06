@@ -165,5 +165,17 @@
 		where a.formula_id = #{formulaId}
 		ORDER BY a.sequence
 	</select>
+
+	<!--根据标准中文名称进行分组，获取 原料的使用实际成分含量的最大值和最小值，使用目的和风险物质-->
+	<select id="selectGroupStandardChineseName" resultType="com.thinkgem.jeesite.modules.mms.entity.MaterialUsedDatabase">
+		SELECT
+			a.standard_chinese_name AS standardChineseName,
+			min(a.actual_component_content) AS minActualComponentContent,
+			max(a.actual_component_content) AS maxActualComponentContent,
+			GROUP_CONCAT(a.purpose_of_use) AS purposesOfUse,
+			GROUP_CONCAT(a.risk_material) AS riskMaterials
+		FROM mms_formula_details a
+		GROUP BY a.standard_chinese_name
+	</select>
 	
 </mapper>

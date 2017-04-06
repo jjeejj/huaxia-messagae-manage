@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.mms.service;
 
 import java.util.List;
 
+import com.thinkgem.jeesite.modules.mms.entity.MaterialUsedDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,5 +56,15 @@ public class FormulaDetailsService extends CrudService<FormulaDetailsDao, Formul
 	 */
 	public List<FormulaDetails> selectAllByFormulaId(String formulaId){
 		return formulaDetailsDao.selectAllByFormulaId(formulaId);
+	}
+
+	/**
+	 * 根据标准中文名称进行分组，
+	 * 获取 原料的使用实际成分含量的最大值和最小值
+	 * 使用目的和风险物质
+	 * @return
+	 */
+	public List<MaterialUsedDatabase> selectGroupStandardChineseName(){
+		return formulaDetailsDao.selectGroupStandardChineseName();
 	}
 }

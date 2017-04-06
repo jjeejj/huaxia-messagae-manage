@@ -6,6 +6,7 @@ package com.thinkgem.jeesite.modules.mms.dao;
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.mms.entity.FormulaDetails;
+import com.thinkgem.jeesite.modules.mms.entity.MaterialUsedDatabase;
 
 import java.util.List;
 
@@ -23,4 +24,11 @@ public interface FormulaDetailsDao extends CrudDao<FormulaDetails> {
      * @return List<FormulaDetails>
      */
     List<FormulaDetails> selectAllByFormulaId(String formulaId);
+
+    /**
+     * 根据标准中文名称进行分组，
+     * 获取 原料的使用实际成分含量的最大值和最小值，
+     * 使用目的和风险物质
+     */
+    List<MaterialUsedDatabase> selectGroupStandardChineseName();
 }

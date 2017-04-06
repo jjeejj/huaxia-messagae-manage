@@ -154,7 +154,7 @@ DROP TABLE IF EXISTS mms_material_used_database;
 CREATE TABLE mms_material_used_database
 (
 	id varchar(64) NOT NULL COMMENT '编号',
-	sequence varchar(64) NOT NULL COMMENT '序号',
+	sequence varchar(64) NOT NULL AUTO_INCREMENT COMMENT '序号',
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称(即原料名称)',
 	min_actual_component_content varchar(32) COMMENT '最小实际成份含量（%）',
 	max_actual_component_content varchar(32) COMMENT '最大实际成份含量（%）',
