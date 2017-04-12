@@ -11,6 +11,7 @@ public class ExportFormulaVo extends DataEntity {
 
     private String formulaName; //配方名称
     private String formulaSequence; //配方序号
+    private String productNumber;		// 产品编号
     private String formulaDetailsSequence; //配方详情序号
     private String formulaDetailsStandardChineseName; //配方详情标准中文名称
     private String formulaDetailsInicName; //配方详情INCI名
@@ -19,7 +20,7 @@ public class ExportFormulaVo extends DataEntity {
     private String formulaDetailsPurposeOfUse; //配方详情使用目的
     private String formulaRemarks; //配方备注信息
 
-    @ExcelField(title = "配方名称",sort = 20)
+    @ExcelField(title = "配方名称",sort = 100)
     public String getFormulaName() {
         return formulaName;
     }
@@ -28,7 +29,7 @@ public class ExportFormulaVo extends DataEntity {
         this.formulaName = formulaName;
     }
 
-    @ExcelField(title = "配方序号",sort = 10)
+    @ExcelField(title = "配方序号",sort = 110)
     public String getFormulaSequence() {
         return formulaSequence;
     }
@@ -97,5 +98,14 @@ public class ExportFormulaVo extends DataEntity {
 
     public void setFormulaRemarks(String formulaRemarks) {
         this.formulaRemarks = formulaRemarks;
+    }
+
+    @ExcelField(title = "产品编号",sort = 120)
+    public String getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(String productNumber) {
+        this.productNumber = productNumber;
     }
 }

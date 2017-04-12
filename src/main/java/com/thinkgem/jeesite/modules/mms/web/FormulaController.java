@@ -68,6 +68,9 @@ public class FormulaController extends BaseController {
 	@Autowired
 	private MaterialUsedDatabaseService materialUsedDatabaseService;
 
+	@Autowired
+	private IncinameConvertChinesenameService incinameConvertChinesenameService;
+
 
 	@ModelAttribute
 	public Formula get(@RequestParam(required=false) String id) {
@@ -290,6 +293,7 @@ public class FormulaController extends BaseController {
 			try {
 				List<ExportFormulaVo> exportFormulaVoList = ei.getDataList(ExportFormulaVo.class);
 				String standardChineseName = StringUtils.EMPTY; //标准中文名
+				String inicName = StringUtils.EMPTY; //inci名称
 				String riskMaterial = StringUtils.EMPTY; //风险物质
 				String rawMaterialContent = StringUtils.EMPTY; //原料含量（%）
 				float rawMaterialContentTotal = 0L; //总原料含量（%）
@@ -319,7 +323,31 @@ public class FormulaController extends BaseController {
 					//配方详情
 					FormulaDetails formulaDetails = new FormulaDetails();
 
+					//第一步，标准中文名 与 inci名称 相互转换，如果有一项没有值的情况下
+
 					standardChineseName = exportFormulaVo.getFormulaDetailsStandardChineseName();
+					inicName = exportFormulaVo.getFormulaDetailsInicName();
+
+					IncinameConvertChinesename incinameConvertChinesename = new IncinameConvertChinesename();
+					List<IncinameConvertChinesename> incinameConvertChinesenameList = new ArrayList<IncinameConvertChinesename>();
+
+					//标准中文名有，inci名称没有，去查找对应的数据.  标准中文名 ------> inci名
+					if(StringUtils.isNoneEmpty(standardChineseName) && StringUtils.isEmpty(inicName)){
+						incinameConvertChinesename.setStandardChineseName(standardChineseName);
+						incinameConvertChinesenameList = incinameConvertChinesenameService.findList(incinameConvertChinesename);
+						if(incinameConvertChinesenameList !=null && incinameConvertChinesenameList.size() > 0){
+							inicName = incinameConvertChinesenameList.get(0).getInciName();
+						}
+					}
+					//标准中文名没有，inci名称有，去查找对应的数据.  标准中文名 <------ inci名
+					if(StringUtils.isNoneEmpty(inicName) && StringUtils.isEmpty(standardChineseName)){
+						incinameConvertChinesename.setInciName(inicName);
+						incinameConvertChinesenameList = incinameConvertChinesenameService.findList(incinameConvertChinesename);
+						if(incinameConvertChinesenameList !=null && incinameConvertChinesenameList.size() > 0){
+							standardChineseName = incinameConvertChinesenameList.get(0).getStandardChineseName();
+						}
+					}
+
 					riskMaterial = this.nameToRiskMaterial(standardChineseName); //对应的风险物质
 					formulaDetails.setStandardChineseName(standardChineseName);
 					formulaDetails.setInicName(exportFormulaVo.getFormulaDetailsInicName());

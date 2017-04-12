@@ -286,6 +286,7 @@
 				<c:if test="${product.isShowOtherDescription eq '1'}">
 				<th>其他说明</th>
 				</c:if>
+				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -596,6 +597,11 @@
 							${productData.declareProduct.otherDescription}
 					</td>
 				</c:if>
+				<td>
+					<a href="${ctx}/mms/formula/formulaDetailById/${productData.marketProduct.productNumber}">
+							查看配方
+					</a>
+				</td>
 			</tr>
 		</c:forEach>
 		</tbody>

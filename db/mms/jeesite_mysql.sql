@@ -41,6 +41,7 @@ DROP TABLE IF EXISTS mms_formula;
 CREATE TABLE mms_formula
 (
 	id varchar(64) NOT NULL COMMENT '编号',
+	product_number varchar(64) COMMENT '归属产品编号',
 	sequence varchar(64) NOT NULL COMMENT '序号',
 	formula_name varchar(255) NOT NULL COMMENT '配方名称',
 	raw_material_content_total varchar(64) COMMENT '总原料含量（%）',
@@ -154,7 +155,7 @@ DROP TABLE IF EXISTS mms_material_used_database;
 CREATE TABLE mms_material_used_database
 (
 	id varchar(64) NOT NULL COMMENT '编号',
-	sequence varchar(64) NOT NULL AUTO_INCREMENT COMMENT '序号',
+-- 	sequence varchar(64) NOT NULL AUTO_INCREMENT COMMENT '序号',
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称(即原料名称)',
 	min_actual_component_content varchar(32) COMMENT '最小实际成份含量（%）',
 	max_actual_component_content varchar(32) COMMENT '最大实际成份含量（%）',

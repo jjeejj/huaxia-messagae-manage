@@ -16,7 +16,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 public class MaterialUsedDatabase extends DataEntity<MaterialUsedDatabase> {
 	
 	private static final long serialVersionUID = 1L;
-	private String sequence;		// 序号
+//	private String sequence;		// 序号
 	private String standardChineseName;		// 标准中文名称(即原料名称)
 	private String minActualComponentContent;		// 最小实际成份含量（%）
 	private String maxActualComponentContent;		// 最大实际成份含量（%）
@@ -31,14 +31,14 @@ public class MaterialUsedDatabase extends DataEntity<MaterialUsedDatabase> {
 		super(id);
 	}
 
-	@Length(min=1, max=64, message="序号长度必须介于 1 和 64 之间")
-	public String getSequence() {
-		return sequence;
-	}
-
-	public void setSequence(String sequence) {
-		this.sequence = sequence;
-	}
+//	@Length(min=1, max=64, message="序号长度必须介于 1 和 64 之间")
+//	public String getSequence() {
+//		return sequence;
+//	}
+//
+//	public void setSequence(String sequence) {
+//		this.sequence = sequence;
+//	}
 	
 	@Length(min=1, max=100, message="标准中文名称(即原料名称)长度必须介于 1 和 100 之间")
 	public String getStandardChineseName() {

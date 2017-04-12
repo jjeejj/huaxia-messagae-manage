@@ -4,6 +4,7 @@
     
 	<sql id="formulaColumns">
 		a.id AS "id",
+		a.product_number AS "productNumber",
 		a.sequence AS "sequence",
 		a.formula_name AS "formulaName",
 		a.raw_material_content_total AS "rawMaterialContentTotal",
@@ -72,6 +73,7 @@
 	<insert id="insert">
 		INSERT INTO mms_formula(
 			id,
+			product_number,
 			sequence,
 			formula_name,
 			raw_material_content_total,
@@ -84,6 +86,7 @@
 			del_flag
 		) VALUES (
 			#{id},
+			#{productNumber},
 			#{sequence},
 			#{formulaName},
 			#{rawMaterialContentTotal},
@@ -99,6 +102,7 @@
 	
 	<update id="update">
 		UPDATE mms_formula SET 	
+			product_number = #{productNumber},
 			sequence = #{sequence},
 			formula_name = #{formulaName},
 			raw_material_content_total = #{rawMaterialContentTotal},

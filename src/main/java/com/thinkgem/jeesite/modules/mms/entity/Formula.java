@@ -16,6 +16,7 @@ public class Formula extends DataEntity<Formula> {
 	
 	private static final long serialVersionUID = 1L;
 	private String sequence;		// 序号
+	private String productNumber;		// 归属产品编号
 	private String formulaName;		// 配方名称
 	private String rawMaterialContentTotal;		// 总原料含量（%）
 	private String actualComponentContentTotal;		// 总实际成份含量（%）
@@ -63,5 +64,12 @@ public class Formula extends DataEntity<Formula> {
 	public void setActualComponentContentTotal(String actualComponentContentTotal) {
 		this.actualComponentContentTotal = actualComponentContentTotal;
 	}
-	
+
+	public String getProductNumber() {
+		return productNumber;
+	}
+
+	public void setProductNumber(String productNumber) {
+		this.productNumber = productNumber;
+	}
 }
