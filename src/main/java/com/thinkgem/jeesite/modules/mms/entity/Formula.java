@@ -29,7 +29,7 @@ public class Formula extends DataEntity<Formula> {
 		super(id);
 	}
 
-	@Length(min=1, max=64, message="序号长度必须介于 1 和 64 之间")
+	@Length(min=0, max=64, message="序号长度必须介于 1 和 64 之间")
 	public String getSequence() {
 		return sequence;
 	}
@@ -38,7 +38,7 @@ public class Formula extends DataEntity<Formula> {
 		this.sequence = sequence;
 	}
 	
-	@Length(min=1, max=255, message="配方名称长度必须介于 1 和 255 之间")
+	@Length(min=0, max=255, message="配方名称长度必须介于 1 和 255 之间")
 	public String getFormulaName() {
 		return formulaName;
 	}

@@ -42,8 +42,8 @@ CREATE TABLE mms_formula
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	product_number varchar(64) COMMENT '归属产品编号',
-	sequence varchar(64) NOT NULL COMMENT '序号',
-	formula_name varchar(255) NOT NULL COMMENT '配方名称',
+	sequence varchar(64)  COMMENT '序号',
+	formula_name varchar(255) COMMENT '配方名称',
 	raw_material_content_total varchar(64) COMMENT '总原料含量（%）',
 	actual_component_content_total varchar(64) COMMENT '总实际成份含量（%）',
 	create_by varchar(64) COMMENT '创建者',

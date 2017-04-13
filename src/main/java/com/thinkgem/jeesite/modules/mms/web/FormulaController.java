@@ -310,15 +310,19 @@ public class FormulaController extends BaseController {
 				for(int i = 0; i<exportFormulaVoList.size();i++ ){
 					ExportFormulaVo exportFormulaVo = exportFormulaVoList.get(i);
 					//配方信息保存
-					if(exportFormulaVo.getFormulaName() !=null && !exportFormulaVo.getFormulaName().equals("")){ //配方名称
+					if(StringUtils.isNoneEmpty(exportFormulaVo.getFormulaName())){ //配方名称
 						formula.setFormulaName(exportFormulaVo.getFormulaName());
 					}
-					if(exportFormulaVo.getFormulaSequence() !=null && !exportFormulaVo.getFormulaSequence().equals("")){
+					if(StringUtils.isNoneEmpty(exportFormulaVo.getFormulaSequence())){ //配方序号
 						formula.setSequence(exportFormulaVo.getFormulaSequence());
-					} //配方序号
-					if(exportFormulaVo.getRemarks() !=null && !exportFormulaVo.getRemarks().equals("")){
-						formula.setRemarks(exportFormulaVo.getRemarks());
-					} //配方备注
+					}
+					//产品编号
+					if(StringUtils.isNoneEmpty(exportFormulaVo.getProductNumber())){
+						formula.setProductNumber(exportFormulaVo.getProductNumber());
+					}
+//					if(exportFormulaVo.getRemarks() !=null && !exportFormulaVo.getRemarks().equals("")){
+//						formula.setRemarks(exportFormulaVo.getRemarks());
+//					} //配方备注
 
 					//配方详情
 					FormulaDetails formulaDetails = new FormulaDetails();
@@ -347,14 +351,16 @@ public class FormulaController extends BaseController {
 							standardChineseName = incinameConvertChinesenameList.get(0).getStandardChineseName();
 						}
 					}
-
-					riskMaterial = this.nameToRiskMaterial(standardChineseName); //对应的风险物质
+					//有标准中文名称，才进行风险物质的匹配
+					if(StringUtils.isNoneEmpty(standardChineseName)){
+						riskMaterial = this.nameToRiskMaterial(standardChineseName); //对应的风险物质
+					}
 					formulaDetails.setStandardChineseName(standardChineseName);
-					formulaDetails.setInicName(exportFormulaVo.getFormulaDetailsInicName());
+					formulaDetails.setInicName(inicName);
 					formulaDetails.setRiskMaterial(riskMaterial);
-					rawMaterialContent =exportFormulaVo.getFormulaDetailsRawMaterialContent(); //原料含量（%）,某一项可能没有向上找
-					rawMaterialContentTotal += (rawMaterialContent == null || rawMaterialContent.equals(""))? 0L : Float.parseFloat(rawMaterialContent);//总原料含量
-					if(rawMaterialContent == null || rawMaterialContent.equals("")){
+					rawMaterialContent =exportFormulaVo.getFormulaDetailsRawMaterialContent(); //原料含量（%）,某一项可能没有向上找,由于单元格合并的
+					rawMaterialContentTotal += (rawMaterialContent == null || rawMaterialContent.equals(""))? 0L : Float.parseFloat(rawMaterialContent);//总原料含量,需要相加在以一起的
+					if(StringUtils.isEmpty(rawMaterialContent)){ //某一项可能没有向上找,由于单元格合并的
 						for(int j = i -1; j>=0;j--){
 							boolean isRawMaterialContentok = false;
 							ExportFormulaVo exportFormulaVoRawMaterialContent = exportFormulaVoList.get(j);
@@ -378,10 +384,10 @@ public class FormulaController extends BaseController {
 
 					//使用目的
 					purposeOfUse = exportFormulaVo.getFormulaDetailsPurposeOfUse();
-					if(purposeOfUse == null || purposeOfUse.equals("")){
+					if(StringUtils.isEmpty(purposeOfUse)){
 						for(int j = i -1; j>=0;j--){
 							ExportFormulaVo exportFormulaVoPurposeOfUse = exportFormulaVoList.get(j);
-							if(exportFormulaVoPurposeOfUse.getFormulaDetailsPurposeOfUse()!=null && !exportFormulaVoPurposeOfUse.getFormulaDetailsPurposeOfUse().equals("")){
+							if(StringUtils.isNoneEmpty(exportFormulaVoPurposeOfUse.getFormulaDetailsPurposeOfUse())){
 								purposeOfUse = exportFormulaVoPurposeOfUse.getFormulaDetailsPurposeOfUse();
 								break;
 							}
@@ -389,12 +395,12 @@ public class FormulaController extends BaseController {
 					}
 					formulaDetails.setPurposeOfUse(purposeOfUse);
 					//配方详情的每一个序号
-					sequence = exportFormulaVo.getFormulaSequence();
-					if(sequence == null || sequence.equals("")){
+					sequence = exportFormulaVo.getFormulaDetailsSequence();
+					if(StringUtils.isEmpty(sequence)){
 						for(int j = i -1; j>=0;j--){
 							ExportFormulaVo exportFormulaVoSequence = exportFormulaVoList.get(j);
-							if(exportFormulaVoSequence.getFormulaSequence()!=null && !exportFormulaVoSequence.getFormulaSequence().equals("")){
-								sequence = exportFormulaVoSequence.getFormulaSequence();
+							if(StringUtils.isNoneEmpty(exportFormulaVoSequence.getFormulaDetailsSequence())){
+								sequence = exportFormulaVoSequence.getFormulaDetailsSequence();
 								break;
 							}
 						}
@@ -424,6 +430,8 @@ public class FormulaController extends BaseController {
 			e.printStackTrace();
 		}
 		addMessage(redirectAttributes, "导入配方信息成功");
+		//更新原料使用数据库，的数据信息
+		this.handleMaterialUsedDatabase();
 		return "redirect:" + Global.getAdminPath() + "/mms/formula/?repage";
 	}
 
