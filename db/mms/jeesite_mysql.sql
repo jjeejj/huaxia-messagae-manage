@@ -238,7 +238,7 @@ CREATE TABLE mms_market_product
 	project_time datetime  COMMENT '立项时间',
 	contract_number varchar(64)  COMMENT '合同编号',
 	contract_signing_time datetime  COMMENT '合同签订时间',
-	arrival_company datetime  COMMENT '来款单位',
+	arrival_company varchar(64) COMMENT '来款单位',
 	product_handle_person_id varchar(64) NOT NULL COMMENT '产品处理人id',
 	create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
