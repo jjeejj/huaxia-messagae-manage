@@ -43,8 +43,8 @@
 			<tr>
 				<th>标准中文名称(即原料名称)</th>
 				<th>实际成份含量（%）</th>
-				<th>所有使用目的</th>
-				<th>所有风险物质</th>
+				<th>使用目的</th>
+				<th>风险物质</th>
 				<%--<shiro:hasPermission name="mms:materialUsedDatabase:edit"><th>操作</th></shiro:hasPermission>--%>
 			</tr>
 		</thead>
