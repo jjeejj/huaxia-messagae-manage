@@ -17,12 +17,34 @@
                 }, {buttonsFocus: 1});
                 top.$('.jbox-body .jbox-icon').css('top', '55px');
             });
+
 		});
 		function page(n,s){
 			$("#pageNo").val(n);
 			$("#pageSize").val(s);
 			$("#searchForm").submit();
         	return false;
+        }
+
+
+        /**
+         * 配方详情
+         * @param formulaId 配方id
+         */
+        function formulaDetailByProductNumber(productNumber){
+            console.log("productNumber = " + productNumber);
+            top.$.jBox.open("iframe:${ctx}/mms/formula/formulaDetailByproductNumber/?productNumber=" + productNumber, "该配方详细信息列表" , 910, $(top.document).height() - 140,{
+                buttons:{/**"确定充值":"ok"*/ "关闭":true}, bottomText:"", submit:function(v, h, f) {
+//					if (v=="ok"){
+//						// 执行保存
+//						loading('正在提交，请稍等...');
+//						$('#searchForm').submit();
+//					}
+                }, loaded:function(h){
+                    $(".jbox-content", top.document).css("overflow-y","hidden");
+
+                }
+            });
         }
 	</script>
 </head>
@@ -598,7 +620,7 @@
 					</td>
 				</c:if>
 				<td>
-					<a href="${ctx}/mms/formula/formulaDetailById/${productData.marketProduct.productNumber}">
+					<a href="#" onclick="formulaDetailByProductNumber('${productData.marketProduct.productNumber}');">
 							查看配方
 					</a>
 				</td>

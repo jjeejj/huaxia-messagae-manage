@@ -145,6 +145,37 @@ public class FormulaController extends BaseController {
 		return "modules/mms/formulaDetailsListByFormulaId";
 	}
 
+	/**
+	 * 根据导入的配方产品编号 找到具体的配方信息
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "formulaDetailByproductNumber")
+	public String formulaDetailByproductNumber(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+		String productNumber = request.getParameter("productNumber");//配方产品编号
+
+		List<FormulaDetails> formulaDetailsList = new ArrayList<FormulaDetails>();//配方信息
+		if(StringUtils.isNoneEmpty(productNumber)){
+
+			Formula formula = new Formula();
+			//查询配方id
+			formula.setProductNumber(productNumber);
+
+			List<Formula> formulaList = formulaService.findList(formula);
+			if(formulaList !=null && formulaList.size() > 0){
+				String formulaId = formulaList.get(0).getId();
+				//查询
+				formulaDetailsList = formulaDetailsService.selectAllByFormulaId(formulaId);
+			}
+		}
+
+		model.addAttribute("formulaDetailsList", formulaDetailsList);
+		return "modules/mms/formulaDetailsListByFormulaId";
+	}
+
 
 	/**
 	 * 筛选功能

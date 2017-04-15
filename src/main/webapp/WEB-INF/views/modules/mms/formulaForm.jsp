@@ -32,19 +32,26 @@
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="formula" action="${ctx}/mms/formula/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
-		<sys:message content="${message}"/>		
+		<sys:message content="${message}"/>
+		<div class="control-group">
+			<label class="control-label">产品编号：</label>
+			<div class="controls">
+				<form:input path="productNumber" htmlEscape="false" maxlength="64" class="input-xlarge"/>
+			</div>
+		</div>
 		<div class="control-group">
 			<label class="control-label">序号：</label>
 			<div class="controls">
-				<form:input path="sequence" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="sequence" htmlEscape="false" maxlength="64" class="input-xlarge"/>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">配方名称：</label>
 			<div class="controls">
-				<form:input path="formulaName" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="formulaName" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+			</div>
 			</div>
 		</div>
 		<div class="control-group">

@@ -41,6 +41,9 @@
 			<if test="formulaName != null and formulaName != ''">
 				AND a.formula_name = #{formulaName}
 			</if>
+			<if test="productNumber != null and productNumber != ''">
+				AND a.product_number = #{productNumber}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
