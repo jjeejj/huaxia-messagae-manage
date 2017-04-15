@@ -63,8 +63,8 @@
 				<th>主要来源</th>
 				<th>安全阈值</th>
 				<th>评估依据</th>
-				<th>更新时间</th>
 				<th>备注信息</th>
+				<th>更新时间</th>
 				<shiro:hasPermission name="mms:riskMaterialAssessment:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -87,10 +87,10 @@
 					${riskMaterialAssessment.evaluationBasis}
 				</td>
 				<td>
-					<fmt:formatDate value="${riskMaterialAssessment.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						${riskMaterialAssessment.remarks}
 				</td>
 				<td>
-					${riskMaterialAssessment.remarks}
+					<fmt:formatDate value="${riskMaterialAssessment.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<shiro:hasPermission name="mms:riskMaterialAssessment:edit"><td>
     				<a href="${ctx}/mms/riskMaterialAssessment/form?id=${riskMaterialAssessment.id}">修改</a>
