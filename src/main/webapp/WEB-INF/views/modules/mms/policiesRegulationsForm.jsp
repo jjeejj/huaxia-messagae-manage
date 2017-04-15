@@ -65,8 +65,8 @@
 		<div class="control-group">
 			<label class="control-label">文号：</label>
 			<div class="controls">
-				<form:input path="documentNumber" htmlEscape="false" maxlength="32" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="documentNumber" htmlEscape="false" maxlength="32" class="input-xlarge"/>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
 			</div>
 		</div>
 		<div class="control-group">

@@ -72,7 +72,7 @@
 	<insert id="insert">
 		INSERT INTO mms_inciname_convert_chinesename(
 			id,
-			a.sequence,
+			sequence,
 			standard_chinese_name,
 			inci_name,
 			cas_number,
@@ -99,7 +99,7 @@
 	
 	<update id="update">
 		UPDATE mms_inciname_convert_chinesename SET
-			a.sequence AS "sequence",
+			sequence = #{sequence},
 			standard_chinese_name = #{standardChineseName},
 			inci_name = #{inciName},
 			cas_number = #{casNumber},

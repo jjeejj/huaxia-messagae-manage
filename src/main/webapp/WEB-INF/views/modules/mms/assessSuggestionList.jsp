@@ -43,8 +43,8 @@
 				<th>意见类别</th>
 				<th>主要内容</th>
 				<th>出具日期</th>
-				<th>更新时间</th>
 				<th>备注信息</th>
+				<th>更新时间</th>
 				<shiro:hasPermission name="mms:assessSuggestion:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -61,13 +61,13 @@
 					${assessSuggestion.mainContent}
 				</td>
 				<td>
-					<fmt:formatDate value="${assessSuggestion.issuanceDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${assessSuggestion.issuanceDate}" pattern="yyyy-MM-dd"/>
+				</td>
+				<td>
+						${assessSuggestion.remarks}
 				</td>
 				<td>
 					<fmt:formatDate value="${assessSuggestion.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-				</td>
-				<td>
-					${assessSuggestion.remarks}
 				</td>
 				<shiro:hasPermission name="mms:assessSuggestion:edit"><td>
     				<a href="${ctx}/mms/assessSuggestion/form?id=${assessSuggestion.id}">修改</a>
