@@ -59,6 +59,7 @@
 		<thead>
 			<tr>
 				<th>标准中文名称</th>
+				<th>序号</th>
 				<th>INCI名</th>
 				<th>更新时间</th>
 				<th>备注信息</th>
@@ -69,8 +70,11 @@
 		<c:forEach items="${page.list}" var="incinameConvertChinesename">
 			<tr>
 				<td><a href="${ctx}/mms/incinameConvertChinesename/form?id=${incinameConvertChinesename.id}">
-					${incinameConvertChinesename.standardChineseName}
+						${incinameConvertChinesename.sequence}
 				</a></td>
+				<td>
+					${incinameConvertChinesename.standardChineseName}
+				</td>
 				<td>
 					${incinameConvertChinesename.inciName}
 				</td>

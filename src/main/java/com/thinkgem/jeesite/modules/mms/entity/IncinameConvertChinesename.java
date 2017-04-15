@@ -16,6 +16,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 public class IncinameConvertChinesename extends DataEntity<IncinameConvertChinesename> {
 	
 	private static final long serialVersionUID = 1L;
+	private String sequence;		// 序号
 	private String standardChineseName;		// 标准中文名称
 	private String inciName;		// INCI名
 	private String casNumber;		// CAS号
@@ -57,5 +58,13 @@ public class IncinameConvertChinesename extends DataEntity<IncinameConvertChines
 	public void setCasNumber(String casNumber) {
 		this.casNumber = casNumber;
 	}
-	
+
+	@ExcelField(title = "序号",sort = 5)
+	public String getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(String sequence) {
+		this.sequence = sequence;
+	}
 }

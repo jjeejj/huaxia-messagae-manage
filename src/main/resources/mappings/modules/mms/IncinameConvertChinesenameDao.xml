@@ -4,6 +4,7 @@
     
 	<sql id="incinameConvertChinesenameColumns">
 		a.id AS "id",
+		a.sequence AS "sequence",
 		a.standard_chinese_name AS "standardChineseName",
 		a.inci_name AS "inciName",
 		a.cas_number AS "casNumber",
@@ -71,6 +72,7 @@
 	<insert id="insert">
 		INSERT INTO mms_inciname_convert_chinesename(
 			id,
+			a.sequence,
 			standard_chinese_name,
 			inci_name,
 			cas_number,
@@ -82,6 +84,7 @@
 			del_flag
 		) VALUES (
 			#{id},
+			#{sequence},
 			#{standardChineseName},
 			#{inciName},
 			#{casNumber},
@@ -95,7 +98,8 @@
 	</insert>
 	
 	<update id="update">
-		UPDATE mms_inciname_convert_chinesename SET 	
+		UPDATE mms_inciname_convert_chinesename SET
+			a.sequence AS "sequence",
 			standard_chinese_name = #{standardChineseName},
 			inci_name = #{inciName},
 			cas_number = #{casNumber},
