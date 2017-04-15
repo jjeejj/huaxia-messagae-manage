@@ -180,9 +180,7 @@
 		<div class="control-group">
 			<label class="control-label">来款单位：</label>
 			<div class="controls">
-				<input name="arrivalCompany" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					value="<fmt:formatDate value="${marketProduct.arrivalCompany}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+				<form:input path="arrivalCompany" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="form-actions">
