@@ -4,6 +4,11 @@
 <head>
 	<title>产品管理</title>
 	<meta name="decorator" content="default"/>
+	<style>
+		.form-search .ul-form li label{
+			width:120px;
+		}
+	</style>
 	<script type="text/javascript">
 		$(document).ready(function() {
             $("#btnExport").click(function () {
@@ -34,6 +39,21 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
+			<li><label>中文名称：</label>
+				<form:input path="marketProduct.chineseName" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>申请企业：</label>
+				<form:input path="marketProduct.enterpriseApplication" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>行政许可检验机构：</label>
+				<form:input path="declareProduct.administrativeLicenseInspectionOrganization" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>人体检验机构：</label>
+				<form:input path="declareProduct.sendBodyOrganization" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
+			<li><label>风险检验机构：</label>
+				<form:input path="declareProduct.sendRiskTestOrganization" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
 			<li><label>时间范围：</label> <input id="startDate" name="startDate"
 											type="text" readonly="readonly" maxlength="20"
 											class="input-mini Wdate"

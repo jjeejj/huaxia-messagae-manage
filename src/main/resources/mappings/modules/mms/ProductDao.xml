@@ -130,7 +130,7 @@
 		<include refid="productJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			<if test="marketProduct != null and marketProduct.productNumber != '' and  marketProduct.productNumber != ''">
+			<if test="marketProduct != null and marketProduct.productNumber != null and  marketProduct.productNumber != ''">
 				AND mp.product_number = #{marketProduct.productNumber}
 			</if>
 			<if test="marketProduct != null and  marketProduct.chineseName != null and  marketProduct.chineseName != ''">
@@ -139,6 +139,20 @@
 			<if test="marketProduct != null and marketProduct.englishName != null and marketProduct.englishName != ''">
 				AND mp.english_name = #{marketProduct.englishName}
 			</if>
+			<if test="marketProduct != null and marketProduct.enterpriseApplication != null and marketProduct.enterpriseApplication != ''">
+				AND mp.enterprise_application = #{marketProduct.enterpriseApplication}
+			</if>
+
+			<if test="declareProduct != null and declareProduct.administrativeLicenseInspectionOrganization != null and declareProduct.administrativeLicenseInspectionOrganization != ''">
+				AND dp.administrative_license_inspection_organization = #{declareProduct.administrativeLicenseInspectionOrganization}
+			</if>
+			<if test="declareProduct != null and declareProduct.sendBodyOrganization != null and declareProduct.sendBodyOrganization != ''">
+				AND dp.send_body_organization = #{declareProduct.sendBodyOrganization}
+			</if>
+			<if test="declareProduct != null and declareProduct.sendRiskTestOrganization != null and declareProduct.sendRiskTestOrganization != ''">
+				AND dp.send_risk_test_organization = #{declareProduct.sendRiskTestOrganization}
+			</if>
+
 			<if test="productStatus != null and productStatus != ''">
 				AND a.product_status = #{productStatus}
 			</if>
