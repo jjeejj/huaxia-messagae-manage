@@ -87,6 +87,7 @@ public class FormulaController extends BaseController {
 	@RequiresPermissions("mms:formula:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(Formula formula, HttpServletRequest request, HttpServletResponse response, Model model) {
+		//根据产品编号，查找对应的产品信息
 		Page<Formula> page = formulaService.findPage(new Page<Formula>(request, response), formula); 
 		model.addAttribute("page", page);
 		return "modules/mms/formulaList";
@@ -119,11 +120,13 @@ public class FormulaController extends BaseController {
 
 		List<FormulaDetails> formulaDetailsList  =formulaDetailsService.selectAllByFormulaId(formulaId);
 		if(formulaDetailsList !=null && formulaDetailsList.size() > 0){
-			addMessage(redirectAttributes, "该配方有详细信息,不可以删除");
-		}else{
-			formulaService.delete(formula);
-			addMessage(redirectAttributes, "删除配方信息成功");
+			//现在让删除
+			for(FormulaDetails formulaDetails : formulaDetailsList){
+				formulaDetailsService.delete(formulaDetails);
+			}
 		}
+		formulaService.delete(formula);
+		addMessage(redirectAttributes, "删除配方信息成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/formula/?repage";
 	}
 
@@ -344,9 +347,10 @@ public class FormulaController extends BaseController {
 					if(StringUtils.isNoneEmpty(exportFormulaVo.getFormulaName())){ //配方名称
 						formula.setFormulaName(exportFormulaVo.getFormulaName());
 					}
-					if(StringUtils.isNoneEmpty(exportFormulaVo.getFormulaSequence())){ //配方序号
-						formula.setSequence(exportFormulaVo.getFormulaSequence());
-					}
+
+//					if(StringUtils.isNoneEmpty(exportFormulaVo.getFormulaSequence())){ //配方序号
+//						formula.setSequence(exportFormulaVo.getFormulaSequence());
+//					}
 					//产品编号
 					if(StringUtils.isNoneEmpty(exportFormulaVo.getProductNumber())){
 						formula.setProductNumber(exportFormulaVo.getProductNumber());
@@ -426,6 +430,7 @@ public class FormulaController extends BaseController {
 					}
 					formulaDetails.setPurposeOfUse(purposeOfUse);
 					//配方详情的每一个序号
+					//只显示第一个序号
 					sequence = exportFormulaVo.getFormulaDetailsSequence();
 					if(StringUtils.isEmpty(sequence)){
 						for(int j = i -1; j>=0;j--){

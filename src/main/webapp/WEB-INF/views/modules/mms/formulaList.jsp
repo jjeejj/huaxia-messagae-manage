@@ -63,7 +63,7 @@
 	</div>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/mms/formula/">配方信息列表</a></li>
-		<shiro:hasPermission name="mms:formula:edit"><li><a href="${ctx}/mms/formula/form">配方信息添加</a></li></shiro:hasPermission>
+		<%--<shiro:hasPermission name="mms:formula:edit"><li><a href="${ctx}/mms/formula/form">配方信息添加</a></li></shiro:hasPermission>--%>
 	</ul>
 	<form:form id="searchForm" modelAttribute="formula" action="${ctx}/mms/formula/" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
@@ -84,10 +84,9 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>序号</th>
-				<th>配方名称</th>
-				<th>总原料含量（%）</th>
-				<th>总实际成份含量（%）</th>
+				<th>产品编号</th>
+				<th>产品中文名称</th>
+				<th>产品英文名称</th>
 				<th>更新时间</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:formula:edit"><th>操作</th></shiro:hasPermission>
@@ -97,16 +96,13 @@
 		<c:forEach items="${page.list}" var="formula">
 			<tr>
 				<td>
-					${formula.sequence}
+					${formula.marketProduct.productNumber}
 				</td>
 				<td>
-						${formula.formulaName}
+						${formula.marketProduct.chineseName}
 				</td>
 				<td>
-					${formula.rawMaterialContentTotal}
-				</td>
-				<td>
-					${formula.actualComponentContentTotal}
+						${formula.marketProduct.englishName}
 				</td>
 				<td>
 					<fmt:formatDate value="${formula.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
@@ -116,7 +112,7 @@
 				</td>
 				<shiro:hasPermission name="mms:formula:edit"><td>
 					<a href="#" id="membersIdDetail" onclick="formulaDetailById('${formula.id}');">详情</a>
-    				<a href="${ctx}/mms/formula/form?id=${formula.id}">修改</a>
+    				<%--<a href="${ctx}/mms/formula/form?id=${formula.id}">修改</a>--%>
 					<a href="${ctx}/mms/formula/delete?id=${formula.id}" onclick="return confirmx('确认要删除该配方信息吗？', this.href)">删除</a>
 					<%--<a href="${ctx}/mms/formula/filter?id=${formula.id}" onclick="startFilter(${formula.id})">筛选</a>--%>
 					<a href="${ctx}/mms/formula/filter?id=${formula.id}" >筛选</a>
