@@ -115,7 +115,7 @@
     				<%--<a href="${ctx}/mms/formula/form?id=${formula.id}">修改</a>--%>
 					<a href="${ctx}/mms/formula/delete?id=${formula.id}" onclick="return confirmx('确认要删除该配方信息吗？', this.href)">删除</a>
 					<%--<a href="${ctx}/mms/formula/filter?id=${formula.id}" onclick="startFilter(${formula.id})">筛选</a>--%>
-					<a href="${ctx}/mms/formula/filter?id=${formula.id}" >筛选</a>
+					<%--<a href="${ctx}/mms/formula/filter?id=${formula.id}" >筛选</a>--%>
 				</td></shiro:hasPermission>
 			</tr>
 		</c:forEach>

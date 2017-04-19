@@ -17,6 +17,8 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 	private static final long serialVersionUID = 1L;
 	private String formulaId;
 	private String sequence;		// 序号
+	private String excelLineNumber;		// 导入的excel行号
+	private String materialType;		// 原料类型（0：单一原料，1：复配原料）
 	private String standardChineseName;		// 标准中文名称
 	private String inicName;		// INCI名
 	private String rawMaterialContent;		// 原料含量（%）
@@ -162,5 +164,21 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 
 	public void setFormulaId(String formulaId) {
 		this.formulaId = formulaId;
+	}
+
+	public String getExcelLineNumber() {
+		return excelLineNumber;
+	}
+
+	public void setExcelLineNumber(String excelLineNumber) {
+		this.excelLineNumber = excelLineNumber;
+	}
+
+	public String getMaterialType() {
+		return materialType;
+	}
+
+	public void setMaterialType(String materialType) {
+		this.materialType = materialType;
 	}
 }

@@ -62,6 +62,8 @@ CREATE TABLE mms_formula_details
 	id varchar(64) NOT NULL COMMENT '编号',
 	formula_id varchar(64) NOT NULL COMMENT '配方id',
 	sequence varchar(64) NOT NULL COMMENT '序号',
+	excel_line_number varchar(64) NOT NULL COMMENT '导入的excel行号',
+	material_type char(1) DEFAULT '0' NOT NULL COMMENT '原料类型（0：单一原料，1：复配原料）',
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
 	inic_name varchar(100) COMMENT 'INCI名',
 	raw_material_content varchar(10) COMMENT '原料含量（%）',

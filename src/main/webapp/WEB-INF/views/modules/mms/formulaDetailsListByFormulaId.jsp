@@ -64,5 +64,10 @@
 		</c:forEach>
 		</tbody>
 	</table>
+
+	<div style="margin-top: 8px; margin-right: 20px; float: right">
+		总原料含量（%）: ${formula.rawMaterialContentTotal};&nbsp;&nbsp;
+		总实际成份含量（%）: ${formula.actualComponentContentTotal}
+	</div>
 </body>
 </html>

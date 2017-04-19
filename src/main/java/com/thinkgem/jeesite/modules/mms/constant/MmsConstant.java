@@ -92,6 +92,14 @@ public class MmsConstant {
     public static final String PRODUCT_PROCESS_7 = "100"; //7:终止申报
 
 
+    /**
+     * 原料类型（
+     * 0：单一原料，
+     * 1：复配原料）
+     */
+    public static final String MATERIAL_TYPE_0 = "0"; //0:单一原料
+    public static final String MATERIAL_TYPE_1 = "1"; //1:复配原料
+
 
 
 }
