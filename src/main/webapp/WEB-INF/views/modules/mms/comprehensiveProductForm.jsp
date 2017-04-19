@@ -37,16 +37,16 @@
 			<label class="control-label">来款时间：</label>
 			<div class="controls">
 				<input name="arrivalTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					value="<fmt:formatDate value="${comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					value="<fmt:formatDate value="${comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">来样时间：</label>
 			<div class="controls">
 				<input name="sampleTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					value="<fmt:formatDate value="${comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					value="<fmt:formatDate value="${comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -65,8 +65,8 @@
 			<label class="control-label">行政许可检验取报告时间：</label>
 			<div class="controls">
 				<input name="administrativeLicenseInspectionReportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					value="<fmt:formatDate value="${comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					value="<fmt:formatDate value="${comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -79,8 +79,8 @@
 			<label class="control-label">人体检验取报告时间：</label>
 			<div class="controls">
 				<input name="humanTestAcceptanceReportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					value="<fmt:formatDate value="${comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					value="<fmt:formatDate value="${comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -93,8 +93,8 @@
 			<label class="control-label">风险检验取报告时间：</label>
 			<div class="controls">
 				<input name="riskTestAcceptanceReportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
-					value="<fmt:formatDate value="${comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					value="<fmt:formatDate value="${comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd"/>"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<%--<div class="control-group">--%>

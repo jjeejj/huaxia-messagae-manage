@@ -36,7 +36,7 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 		super(id);
 	}
 
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getArrivalTime() {
 		return arrivalTime;
 	}
@@ -45,7 +45,7 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 		this.arrivalTime = arrivalTime;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getSampleTime() {
 		return sampleTime;
 	}
@@ -72,7 +72,7 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 		this.administrativeLicenseInspectionNo = administrativeLicenseInspectionNo;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getAdministrativeLicenseInspectionReportTime() {
 		return administrativeLicenseInspectionReportTime;
 	}
@@ -90,7 +90,7 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 		this.humanTestAcceptanceNo = humanTestAcceptanceNo;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getHumanTestAcceptanceReportTime() {
 		return humanTestAcceptanceReportTime;
 	}
@@ -108,7 +108,7 @@ public class ComprehensiveProduct extends DataEntity<ComprehensiveProduct> {
 		this.riskTestAcceptanceNo = riskTestAcceptanceNo;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getRiskTestAcceptanceReportTime() {
 		return riskTestAcceptanceReportTime;
 	}

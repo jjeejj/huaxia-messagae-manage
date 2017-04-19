@@ -101,16 +101,16 @@
 			<label class="control-label">立项时间:</label>
 			<div class="controls">
 				<input id="projectTime" name="projectTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.projectTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.projectTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">合同签订时间:</label>
 			<div class="controls">
 				<input id="contractSigningTime" name="contractSigningTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.contractSigningTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.contractSigningTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 
@@ -119,8 +119,8 @@
 			<label class="control-label">来样时间:</label>
 			<div class="controls">
 				<input id="sampleTime" name="sampleTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.sampleTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -141,8 +141,8 @@
 			<label class="control-label">送检时间:</label>
 			<div class="controls">
 				<input id="submissionTime" name="submissionTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.submissionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.submissionTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 
@@ -150,48 +150,48 @@
 			<label class="control-label">取送检报告时间:</label>
 			<div class="controls">
 				<input id="inspectionReportTime" name="inspectionReportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.inspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.inspectionReportTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">送人体时间:</label>
 			<div class="controls">
 				<input id="sendBodyTime" name="sendBodyTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.sendBodyTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">取送人体报告时间:</label>
 			<div class="controls">
 				<input id="bodyReportTime" name="bodyReportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.bodyReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.bodyReportTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">上报时间:</label>
 			<div class="controls">
 				<input id="reportTime" name="reportTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.reportTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">受理时间:</label>
 			<div class="controls">
 				<input id="acceptanceTime" name="acceptanceTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.acceptanceTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.acceptanceTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">批件时间:</label>
 			<div class="controls">
 				<input id="documentTime" name="documentTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.documentTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.documentTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 
@@ -199,16 +199,16 @@
 			<label class="control-label">下意见时间:</label>
 			<div class="controls">
 				<input id="nextOpinionTime" name="nextOpinionTime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.nextOpinionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.nextOpinionTime}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">回复意见时间:</label>
 			<div class="controls">
 				<input id="replyOpinion" name="replyOpinion" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					   value="<fmt:formatDate value="${productVo.replyOpinion}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+					   value="<fmt:formatDate value="${productVo.replyOpinion}" pattern="yyyy-MM-dd"/>"
+					   onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</div>
 		</div>
 

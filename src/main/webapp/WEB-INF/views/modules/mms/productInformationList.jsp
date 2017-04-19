@@ -411,7 +411,7 @@
 				</c:if>
 				<c:if test="${product.isShowProjectTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.marketProduct.projectTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.marketProduct.projectTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowContractNumber eq '1'}">
@@ -421,7 +421,7 @@
 				</c:if>
 				<c:if test="${product.isShowContractSigningTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.marketProduct.contractSigningTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.marketProduct.contractSigningTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowArrivalCompany eq '1'}">
@@ -431,12 +431,12 @@
 				</c:if>
 				<c:if test="${product.isShowArrivalTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowSampleTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowSampleQuantity eq '1'}">
@@ -481,7 +481,7 @@
 				</c:if>
 				<c:if test="${product.isShowAdministrativeLicenseInspectionTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowAdministrativeLicenseInspectionOrganization eq '1'}">
@@ -506,12 +506,12 @@
 				</c:if>
 				<c:if test="${product.isShowAdministrativeLicenseInspectionReportTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowSendBodyTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowSendBodyOrganization eq '1'}">
@@ -536,12 +536,12 @@
 				</c:if>
 				<c:if test="${product.isShowHumanTestAcceptanceReportTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowSendRiskTestTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowSendRiskTestOrganization eq '1'}">
@@ -566,17 +566,17 @@
 				</c:if>
 				<c:if test="${product.isShowRiskTestAcceptanceReportTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowReportTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.declareProduct.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.declareProduct.reportTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowAcceptanceTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.declareProduct.acceptanceTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.declareProduct.acceptanceTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowAcceptanceNumber eq '1'}">
@@ -586,7 +586,7 @@
 				</c:if>
 				<c:if test="${product.isShowDocumentTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.declareProduct.documentTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.declareProduct.documentTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowDocumentNumber eq '1'}">
@@ -601,7 +601,7 @@
 				</c:if>
 				<c:if test="${product.isShowNextOpinionTime eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.declareProduct.nextOpinionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.declareProduct.nextOpinionTime}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowOpinionContent eq '1'}">
@@ -611,7 +611,7 @@
 				</c:if>
 				<c:if test="${product.isShowReplyOpinion eq '1'}">
 					<td>
-						<fmt:formatDate value="${productData.declareProduct.replyOpinion}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						<fmt:formatDate value="${productData.declareProduct.replyOpinion}" pattern="yyyy-MM-dd"/>
 					</td>
 				</c:if>
 				<c:if test="${product.isShowOtherDescription eq '1'}">

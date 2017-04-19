@@ -147,28 +147,28 @@
 						${product.marketProduct.responsibleUnitInChinaZipCode}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.marketProduct.projectTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.marketProduct.projectTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.marketProduct.contractNumber}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.marketProduct.contractSigningTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.marketProduct.contractSigningTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.marketProduct.arrivalCompany}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.comprehensiveProduct.sampleQuantity}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.declareProduct.administrativeLicenseInspectionOrganization}
@@ -177,10 +177,10 @@
 						${product.declareProduct.administrativeLicenseInspectionProject}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.declareProduct.sendBodyOrganization}
@@ -189,10 +189,10 @@
 						${product.declareProduct.sendBodyProject}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.declareProduct.sendRiskTestOrganization}
@@ -201,22 +201,22 @@
 						${product.declareProduct.sendRiskTestProject}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.reportTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.documentTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.documentTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${fns:getDictLabel(product.declareProduct.productStatusRemark, 'product_status_remark', '')}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.nextOpinionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.nextOpinionTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.replyOpinion}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.replyOpinion}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 					${product.declareProduct.otherDescription}

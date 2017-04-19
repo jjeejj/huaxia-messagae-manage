@@ -122,7 +122,7 @@
 						${product.marketProduct.enterpriseApplication}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.marketProduct.projectTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.marketProduct.projectTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.marketProduct.contractNumber}
@@ -131,10 +131,10 @@
 						${product.marketProduct.arrivalCompany}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.arrivalTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 					${product.comprehensiveProduct.sampleQuantity}
@@ -152,7 +152,7 @@
 						${product.declareProduct.totalSubmission}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.administrativeLicenseInspectionTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.declareProduct.administrativeLicenseInspectionOrganization}
@@ -167,10 +167,10 @@
 						${product.declareProduct.administrativeLicenseInspectionNumber}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.administrativeLicenseInspectionReportTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.declareProduct.sendBodyOrganization}
@@ -185,10 +185,10 @@
 						${product.declareProduct.sendBodyNumber}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.humanTestAcceptanceReportTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${product.declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<td>
 						${product.declareProduct.sendRiskTestOrganization}
@@ -203,7 +203,7 @@
 						${product.declareProduct.sendRiskTestNumber}
 				</td>
 				<td>
-					<fmt:formatDate value="${product.comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					<fmt:formatDate value="${product.comprehensiveProduct.riskTestAcceptanceReportTime}" pattern="yyyy-MM-dd"/>
 				</td>
 				<shiro:hasPermission name="mms:comprehensiveProduct:edit"><td>
     				<a href="${ctx}/mms/comprehensiveProduct/form?id=${product.comprehensiveProductId}">修改</a>

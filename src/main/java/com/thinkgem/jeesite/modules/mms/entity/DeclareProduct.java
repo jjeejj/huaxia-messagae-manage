@@ -66,7 +66,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 		this.totalSubmission = totalSubmission;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getAdministrativeLicenseInspectionTime() {
 		return administrativeLicenseInspectionTime;
 	}
@@ -102,7 +102,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 		this.administrativeLicenseInspectionNumber = administrativeLicenseInspectionNumber;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getSendBodyTime() {
 		return sendBodyTime;
 	}
@@ -138,7 +138,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 		this.sendBodyNumber = sendBodyNumber;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getSendRiskTestTime() {
 		return sendRiskTestTime;
 	}
@@ -174,7 +174,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 		this.sendRiskTestNumber = sendRiskTestNumber;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getReportTime() {
 		return reportTime;
 	}
@@ -183,7 +183,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 		this.reportTime = reportTime;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getAcceptanceTime() {
 		return acceptanceTime;
 	}
@@ -201,7 +201,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 		this.acceptanceNumber = acceptanceNumber;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getDocumentTime() {
 		return documentTime;
 	}
@@ -228,7 +228,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 		this.productStatusRemark = productStatusRemark;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getNextOpinionTime() {
 		return nextOpinionTime;
 	}
@@ -246,7 +246,7 @@ public class DeclareProduct extends DataEntity<DeclareProduct> {
 		this.opinionContent = opinionContent;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getReplyOpinion() {
 		return replyOpinion;
 	}

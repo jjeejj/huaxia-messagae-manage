@@ -34,7 +34,7 @@ public class ProductVo {
     private Date projectTime;		// 立项时间
     private String contractNumber;		// 合同编号
     private Date contractSigningTime;		// 合同签订时间
-    private Date arrivalCompany;		// 来款单位
+    private String arrivalCompany;		// 来款单位
 
     private Date arrivalTime;		// 来款时间
     private Date sampleTime;		// 来样时间
@@ -272,11 +272,11 @@ public class ProductVo {
     }
 
     @ExcelField(title = "来款单位",sort = 122)
-    public Date getArrivalCompany() {
+    public String getArrivalCompany() {
         return arrivalCompany;
     }
 
-    public void setArrivalCompany(Date arrivalCompany) {
+    public void setArrivalCompany(String arrivalCompany) {
         this.arrivalCompany = arrivalCompany;
     }
     @ExcelField(title = "来款时间",sort = 124)

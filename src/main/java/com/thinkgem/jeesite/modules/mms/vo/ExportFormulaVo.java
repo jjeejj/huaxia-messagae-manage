@@ -29,7 +29,7 @@ public class ExportFormulaVo extends DataEntity {
         this.formulaName = formulaName;
     }
 
-    @ExcelField(title = "配方序号",sort = 110)
+//    @ExcelField(title = "配方序号",sort = 110)
     public String getFormulaSequence() {
         return formulaSequence;
     }

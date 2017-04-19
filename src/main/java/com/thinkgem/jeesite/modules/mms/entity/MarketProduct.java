@@ -40,7 +40,7 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 	private Date projectTime;		// 立项时间
 	private String contractNumber;		// 合同编号
 	private Date contractSigningTime;		// 合同签订时间
-	private Date arrivalCompany;		// 来款单位
+	private String arrivalCompany;		// 来款单位
 	private String productHandlePersonId;		// 产品处理人id
 	
 	public MarketProduct() {
@@ -222,7 +222,7 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 		this.responsibleUnitInChinaZipCode = responsibleUnitInChinaZipCode;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getProjectTime() {
 		return projectTime;
 	}
@@ -240,7 +240,7 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 		this.contractNumber = contractNumber;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getContractSigningTime() {
 		return contractSigningTime;
 	}
@@ -249,12 +249,12 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 		this.contractSigningTime = contractSigningTime;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getArrivalCompany() {
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	public String getArrivalCompany() {
 		return arrivalCompany;
 	}
 
-	public void setArrivalCompany(Date arrivalCompany) {
+	public void setArrivalCompany(String arrivalCompany) {
 		this.arrivalCompany = arrivalCompany;
 	}
 	

@@ -132,7 +132,7 @@
                     ${product.marketProduct.responsibleUnitInChinaAddress}
             </td>
             <td>
-                <fmt:formatDate value="${product.comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${product.comprehensiveProduct.sampleTime}" pattern="yyyy-MM-dd"/>
             </td>
             <td>
                     ${product.comprehensiveProduct.sampleQuantity}
@@ -142,7 +142,7 @@
             </td>
             <td>
                 <fmt:formatDate value="${product.declareProduct.administrativeLicenseInspectionTime}"
-                                pattern="yyyy-MM-dd HH:mm:ss"/>
+                                pattern="yyyy-MM-dd"/>
             </td>
             <td>
                     ${product.declareProduct.administrativeLicenseInspectionOrganization}
@@ -154,7 +154,7 @@
                     ${product.declareProduct.administrativeLicenseInspectionNumber}
             </td>
             <td>
-                <fmt:formatDate value="${product.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${product.declareProduct.sendBodyTime}" pattern="yyyy-MM-dd"/>
             </td>
             <td>
                     ${product.declareProduct.sendBodyOrganization}
@@ -166,7 +166,7 @@
                     ${product.declareProduct.sendBodyNumber}
             </td>
             <td>
-                <fmt:formatDate value="${product.declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${product.declareProduct.sendRiskTestTime}" pattern="yyyy-MM-dd"/>
             </td>
             <td>
                     ${product.declareProduct.sendRiskTestOrganization}
@@ -178,18 +178,18 @@
                     ${product.declareProduct.sendRiskTestNumber}
             </td>
             <td>
-                <fmt:formatDate value="${product.declareProduct.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${product.declareProduct.reportTime}" pattern="yyyy-MM-dd"/>
 
             </td>
             <td>
-                <fmt:formatDate value="${product.declareProduct.acceptanceTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${product.declareProduct.acceptanceTime}" pattern="yyyy-MM-dd"/>
             </td>
             <td>
                     ${product.declareProduct.acceptanceNumber}
             </td>
 
             <td>
-                <fmt:formatDate value="${product.declareProduct.documentTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${product.declareProduct.documentTime}" pattern="yyyy-MM-dd"/>
             </td>
             <td>
                     ${product.declareProduct.documentNumber}
@@ -198,13 +198,13 @@
                     ${fns:getDictLabel(product.declareProduct.productStatusRemark, 'product_status_remark', '')}
             </td>
             <td>
-                <fmt:formatDate value="${product.declareProduct.nextOpinionTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${product.declareProduct.nextOpinionTime}" pattern="yyyy-MM-dd"/>
             </td>
             <td>
                     ${product.declareProduct.opinionContent}
             </td>
             <td>
-                <fmt:formatDate value="${product.declareProduct.replyOpinion}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                <fmt:formatDate value="${product.declareProduct.replyOpinion}" pattern="yyyy-MM-dd"/>
             </td>
             <td>
                     ${product.declareProduct.colorCharacter}
