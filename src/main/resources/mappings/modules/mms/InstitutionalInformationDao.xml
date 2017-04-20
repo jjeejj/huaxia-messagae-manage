@@ -45,7 +45,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY a.institutional_type ASC ,a.sequence ASC ,a.update_date DESC
 			</otherwise>
 		</choose>
 	</select>

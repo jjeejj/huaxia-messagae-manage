@@ -48,7 +48,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">机构名称分类（1：风险检验机构、2：人体检验机构、3：行政许可检验机构）：</label>
+			<label class="control-label">机构名称分类：</label>
 			<div class="controls">
 				<form:select path="institutionalType" class="input-xlarge required">
 					<form:option value="" label=""/>

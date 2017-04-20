@@ -4,6 +4,11 @@
 <head>
 	<title>机构信息管理</title>
 	<meta name="decorator" content="default"/>
+	<style>
+		.form-search .ul-form li label{
+			width:100px;
+		}
+	</style>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
@@ -28,7 +33,7 @@
 			<li><label>机构名称：</label>
 				<form:input path="institutionalName" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>机构名称分类（1：风险检验机构、2：人体检验机构、3：行政许可检验机构）：</label>
+			<li><label>机构名称分类：</label>
 				<form:select path="institutionalType" class="input-medium">
 					<form:option value="" label=""/>
 					<form:options items="${fns:getDictList('institutional_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
@@ -44,7 +49,7 @@
 			<tr>
 				<th>序号</th>
 				<th>机构名称</th>
-				<th>机构名称分类（1：风险检验机构、2：人体检验机构、3：行政许可检验机构）</th>
+				<th>机构名称分类</th>
 				<th>更新时间</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:institutionalInformation:edit"><th>操作</th></shiro:hasPermission>
