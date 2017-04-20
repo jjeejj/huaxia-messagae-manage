@@ -408,5 +408,21 @@ CREATE TABLE mms_policies_regulations (
 	PRIMARY KEY (id)
 ) COMMENT = '政策法规数据库';
 
+-- 机构信息包括（风险检验机构，人体检验机构，行政许可检验机构）
+DROP TABLE IF EXISTS mms_institutional_information;
+CREATE TABLE mms_institutional_information (
+	id varchar(64) NOT NULL COMMENT '编号',
+	sequence varchar(64) NOT NULL COMMENT '序号',
+	institutional_name varchar(64) NOT NULL COMMENT '机构名称',
+	institutional_type char(1) NOT NULL COMMENT '机构名称分类（1：风险检验机构、2：人体检验机构、3：行政许可检验机构）',
+	create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '机构信息';
+
 
 

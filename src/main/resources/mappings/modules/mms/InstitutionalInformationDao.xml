@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.InstitutionalInformationDao">
+    
+	<sql id="institutionalInformationColumns">
+		a.id AS "id",
+		a.sequence AS "sequence",
+		a.institutional_name AS "institutionalName",
+		a.institutional_type AS "institutionalType",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="institutionalInformationJoins">
+	</sql>
+    
+	<select id="get" resultType="InstitutionalInformation">
+		SELECT 
+			<include refid="institutionalInformationColumns"/>
+		FROM mms_institutional_information a
+		<include refid="institutionalInformationJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="InstitutionalInformation">
+		SELECT 
+			<include refid="institutionalInformationColumns"/>
+		FROM mms_institutional_information a
+		<include refid="institutionalInformationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="institutionalName != null and institutionalName != ''">
+				AND a.institutional_name = #{institutionalName}
+			</if>
+			<if test="institutionalType != null and institutionalType != ''">
+				AND a.institutional_type = #{institutionalType}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="InstitutionalInformation">
+		SELECT 
+			<include refid="institutionalInformationColumns"/>
+		FROM mms_institutional_information a
+		<include refid="institutionalInformationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_institutional_information(
+			id,
+			sequence,
+			institutional_name,
+			institutional_type,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sequence},
+			#{institutionalName},
+			#{institutionalType},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_institutional_information SET 	
+			sequence = #{sequence},
+			institutional_name = #{institutionalName},
+			institutional_type = #{institutionalType},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_institutional_information SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
