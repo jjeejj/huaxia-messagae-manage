@@ -32,15 +32,35 @@
 		</thead>
 		<tbody>
 		<c:forEach items="${formulaDetailsList}" var="formulaDetails">
-			<tr>
+			<c:if test="${formulaDetails.nameOrInicStatus eq '1'}">
+				<tr style="background-color: red">
+			</c:if>
+			<c:if test="${formulaDetails.nameOrInicStatus ne '1'}">
+				<tr>
+			</c:if>
 				<td>
 					${formulaDetails.sequence}
 				</td>
 				<td>
 					${formulaDetails.standardChineseName}
+					<c:if test="${formulaDetails.nameOrInicStatus eq '2' || formulaDetails.nameOrInicStatus eq '4'}">
+						<font color="red">?</font>
+					</c:if>
+					<c:if test="${formulaDetails.componentType eq '2'}">
+						<font color="red">!</font>
+					</c:if>
+					<c:if test="${formulaDetails.componentType eq '3'}">
+						<font color="yellow">!</font>
+					</c:if>
+					<c:if test="${formulaDetails.plantComponent eq '1'}">
+						<font color="yellow">?</font>
+					</c:if>
 				</td>
 				<td>
 					${formulaDetails.inicName}
+					<c:if test="${formulaDetails.nameOrInicStatus eq '3' || formulaDetails.nameOrInicStatus eq '4'}">
+						<font color="red">?</font>
+					</c:if>
 				</td>
 				<td>
 					${formulaDetails.rawMaterialContent}
@@ -50,6 +70,12 @@
 				</td>
 				<td>
 					${formulaDetails.actualComponentContent}
+					<c:if test="${formulaDetails.componentType eq '3' && formulaDetails.actualComponentContentStatus eq '1'}">
+						<font color="green">√</font>
+					</c:if>
+					<c:if test="${formulaDetails.componentType eq '3' && formulaDetails.actualComponentContentStatus eq '2'}">
+						<font color="red">!</font>
+					</c:if>
 				</td>
 				<td>
 					${formulaDetails.purposeOfUse}
@@ -66,8 +92,13 @@
 	</table>
 
 	<div style="margin-top: 8px; margin-right: 20px; float: right">
-		总原料含量（%）: ${formula.rawMaterialContentTotal};&nbsp;&nbsp;
+		总原料含量（%）: ${formula.rawMaterialContentTotal}
+		<c:if test="${fn:substring(formula.rawMaterialContentTotal, 0, 3) eq '100'}"><font color="green">√</font></c:if>
+		<c:if test="${fn:substring(formula.rawMaterialContentTotal, 0, 3) ne '100'}"><font color="yellow">?</font></c:if>
+		;&nbsp;&nbsp;
 		总实际成份含量（%）: ${formula.actualComponentContentTotal}
+		<c:if test="${fn:substring(formula.actualComponentContentTotal, 0, 3) eq '100'}"><font color="green">√</font></c:if>
+		<c:if test="${fn:substring(formula.actualComponentContentTotal, 0, 3) ne '100'}"><font color="yellow">?</font></c:if>
 	</div>
 </body>
 </html>
