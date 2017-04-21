@@ -50,7 +50,10 @@
 		<div class="control-group">
 			<label class="control-label">行政许可检验机构：</label>
 			<div class="controls">
-				<form:input path="administrativeLicenseInspectionOrganization" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<form:select path="administrativeLicenseInspectionOrganization" class="input-medium">
+					<form:option  label="请选择" value=""/>
+					<form:options items="${fnc:getInstitutionalByType('3')}" itemLabel="institutionalName" itemValue="id" htmlEscape="false"/>
+				</form:select>
 			</div>
 		</div>
 		<div class="control-group">
@@ -76,7 +79,10 @@
 		<div class="control-group">
 			<label class="control-label">人体检验送检机构：</label>
 			<div class="controls">
-				<form:input path="sendBodyOrganization" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<form:select path="sendBodyOrganization" class="input-medium">
+					<form:option  label="请选择" value=""/>
+					<form:options items="${fnc:getInstitutionalByType('2')}" itemLabel="institutionalName" itemValue="id" htmlEscape="false"/>
+				</form:select>
 			</div>
 		</div>
 		<div class="control-group">
@@ -102,7 +108,10 @@
 		<div class="control-group">
 			<label class="control-label">风险检验机构：</label>
 			<div class="controls">
-				<form:input path="sendRiskTestOrganization" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<form:select path="sendRiskTestOrganization" class="input-medium">
+					<form:option  label="请选择" value=""/>
+					<form:options items="${fnc:getInstitutionalByType('1')}" itemLabel="institutionalName" itemValue="id" htmlEscape="false"/>
+				</form:select>
 			</div>
 		</div>
 		<div class="control-group">
