@@ -191,5 +191,46 @@
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
+
+	<!--统计申请企业的信息-->
+	<select id="selectApplyEnterpriseInfo" resultType="com.thinkgem.jeesite.modules.mms.entity.EnterpriseInformation">
+		SELECT
+			a.enterprise_application AS "enterpriseName",
+			a.enterprise_application_address AS "enterpriseAddress",
+			a.enterprise_application_phone AS "enterprisePhone",
+			a.enterprise_application_contacts AS "enterpriseContacts",
+			'1' AS "enterpriseType"
+		FROM mms_market_product a
+		WHERE
+			a.del_flag = '0'
+		GROUP BY a.enterprise_application
+	</select>
+
+	<!--统计实际生产企业的信息-->
+	<select id="selectActualEnterpriseInfo" resultType="com.thinkgem.jeesite.modules.mms.entity.EnterpriseInformation">
+		SELECT
+		a.actual_production_enterprise AS "enterpriseName",
+		a.actual_production_enterprise_address AS "enterpriseAddress",
+		'2' AS "enterpriseType"
+		FROM mms_market_product a
+		WHERE
+		a.del_flag = '0'
+		GROUP BY a.actual_production_enterprise
+	</select>
+
+	<!--统计在华责任单位的信息-->
+	<select id="selectChinaEnterpriseInfo" resultType="com.thinkgem.jeesite.modules.mms.entity.EnterpriseInformation">
+		SELECT
+		a.responsible_unit_in_china AS "enterpriseName",
+		a.responsible_unit_in_china_address AS "enterpriseAddress",
+		a.responsible_unit_in_china_phone AS "enterprisePhone",
+		a.responsible_unit_in_china_fax AS "nterpriseFax",
+		a.responsible_unit_in_china_zip_code AS "rnterpriseZipCode",
+		'3' AS "enterpriseType"
+		FROM mms_market_product a
+		WHERE
+		a.del_flag = '0'
+		GROUP BY a.actual_production_enterprise
+	</select>
 	
 </mapper>

@@ -100,6 +100,15 @@ public class MmsConstant {
     public static final String MATERIAL_TYPE_0 = "0"; //0:单一原料
     public static final String MATERIAL_TYPE_1 = "1"; //1:复配原料
 
+    /**
+     * 企业类型
+     * 1：申请企业、
+     * 2：实际生产企、
+     * 3：在华责任单位
+     */
+    public static final String APPLY_ENTERPRISE_TYPE = "1"; //1:申请企业
+    public static final String ACTUAL_ENTERPRISE_TYPE = "2"; //2:实际生产企
+    public static final String CHINA_ENTERPRISE_TYPE = "3"; //3:在华责任单位
 
 
 }

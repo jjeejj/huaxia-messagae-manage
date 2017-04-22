@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.EnterpriseInformationDao">
+    
+	<sql id="enterpriseInformationColumns">
+		a.id AS "id",
+		a.enterprise_name AS "enterpriseName",
+		a.enterprise_address AS "enterpriseAddress",
+		a.enterprise_type AS "enterpriseType",
+		a.enterprise_phone AS "enterprisePhone",
+		a.enterprise_contacts AS "enterpriseContacts",
+		a.nterprise_fax AS "nterpriseFax",
+		a.rnterprise_zip_code AS "rnterpriseZipCode",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="enterpriseInformationJoins">
+	</sql>
+    
+	<select id="get" resultType="EnterpriseInformation">
+		SELECT 
+			<include refid="enterpriseInformationColumns"/>
+		FROM mms_enterprise_information a
+		<include refid="enterpriseInformationJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="EnterpriseInformation">
+		SELECT 
+			<include refid="enterpriseInformationColumns"/>
+		FROM mms_enterprise_information a
+		<include refid="enterpriseInformationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="enterpriseName != null and enterpriseName != ''">
+				AND a.enterprise_name = #{enterpriseName}
+			</if>
+			<if test="enterpriseAddress != null and enterpriseAddress != ''">
+				AND a.enterprise_address = #{enterpriseAddress}
+			</if>
+			<if test="enterpriseType != null and enterpriseType != ''">
+				AND a.enterprise_type = #{enterpriseType}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="EnterpriseInformation">
+		SELECT 
+			<include refid="enterpriseInformationColumns"/>
+		FROM mms_enterprise_information a
+		<include refid="enterpriseInformationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_enterprise_information(
+			id,
+			enterprise_name,
+			enterprise_address,
+			enterprise_type,
+			enterprise_phone,
+			enterprise_contacts,
+			nterprise_fax,
+			rnterprise_zip_code,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{enterpriseName},
+			#{enterpriseAddress},
+			#{enterpriseType},
+			#{enterprisePhone},
+			#{enterpriseContacts},
+			#{nterpriseFax},
+			#{rnterpriseZipCode},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_enterprise_information SET 	
+			enterprise_name = #{enterpriseName},
+			enterprise_address = #{enterpriseAddress},
+			enterprise_type = #{enterpriseType},
+			enterprise_phone = #{enterprisePhone},
+			enterprise_contacts = #{enterpriseContacts},
+			nterprise_fax = #{nterpriseFax},
+			rnterprise_zip_code = #{rnterpriseZipCode},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_enterprise_information SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+	<!--根据企业名称进行查询-->
+	<select id="findListByName" parameterType="java.lang.String" resultType="EnterpriseInformation">
+		SELECT
+			<include refid="enterpriseInformationColumns"/>
+		FROM mms_enterprise_information a
+		WHERE a.del_flag = '0'
+		and a.enterprise_name = #{enterpriseName}
+	</select>
+	
+</mapper>

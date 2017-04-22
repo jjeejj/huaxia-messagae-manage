@@ -424,5 +424,24 @@ CREATE TABLE mms_institutional_information (
 	PRIMARY KEY (id)
 ) COMMENT = '机构信息';
 
+-- 企业信息（申请企业，实际生产企，在华责任单位）
+DROP TABLE IF EXISTS mms_enterprise_information;
+CREATE TABLE mms_enterprise_information (
+	id varchar(64) NOT NULL COMMENT '编号',
+	enterprise_name varchar(64) COMMENT '企业名称',
+	enterprise_address varchar(100) COMMENT '企业地址',
+	enterprise_type char(1) NOT NULL COMMENT '企业类型（1：申请企业、2：实际生产企业、3：在华责任单位）',
+	enterprise_phone varchar(32) COMMENT '企业电话',
+	enterprise_contacts varchar(100) COMMENT '企业联系人',
+	nterprise_fax varchar(64)  COMMENT '企业传真',
+	rnterprise_zip_code varchar(64)  COMMENT '企业邮编',
+	create_by varchar(64) COMMENT '创建者',
+	create_date datetime COMMENT '创建时间',
+	update_by varchar(64) COMMENT '更新者',
+	update_date datetime COMMENT '更新时间',
+	remarks varchar(255) COMMENT '备注信息',
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
+	PRIMARY KEY (id)
+) COMMENT = '企业信息';
 
 

@@ -53,6 +53,9 @@ public class MarketProductController extends BaseController {
 
 	@Autowired
 	private ProductFlowNumberService productFlowNumberService;
+
+	@Autowired
+	private EnterpriseInformationService enterpriseInformationService;
 	
 	@ModelAttribute
 	public MarketProduct get(@RequestParam(required=false) String id) {
@@ -156,6 +159,8 @@ public class MarketProductController extends BaseController {
 
 		}
 
+		//调用统计企业信息的方法
+		statisticsEnterpriseInfo(marketProduct);
 		addMessage(redirectAttributes, "保存市场产品成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/marketProduct/?repage";
 	}
@@ -181,5 +186,113 @@ public class MarketProductController extends BaseController {
 		addMessage(redirectAttributes, "删除市场产品成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/marketProduct/?repage";
 	}
+
+
+	/**
+	 * 统计产品中的企业信息
+	 * 根据新建或者更新的市场部产品信息，更新企业信息
+	 * @param marketProduc 市场部产品信息
+	 */
+	private void statisticsEnterpriseInfo(MarketProduct marketProduc){
+
+		String enterpriseApplication = marketProduc.getEnterpriseApplication();//申请企业
+		String actualProductionEnterprise = marketProduc.getActualProductionEnterprise();//实际生产企业
+		String responsibleUnitInChina = marketProduc.getResponsibleUnitInChina();//在华责任单位
+
+		String enterpriseApplicationAddress = marketProduc.getEnterpriseApplicationAddress();
+		String enterpriseApplicationPhone = marketProduc.getEnterpriseApplicationPhone();
+		String enterpriseApplicationContacts = marketProduc.getEnterpriseApplicationContacts();
+
+		String actualProductionEnterpriseAddress = marketProduc.getActualProductionEnterpriseAddress();
+
+		String responsibleUnitInChinaAddress = marketProduc.getResponsibleUnitInChinaAddress();
+		String responsibleUnitInChinaPhone = marketProduc.getResponsibleUnitInChinaPhone();
+		String responsibleUnitInChinaFax = marketProduc.getResponsibleUnitInChinaFax();
+		String responsibleUnitInChinaZipCode = marketProduc.getResponsibleUnitInChinaZipCode();
+
+
+		//根据企业名称进行查询。没有进行插入，有着进行更新
+
+		if(StringUtils.isNoneEmpty(enterpriseApplication)){ //申请企业
+			List<EnterpriseInformation> applyEnterpriseInformationList = enterpriseInformationService.findListByName(enterpriseApplication);
+
+			if(applyEnterpriseInformationList !=null && applyEnterpriseInformationList.size() > 0){
+				EnterpriseInformation enterpriseInformationTemp = applyEnterpriseInformationList.get(0);
+				enterpriseInformationTemp.setEnterpriseContacts(
+						StringUtils.isNoneEmpty(enterpriseApplicationContacts)?enterpriseApplicationContacts : enterpriseInformationTemp.getEnterpriseContacts());
+				enterpriseInformationTemp.setEnterprisePhone(
+						StringUtils.isNoneEmpty(enterpriseApplicationPhone) ? enterpriseApplicationPhone :enterpriseInformationTemp.getEnterprisePhone());
+
+				enterpriseInformationTemp.setEnterpriseAddress(
+						StringUtils.isNoneEmpty(enterpriseApplicationAddress)?enterpriseApplicationAddress :enterpriseInformationTemp.getEnterpriseAddress() );
+
+				enterpriseInformationService.save(enterpriseInformationTemp);
+
+			}else{
+				EnterpriseInformation enterpriseInformation = new EnterpriseInformation();
+				enterpriseInformation.setEnterpriseName(enterpriseApplication);
+				enterpriseInformation.setEnterpriseType(MmsConstant.APPLY_ENTERPRISE_TYPE);
+				enterpriseInformation.setEnterpriseAddress(enterpriseApplicationAddress);
+				enterpriseInformation.setEnterprisePhone(enterpriseApplicationPhone);
+				enterpriseInformation.setEnterpriseContacts(enterpriseApplicationContacts);
+				enterpriseInformationService.save(enterpriseInformation);
+			}
+
+		}
+
+		if(StringUtils.isNoneEmpty(actualProductionEnterprise)){//实际生产企业
+			List<EnterpriseInformation> actualEnterpriseInformationList = enterpriseInformationService.findListByName(actualProductionEnterprise);
+
+			if(actualEnterpriseInformationList !=null && actualEnterpriseInformationList.size() >0){
+				EnterpriseInformation enterpriseInformationTemp = actualEnterpriseInformationList.get(0);
+				enterpriseInformationTemp.setEnterpriseAddress(
+						StringUtils.isNoneEmpty(actualProductionEnterpriseAddress) ? actualProductionEnterpriseAddress : enterpriseInformationTemp.getEnterpriseAddress());
+				enterpriseInformationService.save(enterpriseInformationTemp);
+			}else{
+				EnterpriseInformation enterpriseInformation = new EnterpriseInformation();
+
+				enterpriseInformation.setEnterpriseName(actualProductionEnterprise);
+				enterpriseInformation.setEnterpriseType(MmsConstant.ACTUAL_ENTERPRISE_TYPE);
+				enterpriseInformation.setEnterpriseAddress(actualProductionEnterpriseAddress);
+				enterpriseInformationService.save(enterpriseInformation);
+			}
+
+
+		}
+
+		if(StringUtils.isNoneEmpty(responsibleUnitInChina)){ //在华责任单位
+
+			List<EnterpriseInformation> chinaEnterpriseInformationList = enterpriseInformationService.findListByName(responsibleUnitInChina);
+
+
+			if(chinaEnterpriseInformationList !=null && chinaEnterpriseInformationList.size() > 0){
+				EnterpriseInformation enterpriseInformationTemp = chinaEnterpriseInformationList.get(0);
+				enterpriseInformationTemp.setEnterprisePhone(
+						StringUtils.isNoneEmpty(responsibleUnitInChinaPhone) ? responsibleUnitInChinaPhone :enterpriseInformationTemp.getEnterprisePhone());
+
+				enterpriseInformationTemp.setEnterpriseAddress(
+						StringUtils.isNoneEmpty(responsibleUnitInChinaAddress)?responsibleUnitInChinaAddress :enterpriseInformationTemp.getEnterpriseAddress() );
+
+				enterpriseInformationTemp.setNterpriseFax(
+						StringUtils.isNoneEmpty(responsibleUnitInChinaFax) ? responsibleUnitInChinaFax :enterpriseInformationTemp.getNterpriseFax());
+
+				enterpriseInformationTemp.setRnterpriseZipCode(
+						StringUtils.isNoneEmpty(responsibleUnitInChinaZipCode)?responsibleUnitInChinaZipCode :enterpriseInformationTemp.getRnterpriseZipCode() );
+
+				enterpriseInformationService.save(enterpriseInformationTemp);
+			}else{
+				EnterpriseInformation enterpriseInformation = new EnterpriseInformation();
+				enterpriseInformation.setEnterpriseName(responsibleUnitInChina);
+				enterpriseInformation.setEnterpriseType(MmsConstant.CHINA_ENTERPRISE_TYPE);
+				enterpriseInformation.setRnterpriseZipCode(responsibleUnitInChinaZipCode);
+				enterpriseInformation.setNterpriseFax(responsibleUnitInChinaFax);
+				enterpriseInformation.setEnterpriseAddress(responsibleUnitInChinaAddress);
+				enterpriseInformation.setEnterprisePhone(responsibleUnitInChinaPhone);
+				enterpriseInformationService.save(enterpriseInformation);
+			}
+		}
+
+	}
+
 
 }
