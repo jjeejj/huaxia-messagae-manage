@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.config.Global;
@@ -28,6 +29,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -110,7 +112,7 @@ public class MarketProductController extends BaseController {
 			declareProductService.save(declareProduct);
 
 			//产品状态判断
-			if(marketProduct.getProjectTime() != null){ //立项时间有 就是初审状态，如果是新建，该时间是必填的
+			if(marketProduct.getProjectTime() != null){ //立项时间有 就是初审状态，如果是新建，该时间是必填的 ---现改为不必填了，所以多加了一个判断
 				productSave.setProductStatus(MmsConstant.PRODUCT_STATUS_1);
 				productSave.setProductProcess(MmsConstant.PRODUCT_PROCESS_1); //产品进度
 			}
@@ -145,6 +147,14 @@ public class MarketProductController extends BaseController {
 			marketProduct.setProductNumber(productNumber+marketProduct.getProductNumber());
 			marketProductService.save(marketProduct);
 
+		}else{
+			//产品状态判断,之前有数据
+			//立项时间有 就是初审状态，如果是新建，该时间是必填的 ---现改为不必填了，所以多加了一个判断。如果产品有状态就不更新状态
+			if(marketProduct.getProjectTime() != null && StringUtils.isEmpty(product.getProductStatus())){
+				product.setProductStatus(MmsConstant.PRODUCT_STATUS_1);
+				product.setProductProcess(MmsConstant.PRODUCT_PROCESS_1); //产品进度
+				productService.save(product);
+			}
 		}
 
 		//更新产品负责人---保存代汇总产品表中
@@ -294,5 +304,55 @@ public class MarketProductController extends BaseController {
 
 	}
 
+	/**
+	 * 根据企业类型获取企业信息
+	 * type 企业类型 1：申请企业、2：实际生产企、3：在华责任单位）
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getEnterpriseName")
+	public List<String> getEnterpriseName(HttpServletRequest request, HttpServletResponse response){
+		String type = request.getParameter("type");
+		EnterpriseInformation enterpriseInformation = new EnterpriseInformation();
+		enterpriseInformation.setEnterpriseType(type);
+
+		List<String> nameList = new ArrayList<String>();
+
+		List<EnterpriseInformation> enterpriseInformationList = enterpriseInformationService.findList(enterpriseInformation);
+
+		for (EnterpriseInformation enterpriseInformation1 : enterpriseInformationList){
+			nameList.add(enterpriseInformation1.getEnterpriseName());
+		}
+
+		return nameList;
+	}
+
+	/**
+	 * 根据企业类型和企业名称获取企业信息
+	 * type 企业类型 1：申请企业、2：实际生产企、3：在华责任单位）
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getEnterpriseInfoByName")
+	public EnterpriseInformation getEnterpriseInfoByName(HttpServletRequest request, HttpServletResponse response){
+		String type = request.getParameter("type");
+		String name = request.getParameter("name");
+		EnterpriseInformation enterpriseInformation = new EnterpriseInformation();
+		enterpriseInformation.setEnterpriseType(type);
+		enterpriseInformation.setEnterpriseName(name);
+
+
+
+		List<EnterpriseInformation> enterpriseInformationList = enterpriseInformationService.findList(enterpriseInformation);
+
+		if (enterpriseInformationList !=null && enterpriseInformationList.size() > 0) {
+			enterpriseInformation = enterpriseInformationList.get(0);
+		}
+		return enterpriseInformation;
+	}
 
 }

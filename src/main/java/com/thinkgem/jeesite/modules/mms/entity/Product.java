@@ -62,7 +62,7 @@ public class Product extends DataEntity<Product> {
 	private String isShowArrivalTime;
 	private String isShowSampleTime;
 	private String isShowSampleQuantity;
-	private String isShowTotalNumberOfSamples;
+	private String isShowTotalNumberOfSamples; //送检总数
 	private String isShowColorCharacter;
 	private String isShowSampleMarking;
 	private String isShowDateOfExpiry;

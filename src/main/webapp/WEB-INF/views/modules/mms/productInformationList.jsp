@@ -446,7 +446,7 @@
 				</c:if>
 				<c:if test="${product.isShowTotalNumberOfSamples eq '1'}">
 					<td>
-							${productData.declareProduct.totalNumberOfSamples}
+							${productData.declareProduct.totalSubmission}
 					</td>
 				</c:if>
 				<c:if test="${product.isShowColorCharacter eq '1'}">
