@@ -69,7 +69,7 @@ public class MarketProduct extends DataEntity<MarketProduct> {
 		this.englishName = englishName;
 	}
 	
-	@Length(min=1, max=100, message="中文名称长度必须介于 1 和 100 之间")
+//	@Length(min=1, max=100, message="中文名称长度必须介于 1 和 100 之间")
 	public String getChineseName() {
 		return chineseName;
 	}

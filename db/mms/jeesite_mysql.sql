@@ -220,7 +220,7 @@ CREATE TABLE mms_market_product
 	id varchar(64) NOT NULL COMMENT '编号',
 	product_number varchar(64) NOT NULL COMMENT '产品编号',
 	english_name varchar(100) COMMENT '英文名称',
-	chinese_name varchar(100) NOT NULL COMMENT '中文名称',
+	chinese_name varchar(100) COMMENT '中文名称',
 	country_of_origin varchar(64)COMMENT '原产国',
 	product_type char(1) COMMENT '类别(1：非特，2：特殊，3：延续，4：变更，5：其他)',
 	work_matters varchar(100)  COMMENT '工作事项',
