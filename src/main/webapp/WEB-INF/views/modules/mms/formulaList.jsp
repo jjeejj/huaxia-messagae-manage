@@ -77,6 +77,7 @@
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="btns"><input id="btnImport" class="btn btn-primary" type="button" value="导入配方"/></li>
+			<li class="btns"><input class="btn btn-warning" type="button" value="导入配方请务必使用系统模版"/></li>
 			<li class="clearfix"></li>
 		</ul>
 	</form:form>
