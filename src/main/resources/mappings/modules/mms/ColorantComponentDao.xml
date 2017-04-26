@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.mms.dao.ColorantComponentDao">
+    
+	<sql id="colorantComponentColumns">
+		a.id AS "id",
+		a.sequence AS "sequence",
+		a.color_index AS "colorIndex",
+		a.color_generic_name AS "colorGenericName",
+		a.limited_remarks AS "limitedRemarks",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="colorantComponentJoins">
+	</sql>
+    
+	<select id="get" resultType="ColorantComponent">
+		SELECT 
+			<include refid="colorantComponentColumns"/>
+		FROM mms_colorant_component a
+		<include refid="colorantComponentJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ColorantComponent">
+		SELECT 
+			<include refid="colorantComponentColumns"/>
+		FROM mms_colorant_component a
+		<include refid="colorantComponentJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="colorIndex != null and colorIndex != ''">
+				AND a.color_index = #{colorIndex}
+			</if>
+			<if test="colorGenericName != null and colorGenericName != ''">
+				AND a.color_generic_name = #{colorGenericName}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ColorantComponent">
+		SELECT 
+			<include refid="colorantComponentColumns"/>
+		FROM mms_colorant_component a
+		<include refid="colorantComponentJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO mms_colorant_component(
+			id,
+			sequence,
+			color_index,
+			color_generic_name,
+			limited_remarks,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{sequence},
+			#{colorIndex},
+			#{colorGenericName},
+			#{limitedRemarks},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE mms_colorant_component SET 	
+			sequence = #{sequence},
+			color_index = #{colorIndex},
+			color_generic_name = #{colorGenericName},
+			limited_remarks = #{limitedRemarks},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE mms_colorant_component SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

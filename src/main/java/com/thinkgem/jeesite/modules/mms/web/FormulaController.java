@@ -195,7 +195,7 @@ public class FormulaController extends BaseController {
      * 导入的时候直接进行筛选
      * 筛选功能
      *
-     * @param formula            配方
+     * @param formula 配方
      * @return String
      */
 //	@RequestMapping(value = "filter")
@@ -274,7 +274,7 @@ public class FormulaController extends BaseController {
                 } else {
                     //判断是否是限用物质
                     //新原料不用判断了
-                    if(!formulaDetails.getNameOrInicStatus().equals(MmsConstant.NAME_OR_INIC_STATUS_All_NOT_FIND)){
+                    if (!formulaDetails.getNameOrInicStatus().equals(MmsConstant.NAME_OR_INIC_STATUS_All_NOT_FIND)) {
                         formulaDetails = filterLimitComponent(formulaDetails);
                     }
 //                    LimitedComponent limitedComponent = new LimitedComponent();
@@ -322,76 +322,101 @@ public class FormulaController extends BaseController {
     /**
      * 限用成分的逻辑
      */
-    public FormulaDetails filterLimitComponent(FormulaDetails formulaDetails){
+    public FormulaDetails filterLimitComponent(FormulaDetails formulaDetails) {
         String purposeOfUse = formulaDetails.getPurposeOfUse();//使用目的
 
         String materialType = formulaDetails.getMaterialType();//原料类型（* 0：单一原料，* 1：复配原料）
 
-        String standardChineseName =  formulaDetails.getStandardChineseName();//标准中文名称
+        String standardChineseName = formulaDetails.getStandardChineseName();//标准中文名称
 
         List<LimitedComponent> limitedComponentList = new ArrayList<LimitedComponent>();
 
-        if(materialType.equals(MmsConstant.MATERIAL_TYPE_1)){//复配原料.直接查不根据使用目的
+        //先处理着色剂 的限用成分
+        Pattern r1 = Pattern.compile(MmsConstant.colorantRegex);
+        Matcher m1 = r1.matcher(standardChineseName);
 
-            limitedComponentList = limitedComponentService.findList(new LimitedComponent());
-            boolean isHandle = false;
-            for (LimitedComponent limitedComponent : limitedComponentList){
-                List<String> queryChineseNameList = Arrays.asList(limitedComponent.getQueryChineseName().split("，|,")); //查询用的中文名称（可能有多个以，分割）
-                for (String queryChineseName : queryChineseNameList){
-                    if(standardChineseName.contains(queryChineseName)){
-                        formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
-                        formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
-                        isHandle = true;
-                        break;
+        if (m1.find()) { //匹配了
+
+        } else {
+
+            if (materialType.equals(MmsConstant.MATERIAL_TYPE_1)) {//复配原料.直接查不根据使用目的
+                limitedComponentList = limitedComponentService.findList(new LimitedComponent());
+                boolean isHandle = false;
+                for (LimitedComponent limitedComponent : limitedComponentList) {
+                    List<String> queryChineseNameList = Arrays.asList(limitedComponent.getQueryChineseName().split("，|,")); //查询用的中文名称（可能有多个以，分割）
+                    for (String queryChineseName : queryChineseNameList) {
+                        if (standardChineseName.contains(queryChineseName)) {
+                            formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
+                            formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                            isHandle = true;
+                            break;
+                        }
                     }
                 }
-            }
-            if(!isHandle){
-                formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_NORMAL);//正常成分
-                isHandle = true;
-            }
-        }else if(materialType.equals(MmsConstant.MATERIAL_TYPE_0)){ //单一原料 ,根据使用目的进行判断
+                if (!isHandle) {
+                    formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_NORMAL);//正常成分
+                    isHandle = true;
+                }
+            } else if (materialType.equals(MmsConstant.MATERIAL_TYPE_0)) { //单一原料 ,根据使用目的进行判断
 
-            LimitedComponent limitedComponent =new LimitedComponent();
-            //使用目的是否有值
-            if(StringUtils.isNoneBlank(purposeOfUse)){
-                //使用目的转换---消息转数字类型
-                String purposeOfUseNum = MmsUtils.purposeOfUseTypeNum2Message("",purposeOfUse);
-                limitedComponent.setType(purposeOfUseNum);
-            }else{ //现在就是一般的限用成分查询
-                limitedComponent.setType(MmsConstant.PURPOSE_OF_USE_1);
-            }
+                LimitedComponent limitedComponent = new LimitedComponent();
+                //使用目的是否有值
+                if (StringUtils.isNoneBlank(purposeOfUse)) {
+                    //使用目的转换---消息转数字类型
+                    String purposeOfUseNum = MmsUtils.purposeOfUseTypeNum2Message("", purposeOfUse);
+                    limitedComponent.setType(purposeOfUseNum);
+                } else { //现在就是一般的限用成分查询
+                    limitedComponent.setType(MmsConstant.PURPOSE_OF_USE_1);
+                }
 
-            limitedComponentList = limitedComponentService.findList(limitedComponent);
-            boolean isHandle = false;
-            for (LimitedComponent limitedComponentTemp : limitedComponentList){
-                List<String> queryChineseNameList = Arrays.asList(limitedComponentTemp.getQueryChineseName().split("，|,")); //查询用的中文名称（可能有多个以，分割）
-                for (String queryChineseName : queryChineseNameList){
-                    if(standardChineseName.contains(queryChineseName)){
-                        formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
-                        formulaDetails.setLimitedRemarks(limitedComponentTemp.getLimitedRemarks());
-                        //比较成分含量---默认是符合要求的。队友没有浓度的是复合要求的
-                        if(StringUtils.isNoneBlank(limitedComponentTemp.getMaxAllowConcentretion())){ //成分有限制的浓度
-                            if (Float.parseFloat(formulaDetails.getActualComponentContent()) > Float.parseFloat(limitedComponentTemp.getMaxAllowConcentretion())) { //大于标准含量
-                                formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NO_NORMAL);//不符合标准
+                limitedComponentList = limitedComponentService.findList(limitedComponent);
+                boolean isHandle = false;
+                for (LimitedComponent limitedComponentTemp : limitedComponentList) {
+                    List<String> queryChineseNameList = Arrays.asList(limitedComponentTemp.getQueryChineseName().split("，|,")); //查询用的中文名称（可能有多个以，分割）
+                    for (String queryChineseName : queryChineseNameList) {
+                        if (standardChineseName.contains(queryChineseName)) {
+                            formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
+                            formulaDetails.setLimitedRemarks(limitedComponentTemp.getLimitedRemarks());
+                            //比较成分含量---默认是符合要求的。队友没有浓度的是复合要求的
+                            if (StringUtils.isNoneBlank(limitedComponentTemp.getMaxAllowConcentretion())) { //成分有限制的浓度
+                                if (Float.parseFloat(formulaDetails.getActualComponentContent()) > Float.parseFloat(limitedComponentTemp.getMaxAllowConcentretion())) { //大于标准含量
+                                    formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NO_NORMAL);//不符合标准
+                                } else {
+                                    formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                                }
                             } else {
                                 formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
                             }
-                        }else{
-                            formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                            isHandle = true;
+                            break;
                         }
-                        isHandle = true;
-                        break;
                     }
                 }
-            }
 
-            //如果现在都没有
-            if(!isHandle){
-                formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_NORMAL);//正常成分
-                isHandle = true;
+                //如果现在都没有
+                if (!isHandle) {
+                    //到找不到，在全部里面查询
+                    limitedComponentList = limitedComponentService.findList(new LimitedComponent());
+                    for (LimitedComponent limitedComponentTemp : limitedComponentList) {
+                        List<String> queryChineseNameList = Arrays.asList(limitedComponentTemp.getQueryChineseName().split("，|,")); //查询用的中文名称（可能有多个以，分割）
+                        for (String queryChineseName : queryChineseNameList) {
+                            if (standardChineseName.contains(queryChineseName)) {
+                                formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
+                                formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                                isHandle = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                //都没有。正常成分
+                if (!isHandle) {
+                    formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_NORMAL);//正常成分
+                    isHandle = true;
+                }
             }
         }
+
         return formulaDetails;
     }
 
@@ -440,7 +465,7 @@ public class FormulaController extends BaseController {
                 String compoundPercentage = StringUtils.EMPTY; //复配百分比（%）
                 String actualComponentContent = StringUtils.EMPTY; //实际成份含量（%）
                 double actualComponentContentTotal = 0L; //总实际成份含量（%）
-                BigDecimal actualComponentContentTotalBig = new BigDecimal("0") ; //总实际成份含量（%）精度表示
+                BigDecimal actualComponentContentTotalBig = new BigDecimal("0"); //总实际成份含量（%）精度表示
                 String purposeOfUse = StringUtils.EMPTY; //使用目的
                 String sequence = StringUtils.EMPTY; //序号
 
@@ -558,17 +583,17 @@ public class FormulaController extends BaseController {
 //					}
                     String materialType = StringUtils.EMPTY; //原料类型（0：单一原料，1：复配原料）
                     //判断是否是复配原料
-                    if(StringUtils.isEmpty(sequence)){
+                    if (StringUtils.isEmpty(sequence)) {
                         materialType = MmsConstant.MATERIAL_TYPE_1;
-                    }else{
+                    } else {
                         //判断下一个序号是否有值，如果下一个没有值么就是复配原料
-                        if((i+1) == exportFormulaVoList.size()){ //最后一项
+                        if ((i + 1) == exportFormulaVoList.size()) { //最后一项
                             materialType = MmsConstant.MATERIAL_TYPE_0;
-                        }else{
-                            String nextSequence = exportFormulaVoList.get(i+1).getFormulaDetailsSequence();
-                            if(StringUtils.isEmpty(nextSequence)){
+                        } else {
+                            String nextSequence = exportFormulaVoList.get(i + 1).getFormulaDetailsSequence();
+                            if (StringUtils.isEmpty(nextSequence)) {
                                 materialType = MmsConstant.MATERIAL_TYPE_1;
-                            }else{
+                            } else {
                                 materialType = MmsConstant.MATERIAL_TYPE_0;
                             }
                         }

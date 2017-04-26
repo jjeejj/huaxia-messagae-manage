@@ -58,6 +58,11 @@ public class MmsConstant {
 	public static final String plantComponentRegex = "\\(\\w*\\)(提取)*[油水汁粉]|\\(\\w*\\)[\\w\\W\\u4e00-\\u9fa5]*\\/";
 //    String regex1 = "\\(\\w*\\))[油水汁粉]|\\(\\w*\\)[\\w\\W\\u4e00-\\u9fa5]*\\/";
 
+    /**
+     * 着色剂 标准中文名称的 匹配正则表达式
+     */
+    public static final String colorantRegex = "\\d{5}";
+
     public static final String PLANT_COMPONENT_YES = "1"; //1:是
     public static final String PLANT_COMPONENT_NO = "2"; //2:不是
 
