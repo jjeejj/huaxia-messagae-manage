@@ -27,8 +27,19 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/mms/enterpriseInformation/">企业信息列表</a></li>
-		<li class="active"><a href="${ctx}/mms/enterpriseInformation/form?id=${enterpriseInformation.id}">企业信息<shiro:hasPermission name="mms:enterpriseInformation:edit">${not empty enterpriseInformation.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="mms:enterpriseInformation:edit">查看</shiro:lacksPermission></a></li>
+		<li><a href="${ctx}/mms/enterpriseInformation/?enterpriseType=${enterpriseType}">
+			<c:if test="${enterpriseType eq '1'}">
+				申请企业信息列表
+			</c:if>
+			<c:if test="${enterpriseType eq '2'}">
+				实际生产企业列表
+			</c:if>
+			<c:if test="${enterpriseType eq '3'}">
+				在华责任单位列表
+			</c:if>
+		</a></li>
+		<li class="active"><a href="${ctx}/mms/enterpriseInformation/form?id=${enterpriseInformation.id}">企业信息
+			${not empty enterpriseInformation.id?'修改':'添加'}</a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="enterpriseInformation" action="${ctx}/mms/enterpriseInformation/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
@@ -86,7 +97,7 @@
 			</div>
 		</div>
 		<div class="form-actions">
-			<shiro:hasPermission name="mms:enterpriseInformation:edit"><input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;</shiro:hasPermission>
+			<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 		</div>
 	</form:form>

@@ -76,7 +76,11 @@ public class EnterpriseInformationController extends BaseController {
 //	@RequiresPermissions("mms:enterpriseInformation:view")
 	@RequestMapping(value = "form")
 	public String form(EnterpriseInformation enterpriseInformation, Model model) {
+
+		String enterpriseType = enterpriseInformation.getEnterpriseType();
+
 		model.addAttribute("enterpriseInformation", enterpriseInformation);
+		model.addAttribute("enterpriseType", enterpriseType);
 		return "modules/mms/enterpriseInformationForm";
 	}
 
@@ -88,7 +92,7 @@ public class EnterpriseInformationController extends BaseController {
 		}
 		enterpriseInformationService.save(enterpriseInformation);
 		addMessage(redirectAttributes, "保存企业信息成功");
-		return "redirect:"+Global.getAdminPath()+"/mms/enterpriseInformation/?repage";
+		return "redirect:"+Global.getAdminPath()+"/mms/enterpriseInformation/?repage&enterpriseType=" + enterpriseInformation.getEnterpriseType();
 	}
 	
 //	@RequiresPermissions("mms:enterpriseInformation:edit")
