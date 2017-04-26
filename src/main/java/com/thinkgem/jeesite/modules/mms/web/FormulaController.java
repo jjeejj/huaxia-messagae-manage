@@ -12,6 +12,7 @@ import com.thinkgem.jeesite.common.utils.excel.ImportExcel;
 import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
 import com.thinkgem.jeesite.modules.mms.entity.*;
 import com.thinkgem.jeesite.modules.mms.service.*;
+import com.thinkgem.jeesite.modules.mms.utils.MmsUtils;
 import com.thinkgem.jeesite.modules.mms.vo.ExportFormulaVo;
 import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -33,6 +34,7 @@ import com.thinkgem.jeesite.common.utils.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -211,34 +213,10 @@ public class FormulaController extends BaseController {
             //float actualComponentContent = 0L; //实际成份含量
             // 创建 Pattern 对象
             Pattern r1 = Pattern.compile(MmsConstant.plantComponentRegex);
+
             for (FormulaDetails formulaDetails : formulaDetailsList) {
                 standardChineseName = formulaDetails.getStandardChineseName();
-                //根据标准中文名，判断是否是禁用物质
-                ForbiddenComponent forbiddenComponent = new ForbiddenComponent();
-                forbiddenComponent.setStandardChineseName(standardChineseName);
 
-                List<ForbiddenComponent> forbiddenComponentList = forbiddenComponentService.findList(forbiddenComponent);
-                if (forbiddenComponentList != null && forbiddenComponentList.size() > 0) { //是禁用物质
-                    formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_FORBIDDEN);
-                } else {
-                    //判断是否是限用物质
-                    LimitedComponent limitedComponent = new LimitedComponent();
-                    limitedComponent.setStandardChineseName(standardChineseName);
-                    List<LimitedComponent> limitedComponentList = limitedComponentService.findList(limitedComponent);
-                    if (limitedComponentList != null && limitedComponentList.size() > 0) {
-                        formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED); //限用成分
-                        //成分含量是否符合标准
-                        limitedComponent = limitedComponentList.get(0);
-                        if (Float.parseFloat(formulaDetails.getActualComponentContent()) > Float.parseFloat(limitedComponent.getMaxAllowConcentretion())) { //大于标准含量
-                            formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NO_NORMAL);//不符合标准
-                        } else {
-                            formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
-                        }
-                    } else {
-                        //正常成分
-                        formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_NORMAL); //正常成分
-                    }
-                }
 
                 /**
                  * 根据已使用原料目录，进行
@@ -279,6 +257,44 @@ public class FormulaController extends BaseController {
                 }
 
                 /**
+                 * 禁用限用物质的逻辑
+                 * 1：如果是禁用物质或者新原料就不用在判断是否是限用物质
+                 * 2：限用物质 1：限用成分，2：防腐剂，3：防晒剂，原料类型 为单一原料根据使用目的进行判断，复配原料：根据标准中文名称进行判断
+                 *
+                 */
+
+                //根据标准中文名，判断是否是禁用物质
+                ForbiddenComponent forbiddenComponent = new ForbiddenComponent();
+                forbiddenComponent.setStandardChineseName(standardChineseName);
+
+                List<ForbiddenComponent> forbiddenComponentList = forbiddenComponentService.findList(forbiddenComponent);
+                if (forbiddenComponentList != null && forbiddenComponentList.size() > 0) { //是禁用物质
+                    formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_FORBIDDEN);
+                } else {
+                    //判断是否是限用物质
+                    //新原料不用判断了
+                    if(!formulaDetails.getNameOrInicStatus().equals(MmsConstant.NAME_OR_INIC_STATUS_All_NOT_FIND)){
+                        formulaDetails = filterLimitComponent(formulaDetails);
+                    }
+//                    LimitedComponent limitedComponent = new LimitedComponent();
+//                    limitedComponent.setStandardChineseName(standardChineseName);
+//                    List<LimitedComponent> limitedComponentList = limitedComponentService.findList(limitedComponent);
+//                    if (limitedComponentList != null && limitedComponentList.size() > 0) {
+//                        formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED); //限用成分
+//                        //成分含量是否符合标准
+//                        limitedComponent = limitedComponentList.get(0);
+//                        if (Float.parseFloat(formulaDetails.getActualComponentContent()) > Float.parseFloat(limitedComponent.getMaxAllowConcentretion())) { //大于标准含量
+//                            formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NO_NORMAL);//不符合标准
+//                        } else {
+//                            formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+//                        }
+//                    } else {
+//                        //正常成分
+//                        formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_NORMAL); //正常成分
+//                    }
+                }
+
+                /**
                  * 进行是否是植物成分判断
                  * 是否是植物成分(1:是,2:不是)
                  * 原则
@@ -300,6 +316,82 @@ public class FormulaController extends BaseController {
 
 //		addMessage(redirectAttributes, "筛选配方信息成功");
 //		return "redirect:"+Global.getAdminPath()+"/mms/formula/?repage";
+    }
+
+    /**
+     * 限用成分的逻辑
+     */
+    public FormulaDetails filterLimitComponent(FormulaDetails formulaDetails){
+        String purposeOfUse = formulaDetails.getPurposeOfUse();//使用目的
+
+        String materialType = formulaDetails.getMaterialType();//原料类型（* 0：单一原料，* 1：复配原料）
+
+        String standardChineseName =  formulaDetails.getStandardChineseName();//标准中文名称
+
+        List<LimitedComponent> limitedComponentList = new ArrayList<LimitedComponent>();
+
+        if(materialType.equals(MmsConstant.MATERIAL_TYPE_1)){//复配原料.直接查不根据使用目的
+
+            limitedComponentList = limitedComponentService.findList(new LimitedComponent());
+            boolean isHandle = false;
+            for (LimitedComponent limitedComponent : limitedComponentList){
+                List<String> queryChineseNameList = Arrays.asList(limitedComponent.getQueryChineseName().split("，|,")); //查询用的中文名称（可能有多个以，分割）
+                for (String queryChineseName : queryChineseNameList){
+                    if(standardChineseName.contains(queryChineseName)){
+                        formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
+                        formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                        isHandle = true;
+                        break;
+                    }
+                }
+            }
+            if(!isHandle){
+                formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_NORMAL);//正常成分
+                isHandle = true;
+            }
+        }else if(materialType.equals(MmsConstant.MATERIAL_TYPE_0)){ //单一原料 ,根据使用目的进行判断
+
+            LimitedComponent limitedComponent =new LimitedComponent();
+            //使用目的是否有值
+            if(StringUtils.isNoneBlank(purposeOfUse)){
+                //使用目的转换---消息转数字类型
+                String purposeOfUseNum = MmsUtils.purposeOfUseTypeNum2Message("",purposeOfUse);
+                limitedComponent.setType(purposeOfUseNum);
+            }else{ //现在就是一般的限用成分查询
+                limitedComponent.setType(MmsConstant.PURPOSE_OF_USE_1);
+            }
+
+            limitedComponentList = limitedComponentService.findList(limitedComponent);
+            boolean isHandle = false;
+            for (LimitedComponent limitedComponentTemp : limitedComponentList){
+                List<String> queryChineseNameList = Arrays.asList(limitedComponentTemp.getQueryChineseName().split("，|,")); //查询用的中文名称（可能有多个以，分割）
+                for (String queryChineseName : queryChineseNameList){
+                    if(standardChineseName.contains(queryChineseName)){
+                        formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
+                        formulaDetails.setLimitedRemarks(limitedComponentTemp.getLimitedRemarks());
+                        //比较成分含量---默认是符合要求的。队友没有浓度的是复合要求的
+                        if(StringUtils.isNoneBlank(limitedComponentTemp.getMaxAllowConcentretion())){ //成分有限制的浓度
+                            if (Float.parseFloat(formulaDetails.getActualComponentContent()) > Float.parseFloat(limitedComponentTemp.getMaxAllowConcentretion())) { //大于标准含量
+                                formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NO_NORMAL);//不符合标准
+                            } else {
+                                formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                            }
+                        }else{
+                            formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                        }
+                        isHandle = true;
+                        break;
+                    }
+                }
+            }
+
+            //如果现在都没有
+            if(!isHandle){
+                formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_NORMAL);//正常成分
+                isHandle = true;
+            }
+        }
+        return formulaDetails;
     }
 
 

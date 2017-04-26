@@ -6,10 +6,15 @@
 		a.id AS "id",
 		a.sequence AS "sequence",
 		a.standard_chinese_name AS "standardChineseName",
+		a.query_chinese_name AS "queryChineseName",
 		a.inic_name AS "inicName",
 		a.english_name AS "englishName",
 		a.use_range AS "useRange",
 		a.max_allow_concentretion AS "maxAllowConcentretion",
+		a.other_restrictions_requirements AS "otherRestrictionsRequirements",
+		a.label_marked_conditions_precautions AS "labelMarkedConditionsPrecautions",
+		a.type AS "type",
+		a.limited_remarks AS "limitedRemarks",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -40,10 +45,16 @@
 				AND a.sequence = #{sequence}
 			</if>
 			<if test="standardChineseName != null and standardChineseName != ''">
-				AND a.standard_chinese_name = #{standardChineseName}
+				AND a.standard_chinese_name LIKE #{standardChineseName}
 			</if>
 			<if test="inicName != null and inicName != ''">
 				AND a.inic_name = #{inicName}
+			</if>
+			<if test="englishName != null and englishName != ''">
+				AND a.english_name = #{englishName}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
 			</if>
 		</where>
 		<choose>
@@ -51,7 +62,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY a.type + 0 ASC ,a.sequence + 0 ASC ,a.update_date DESC
 			</otherwise>
 		</choose>
 	</select>
@@ -79,10 +90,15 @@
 			id,
 			sequence,
 			standard_chinese_name,
+			query_chinese_name,
 			inic_name,
 			english_name,
 			use_range,
 			max_allow_concentretion,
+			other_restrictions_requirements,
+			label_marked_conditions_precautions,
+			type,
+			limited_remarks,
 			create_by,
 			create_date,
 			update_by,
@@ -93,10 +109,15 @@
 			#{id},
 			#{sequence},
 			#{standardChineseName},
+			#{queryChineseName},
 			#{inicName},
 			#{englishName},
 			#{useRange},
 			#{maxAllowConcentretion},
+			#{otherRestrictionsRequirements},
+			#{labelMarkedConditionsPrecautions},
+			#{type},
+			#{limitedRemarks},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -110,10 +131,15 @@
 		UPDATE mms_limited_component SET 	
 			sequence = #{sequence},
 			standard_chinese_name = #{standardChineseName},
+			query_chinese_name = #{queryChineseName},
 			inic_name = #{inicName},
 			english_name = #{englishName},
 			use_range = #{useRange},
 			max_allow_concentretion = #{maxAllowConcentretion},
+			other_restrictions_requirements = #{otherRestrictionsRequirements},
+			label_marked_conditions_precautions = #{labelMarkedConditionsPrecautions},
+			type = #{type},
+			limited_remarks = #{limitedRemarks},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks}

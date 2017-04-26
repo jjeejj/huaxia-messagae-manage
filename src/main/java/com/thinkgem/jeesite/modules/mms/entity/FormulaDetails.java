@@ -31,6 +31,10 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 	private String nameOrInicStatus;		// 标准中文名称或INCI名的状态
 	private String plantComponent;		// 是否是植物成分
 
+	private String limitedRemarks;		// 限用成分备注信息
+
+
+
 	private Formula formula;		// 配方
 	
 	public FormulaDetails() {
@@ -180,5 +184,13 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 
 	public void setMaterialType(String materialType) {
 		this.materialType = materialType;
+	}
+
+	public String getLimitedRemarks() {
+		return limitedRemarks;
+	}
+
+	public void setLimitedRemarks(String limitedRemarks) {
+		this.limitedRemarks = limitedRemarks;
 	}
 }

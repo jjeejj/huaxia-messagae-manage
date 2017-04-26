@@ -38,6 +38,7 @@
         <th>实际成份含量（%）</th>
         <th>使用目的</th>
         <th>风险物质</th>
+        <th>限用成分备注信息</th>
         <th>备注信息</th>
     </tr>
     </thead>
@@ -91,6 +92,9 @@
             </td>
             <td>
                     ${formulaDetails.riskMaterial}
+            </td>
+            <td>
+                    ${formulaDetails.limitedRemarks}
             </td>
             <td>
                     ${formulaDetails.remarks}

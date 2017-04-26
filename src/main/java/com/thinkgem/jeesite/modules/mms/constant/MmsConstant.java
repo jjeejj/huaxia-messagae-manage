@@ -14,6 +14,22 @@ public class MmsConstant {
     public static final String COMPONENT_TYPE_LIMITED = "3";
 
     /**
+     * 1：限用成分，2：防腐剂，3：防晒剂
+     * 4:着色剂
+     */
+
+    public static final String PURPOSE_OF_USE_1 = "1";
+    public static final String PURPOSE_OF_USE_2 = "2";
+    public static final String PURPOSE_OF_USE_3 = "3";
+    public static final String PURPOSE_OF_USE_4 = "4";
+
+    public static final String PURPOSE_OF_USE_MESSAGE_1 = "限用成分";
+    public static final String PURPOSE_OF_USE_MESSAGE_2 = "防腐剂";
+    public static final String PURPOSE_OF_USE_MESSAGE_3 = "防晒剂";
+    public static final String PURPOSE_OF_USE_MESSAGE_4 = "着色剂";
+
+
+    /**
      *   标准中文名称或INCI名的状态(
      * 0:正常,
      * 1:标准中文名称和INCI名不一致,
@@ -107,7 +123,7 @@ public class MmsConstant {
      * 3：在华责任单位
      */
     public static final String APPLY_ENTERPRISE_TYPE = "1"; //1:申请企业
-    public static final String ACTUAL_ENTERPRISE_TYPE = "2"; //2:实际生产企
+    public static final String ACTUAL_ENTERPRISE_TYPE = "2"; //2:实际生产企业
     public static final String CHINA_ENTERPRISE_TYPE = "3"; //3:在华责任单位
 
 

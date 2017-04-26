@@ -75,6 +75,7 @@ CREATE TABLE mms_formula_details
   actual_component_content_status char(1) COMMENT '对于限用成分的实际成份含量状态(1:符合标准，2：不符合标准)',
   name_or_inic_status char(1) COMMENT '标准中文名称或INCI名的状态(0:正常,1:标准中文名称和INCI名不一致,2：标准中文名称未出现,3：INCI名未出现,4:标准中文名称和INCI名都未出现)',
   plant_component char(1) COMMENT '是否是植物成分(1:是,2:不是)',
+  limited_remarks varchar(255) COMMENT '限用成分备注信息',
 	create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
@@ -116,17 +117,22 @@ CREATE TABLE mms_forbidden_component
 	PRIMARY KEY (id)
 ) COMMENT = '化妆品安全技术规范的禁用成分';
 
-/*化妆品安全技术规范的限用成分*/
+/*化妆品安全技术规范的  限用成分  ，化妆品准用成分，也就是特殊类别的先用成分，防腐剂，防晒剂*/
 DROP TABLE IF EXISTS mms_limited_component;
 CREATE TABLE mms_limited_component
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	sequence varchar(64) NOT NULL COMMENT '序号',
-	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
-	inic_name varchar(100) COMMENT 'INIC名 ',
-	english_name varchar(100) COMMENT '英文名称 ',
-	use_range varchar(10) COMMENT '适用及(或)使用范围 ',
-	max_allow_concentretion varchar(10) COMMENT '最大允许浓度',
+	standard_chinese_name varchar(200) NOT NULL COMMENT '标准中文名称',
+	query_chinese_name varchar(200) NOT NULL COMMENT '查询用的中文名称（可能有多个以，分割）',
+	inic_name varchar(200) COMMENT 'INIC名 ',
+	english_name text COMMENT '英文名称 ',
+	use_range varchar(100) COMMENT '适用及(或)使用范围（使用范围和限制条件)',
+	max_allow_concentretion varchar(10) COMMENT '最大允许浓度（%）',
+	other_restrictions_requirements varchar(100) COMMENT '其他限制和要求',
+	label_marked_conditions_precautions varchar(100) COMMENT '标签上必须标印的使用条件和注意事项',
+	type char(1) DEFAULT '1' NOT NULL COMMENT '类型(1：限用成分，2：防腐剂，3：防晒剂)',
+	limited_remarks varchar(255) COMMENT '限用成分备注信息（备注项显示内容）',
   create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
@@ -136,17 +142,15 @@ CREATE TABLE mms_limited_component
 	PRIMARY KEY (id)
 ) COMMENT = '化妆品安全技术规范的限用成分';
 
--- 化妆品准用成分，也就是特殊类别的先用成分
-DROP TABLE IF EXISTS mms_limited_component;
-CREATE TABLE mms_limited_component
+/*化妆品安全技术规范的,着色剂  也是限用物质*/
+DROP TABLE IF EXISTS mms_colorant_component;
+CREATE TABLE mms_colorant_component
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	sequence varchar(64) NOT NULL COMMENT '序号',
-	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
-	inic_name varchar(100) COMMENT 'INIC名 ',
-	english_name varchar(100) COMMENT '英文名称 ',
-	use_range varchar(10) COMMENT '适用及(或)使用范围 ',
-	max_allow_concentretion varchar(10) COMMENT '最大允许浓度',
+  color_index varchar(64) NOT NULL COMMENT '着色剂索引号',
+  color_generic_name varchar(64) NOT NULL COMMENT '着色剂索引通用名',
+	limited_remarks varchar(255) COMMENT '限用成分备注信息（备注项显示内容）',
   create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
@@ -154,7 +158,7 @@ CREATE TABLE mms_limited_component
 	remarks varchar(255) COMMENT '备注信息',
 	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
 	PRIMARY KEY (id)
-) COMMENT = '化妆品安全技术规范的限用成分';
+) COMMENT = '化妆品安全技术规范的着色剂';
 
 
 /* 已使用原料目录*/
