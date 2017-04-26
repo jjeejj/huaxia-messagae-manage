@@ -120,7 +120,7 @@
 		FROM mms_name_to_risk_material a
 		<include refid="nameToRiskMaterialJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL}
+			a.del_flag = '0'
 			and a.transform_level != '1'
 		</where>
 		ORDER BY a.transform_level DESC
