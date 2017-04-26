@@ -33,6 +33,7 @@ import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -434,10 +435,12 @@ public class FormulaController extends BaseController {
                 String inicName = StringUtils.EMPTY; //inci名称
                 String riskMaterial = StringUtils.EMPTY; //风险物质
                 String rawMaterialContent = StringUtils.EMPTY; //原料含量（%）
-                float rawMaterialContentTotal = 0L; //总原料含量（%）
+                double rawMaterialContentTotal = 0L; //总原料含量（%）
+                BigDecimal rawMaterialContentTotalBig = new BigDecimal("0"); //总原料含量（%）精度表示
                 String compoundPercentage = StringUtils.EMPTY; //复配百分比（%）
                 String actualComponentContent = StringUtils.EMPTY; //实际成份含量（%）
-                float actualComponentContentTotal = 0L; //总实际成份含量（%）
+                double actualComponentContentTotal = 0L; //总实际成份含量（%）
+                BigDecimal actualComponentContentTotalBig = new BigDecimal("0") ; //总实际成份含量（%）精度表示
                 String purposeOfUse = StringUtils.EMPTY; //使用目的
                 String sequence = StringUtils.EMPTY; //序号
 
@@ -499,7 +502,9 @@ public class FormulaController extends BaseController {
                     formulaDetails.setInicName(inicName);
                     formulaDetails.setRiskMaterial(riskMaterial);
                     rawMaterialContent = exportFormulaVo.getFormulaDetailsRawMaterialContent(); //原料含量（%）,某一项可能没有向上找,由于单元格合并的
-                    rawMaterialContentTotal += (rawMaterialContent == null || rawMaterialContent.equals("")) ? 0L : Float.parseFloat(rawMaterialContent);//总原料含量,需要相加在以一起的
+
+//                    rawMaterialContentTotal += (rawMaterialContent == null || rawMaterialContent.equals("")) ? 0L : Double.parseDouble(rawMaterialContent);//总原料含量,需要相加在以一起的
+                    rawMaterialContentTotalBig = rawMaterialContentTotalBig.add((rawMaterialContent == null || rawMaterialContent.equals("")) ? new BigDecimal("0") : new BigDecimal(rawMaterialContent));//总原料含量,需要相加在以一起的
                     if (StringUtils.isEmpty(rawMaterialContent)) { //某一项可能没有向上找,由于单元格合并的
                         for (int j = i - 1; j >= 0; j--) {
                             boolean isRawMaterialContentok = false;
@@ -515,9 +520,11 @@ public class FormulaController extends BaseController {
                         }
                     }
                     compoundPercentage = exportFormulaVo.getFormulaDetailsCompoundPercentage();//复配百分比（%）
-                    actualComponentContent = String.valueOf((Float.parseFloat(rawMaterialContent) * Float.parseFloat(compoundPercentage)) / 100); //实际成分含量
+//                    actualComponentContent = String.valueOf((Double.parseDouble(rawMaterialContent) * Double.parseDouble(compoundPercentage)) / 100); //实际成分含量
+                    actualComponentContent = String.valueOf(new BigDecimal(rawMaterialContent).multiply(new BigDecimal(compoundPercentage)).divide(new BigDecimal("100"))); //实际成分含量
 
-                    actualComponentContentTotal += Float.parseFloat(actualComponentContent);//总实际成分含量
+//                    actualComponentContentTotal += Double.parseDouble(actualComponentContent);//总实际成分含量
+                    actualComponentContentTotalBig = actualComponentContentTotalBig.add(new BigDecimal(actualComponentContent));//总实际成分含量
                     formulaDetails.setActualComponentContent(actualComponentContent);
                     formulaDetails.setRawMaterialContent(rawMaterialContent);
                     formulaDetails.setCompoundPercentage(compoundPercentage);
@@ -571,8 +578,10 @@ public class FormulaController extends BaseController {
                     formulaDetails.setExcelLineNumber(String.valueOf(i));//从第0行开始
                     formulaDetailsList.add(formulaDetails);
                 }
-                formula.setActualComponentContentTotal(String.valueOf(actualComponentContentTotal));
-                formula.setRawMaterialContentTotal(String.valueOf(rawMaterialContentTotal));
+//                formula.setActualComponentContentTotal(String.valueOf(actualComponentContentTotal));
+                formula.setActualComponentContentTotal(String.valueOf(actualComponentContentTotalBig));
+//                formula.setRawMaterialContentTotal(String.valueOf(rawMaterialContentTotal));
+                formula.setRawMaterialContentTotal(String.valueOf(rawMaterialContentTotalBig));
                 formulaService.save(formula);
 
                 //取得配方id保存信息
