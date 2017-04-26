@@ -59,12 +59,12 @@
 				<form:input path="englishName" htmlEscape="false" maxlength="100" class="input-xlarge "/>
 			</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label">适用及(或)使用范围：</label>
-			<div class="controls">
-				<form:input path="useRange" htmlEscape="false" maxlength="10" class="input-xlarge "/>
-			</div>
-		</div>
+		<%--<div class="control-group">--%>
+			<%--<label class="control-label">适用及(或)使用范围：</label>--%>
+			<%--<div class="controls">--%>
+				<%--<form:input path="useRange" htmlEscape="false" maxlength="10" class="input-xlarge "/>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="control-group">
 			<label class="control-label">最大允许浓度：</label>
 			<div class="controls">
@@ -72,9 +72,9 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">备注信息：</label>
+			<label class="control-label">备注项显示内容：</label>
 			<div class="controls">
-				<form:textarea path="remarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
+				<form:textarea path="limitedRemarks" htmlEscape="false" rows="4" maxlength="255" class="input-xxlarge "/>
 			</div>
 		</div>
 		<div class="form-actions">
