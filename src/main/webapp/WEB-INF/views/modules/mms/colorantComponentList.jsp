@@ -4,6 +4,11 @@
 <head>
 	<title>着色剂管理</title>
 	<meta name="decorator" content="default"/>
+	<%--<style>--%>
+		<%--.form-search .ul-form li label{--%>
+			<%--width:100px;--%>
+		<%--}--%>
+	<%--</style>--%>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
@@ -25,10 +30,10 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>着色剂索引号：</label>
+			<li><label>索引号：</label>
 				<form:input path="colorIndex" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
-			<li><label>着色剂索引通用名：</label>
+			<li><label>索引通用名：</label>
 				<form:input path="colorGenericName" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
@@ -42,7 +47,7 @@
 				<th>序号</th>
 				<th>着色剂索引号</th>
 				<th>着色剂索引通用名</th>
-				<th>限用成分备注信息（备注项显示内容）</th>
+				<th>限用成分备注信息</th>
 				<th>更新时间</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:colorantComponent:edit"><th>操作</th></shiro:hasPermission>

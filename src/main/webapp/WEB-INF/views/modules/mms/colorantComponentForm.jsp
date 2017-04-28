@@ -55,7 +55,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">限用成分备注信息（备注项显示内容）：</label>
+			<label class="control-label">限用成分备注信息：</label>
 			<div class="controls">
 				<form:input path="limitedRemarks" htmlEscape="false" maxlength="255" class="input-xlarge "/>
 			</div>
