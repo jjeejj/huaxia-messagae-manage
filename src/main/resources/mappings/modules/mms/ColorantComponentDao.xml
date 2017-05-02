@@ -114,5 +114,17 @@
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
+
+<!--根据条件判断，记录是否存在.并返回该条记录-->
+	<select id="selectByFiveNumber" resultType="ColorantComponent">
+		SELECT
+			<include refid="colorantComponentColumns"/>
+		FROM mms_colorant_component a
+		<where>
+			a.del_flag = '0'
+		  and right(a.color_index,5) = #{number}
+		</where>
+		limit 1
+	</select>
 	
 </mapper>

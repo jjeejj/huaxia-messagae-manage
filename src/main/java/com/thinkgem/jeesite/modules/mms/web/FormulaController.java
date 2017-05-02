@@ -75,6 +75,9 @@ public class FormulaController extends BaseController {
     @Autowired
     private IncinameConvertChinesenameService incinameConvertChinesenameService;
 
+    @Autowired
+    private ColorantComponentService colorantComponentService;
+
 
     @ModelAttribute
     public Formula get(@RequestParam(required = false) String id) {
@@ -318,7 +321,6 @@ public class FormulaController extends BaseController {
 //		addMessage(redirectAttributes, "筛选配方信息成功");
 //		return "redirect:"+Global.getAdminPath()+"/mms/formula/?repage";
     }
-
     /**
      * 限用成分的逻辑
      */
@@ -336,7 +338,15 @@ public class FormulaController extends BaseController {
         Matcher m1 = r1.matcher(standardChineseName);
 
         if (m1.find()) { //匹配了
-
+            // 去的第一个分组的数据
+            String value = m1.group(1);
+            //去查找是否有对应的着色剂，根据匹配的
+            ColorantComponent colorantComponent = colorantComponentService.selectByFiveNumber(value);
+            if(colorantComponent !=null){
+                formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
+                formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                formulaDetails.setLimitedRemarks(colorantComponent.getLimitedRemarks()); //限用成分说明
+            }
         } else {
 
             if (materialType.equals(MmsConstant.MATERIAL_TYPE_1)) {//复配原料.直接查不根据使用目的
@@ -348,6 +358,7 @@ public class FormulaController extends BaseController {
                         if (standardChineseName.contains(queryChineseName)) {
                             formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
                             formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                            formulaDetails.setLimitedRemarks(limitedComponent.getLimitedRemarks()); //限用成分说明
                             isHandle = true;
                             break;
                         }
@@ -403,6 +414,7 @@ public class FormulaController extends BaseController {
                             if (standardChineseName.contains(queryChineseName)) {
                                 formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
                                 formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                                formulaDetails.setLimitedRemarks(limitedComponent.getLimitedRemarks()); //限用成分说明
                                 isHandle = true;
                                 break;
                             }

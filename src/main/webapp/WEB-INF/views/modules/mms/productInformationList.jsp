@@ -96,17 +96,17 @@
 			<form:checkbox path="isShowSpecifications" label="规格" value="1"/> <form:checkbox path="isShowAdministrativeLicenseInspectionTime" label="行政许可送检时间" value="1" />
 			<form:checkbox path="isShowAdministrativeLicenseInspectionOrganization" label="行政许可检验机构" value="1"/> <form:checkbox path="isShowAdministrativeLicenseInspectionProject" label="行政许可检验项目" value="1"/>
 			<form:checkbox path="isShowAdministrativeLicenseInspectionNumber" label="行政许可送检数量" value="1"/> <form:checkbox path="isShowAdministrativeLicenseInspectionNo" label="行政许可检验受理编号" value="1"/>
-			<form:checkbox path="isShowAdministrativeLicenseInspectionReportTime" label="行政许可检验取报告时间" value="1"/> <form:checkbox path="isShowSendBodyTime" label="人体检验送检时间" value="1"/>
+			<form:checkbox path="isShowAdministrativeLicenseInspectionReportTime" label="行政许可检验报告到达时间" value="1"/> <form:checkbox path="isShowSendBodyTime" label="人体检验送检时间" value="1"/>
 			<form:checkbox path="isShowSendBodyOrganization" label="人体检验送检机构" value="1"/> <form:checkbox path="isShowSendBodyProject" label="人体检验项目" value="1"/>
 			<form:checkbox path="isShowSendBodyNumber" label="人体检验数量" value="1"/>
 			<form:checkbox path="isShowHumanTestAcceptanceNo" label="人体检验受理编号" value="1"/>
-			<form:checkbox path="isShowHumanTestAcceptanceReportTime" label="人体检验取报告时间" value="1"/>
+			<form:checkbox path="isShowHumanTestAcceptanceReportTime" label="人体检验报告到达时间" value="1"/>
 			<form:checkbox path="isShowSendRiskTestTime" label="风险检验时间" value="1"/>
 			<form:checkbox path="isShowSendRiskTestOrganization" label="风险检验机构" value="1"/>
 			<form:checkbox path="isShowSendRiskTestProjectr" label="风险检验项目" value="1"/>
 			<form:checkbox path="isShowSendRiskTestNumber" label="风险检验数量" value="1"/>
 			<form:checkbox path="isShowRiskTestAcceptanceNo" label="风险检验受理编号" value="1"/>
-			<form:checkbox path="isShowRiskTestAcceptanceReportTime" label="风险检验取报告时间" value="1"/>
+			<form:checkbox path="isShowRiskTestAcceptanceReportTime" label="风险检验报告到达时间" value="1"/>
 			<form:checkbox path="isShowReportTime" label="上报时间" value="1"/>
 			<form:checkbox path="isShowAcceptanceTime" label="受理时间" value="1"/>
 			<form:checkbox path="isShowAcceptanceNumber" label="受理编号" value="1"/>
@@ -240,7 +240,7 @@
 					<th>行政许可检验受理编号</th>
 				</c:if>
 				<c:if test="${product.isShowAdministrativeLicenseInspectionReportTime eq '1'}">
-					<th>行政许可检验取报告时间</th>
+					<th>行政许可检验报告到达时间</th>
 				</c:if>
 				<c:if test="${product.isShowSendBodyTime eq '1'}">
 					<th>人体检验送检时间</th>
@@ -258,7 +258,7 @@
 					<th>人体检验受理编号</th>
 				</c:if>
 				<c:if test="${product.isShowHumanTestAcceptanceReportTime eq '1'}">
-					<th>人体检验取报告时间</th>
+					<th>人体检验报告到达时间</th>
 				</c:if>
 				<c:if test="${product.isShowSendRiskTestTime eq '1'}">
 					<th>风险检验时间</th>
@@ -276,7 +276,7 @@
 					<th>风险检验受理编号</th>
 				</c:if>
 				<c:if test="${product.isShowRiskTestAcceptanceReportTime eq '1'}">
-					<th>风险检验取报告时间</th>
+					<th>风险检验报告到达时间</th>
 				</c:if>
 				<c:if test="${product.isShowReportTime eq '1'}">
 					<th>上报时间</th>

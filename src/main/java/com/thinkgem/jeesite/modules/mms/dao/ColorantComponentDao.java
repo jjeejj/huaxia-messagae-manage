@@ -14,5 +14,12 @@ import com.thinkgem.jeesite.modules.mms.entity.ColorantComponent;
  */
 @MyBatisDao
 public interface ColorantComponentDao extends CrudDao<ColorantComponent> {
+
+    /**
+     * 根据条件判断，记录是否存在.并返回该条记录
+     * @param number 5  位的数字
+     * @return
+     */
+    ColorantComponent selectByFiveNumber(String number);
 	
 }

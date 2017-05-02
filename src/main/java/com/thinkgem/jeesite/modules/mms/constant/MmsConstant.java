@@ -61,7 +61,7 @@ public class MmsConstant {
     /**
      * 着色剂 标准中文名称的 匹配正则表达式
      */
-    public static final String colorantRegex = "\\d{5}";
+    public static final String colorantRegex = "(\\d{5})";
 
     public static final String PLANT_COMPONENT_YES = "1"; //1:是
     public static final String PLANT_COMPONENT_NO = "2"; //2:不是
