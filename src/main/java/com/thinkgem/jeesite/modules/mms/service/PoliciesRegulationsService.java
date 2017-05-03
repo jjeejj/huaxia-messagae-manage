@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.mms.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,9 @@ import com.thinkgem.jeesite.modules.mms.dao.PoliciesRegulationsDao;
 @Service
 @Transactional(readOnly = true)
 public class PoliciesRegulationsService extends CrudService<PoliciesRegulationsDao, PoliciesRegulations> {
+
+	@Autowired
+	private PoliciesRegulationsDao policiesRegulationsDao;
 
 	public PoliciesRegulations get(String id) {
 		return super.get(id);
@@ -43,5 +47,13 @@ public class PoliciesRegulationsService extends CrudService<PoliciesRegulationsD
 	public void delete(PoliciesRegulations policiesRegulations) {
 		super.delete(policiesRegulations);
 	}
-	
+
+	/**
+	 * 获取最大的序号
+	 * @return String
+	 */
+
+	public String getBigSequence(){
+		return policiesRegulationsDao.getBigSequence();
+	}
 }

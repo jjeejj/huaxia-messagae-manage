@@ -14,5 +14,11 @@ import com.thinkgem.jeesite.modules.mms.entity.RiskMaterialAssessment;
  */
 @MyBatisDao
 public interface RiskMaterialAssessmentDao extends CrudDao<RiskMaterialAssessment> {
-	
+
+
+    /**
+     * 获取最大的序号
+     * @return String
+     */
+    String getBigSequence();
 }

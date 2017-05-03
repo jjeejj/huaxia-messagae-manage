@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.mms.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,9 @@ import com.thinkgem.jeesite.modules.mms.dao.AssessSuggestionDao;
 @Service
 @Transactional(readOnly = true)
 public class AssessSuggestionService extends CrudService<AssessSuggestionDao, AssessSuggestion> {
+
+	@Autowired
+	private AssessSuggestionDao assessSuggestionDao;
 
 	public AssessSuggestion get(String id) {
 		return super.get(id);
@@ -42,6 +46,15 @@ public class AssessSuggestionService extends CrudService<AssessSuggestionDao, As
 	@Transactional(readOnly = false)
 	public void delete(AssessSuggestion assessSuggestion) {
 		super.delete(assessSuggestion);
+	}
+
+	/**
+	 * 获取最大的序号
+	 * @return String
+	 */
+
+	public String getBigSequence(){
+		return assessSuggestionDao.getBigSequence();
 	}
 	
 }

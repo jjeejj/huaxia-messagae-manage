@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.modules.mms.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,9 @@ import com.thinkgem.jeesite.modules.mms.dao.RiskMaterialAssessmentDao;
 @Service
 @Transactional(readOnly = true)
 public class RiskMaterialAssessmentService extends CrudService<RiskMaterialAssessmentDao, RiskMaterialAssessment> {
+
+	@Autowired
+	private RiskMaterialAssessmentDao riskMaterialAssessmentDao;
 
 	public RiskMaterialAssessment get(String id) {
 		return super.get(id);
@@ -42,6 +46,15 @@ public class RiskMaterialAssessmentService extends CrudService<RiskMaterialAsses
 	@Transactional(readOnly = false)
 	public void delete(RiskMaterialAssessment riskMaterialAssessment) {
 		super.delete(riskMaterialAssessment);
+	}
+
+	/**
+	 * 获取最大的序号
+	 * @return String
+	 */
+
+	public String getBigSequence(){
+		return riskMaterialAssessmentDao.getBigSequence();
 	}
 	
 }

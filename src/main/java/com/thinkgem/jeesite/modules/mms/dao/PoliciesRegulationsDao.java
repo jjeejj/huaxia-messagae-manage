@@ -14,5 +14,11 @@ import com.thinkgem.jeesite.modules.mms.entity.PoliciesRegulations;
  */
 @MyBatisDao
 public interface PoliciesRegulationsDao extends CrudDao<PoliciesRegulations> {
+
+    /**
+     * 获取最大的序号
+     * @return String
+     */
+    String getBigSequence();
 	
 }

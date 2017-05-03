@@ -43,7 +43,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY a.sequence ASC , a.update_date DESC
 			</otherwise>
 		</choose>
 	</select>
@@ -111,5 +111,11 @@
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
-	
+
+	<!--获取最大的序号-->
+	<select id="getBigSequence" resultType="java.lang.String">
+		SELECT
+		IFNULL(MAX(a.sequence),'0') AS 'bigSequence'
+		FROM mms_assess_suggestion a
+	</select>
 </mapper>

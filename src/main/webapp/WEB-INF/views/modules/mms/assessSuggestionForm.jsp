@@ -33,13 +33,13 @@
 	<form:form id="inputForm" modelAttribute="assessSuggestion" action="${ctx}/mms/assessSuggestion/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
-		<div class="control-group">
-			<label class="control-label">序号：</label>
-			<div class="controls">
-				<form:input path="sequence" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
+		<%--<div class="control-group">--%>
+			<%--<label class="control-label">序号：</label>--%>
+			<%--<div class="controls">--%>
+				<%--<form:input path="sequence" htmlEscape="false" maxlength="64" class="input-xlarge required"/>--%>
+				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="control-group">
 			<label class="control-label">意见类别：</label>
 			<div class="controls">

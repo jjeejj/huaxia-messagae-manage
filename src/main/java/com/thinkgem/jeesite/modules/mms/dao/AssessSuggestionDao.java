@@ -14,5 +14,11 @@ import com.thinkgem.jeesite.modules.mms.entity.AssessSuggestion;
  */
 @MyBatisDao
 public interface AssessSuggestionDao extends CrudDao<AssessSuggestion> {
+
+    /**
+     * 获取最大的序号
+     * @return String
+     */
+    String getBigSequence();
 	
 }

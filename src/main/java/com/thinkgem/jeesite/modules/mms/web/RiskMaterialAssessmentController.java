@@ -76,6 +76,14 @@ public class RiskMaterialAssessmentController extends BaseController {
 		if (!beanValidator(model, riskMaterialAssessment)){
 			return form(riskMaterialAssessment, model);
 		}
+		//序号的流水排序
+		//如果是新记录，就生成新的流水序号 后面的比前面的 加 1
+		if(riskMaterialAssessment.getIsNewRecord()){
+			//查询最大的流水号
+			String bigSequence = riskMaterialAssessmentService.getBigSequence();
+			//赋值下一个序列号
+			riskMaterialAssessment.setSequence(String.valueOf(Integer.valueOf(bigSequence) + 1));
+		}
 		riskMaterialAssessmentService.save(riskMaterialAssessment);
 		addMessage(redirectAttributes, "保存风险物质评估信息成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/riskMaterialAssessment/?repage";

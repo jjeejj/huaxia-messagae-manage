@@ -65,6 +65,14 @@ public class PoliciesRegulationsController extends BaseController {
 		if (!beanValidator(model, policiesRegulations)){
 			return form(policiesRegulations, model);
 		}
+		//序号的流水排序
+		//如果是新记录，就生成新的流水序号 后面的比前面的 加 1
+		if(policiesRegulations.getIsNewRecord()){
+			//查询最大的流水号
+            String bigSequence = policiesRegulationsService.getBigSequence();
+            //赋值下一个序列号
+            policiesRegulations.setSequence(String.valueOf(Integer.valueOf(bigSequence) + 1));
+		}
 		policiesRegulationsService.save(policiesRegulations);
 		addMessage(redirectAttributes, "保存政策法规数据库成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/policiesRegulations/?repage";

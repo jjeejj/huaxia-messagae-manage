@@ -67,6 +67,14 @@ public class AssessSuggestionController extends BaseController {
 		if (!beanValidator(model, assessSuggestion)){
 			return form(assessSuggestion, model);
 		}
+		//序号的流水排序
+		//如果是新记录，就生成新的流水序号 后面的比前面的 加 1
+		if(assessSuggestion.getIsNewRecord()){
+			//查询最大的流水号
+			String bigSequence = assessSuggestionService.getBigSequence();
+			//赋值下一个序列号
+			assessSuggestion.setSequence(String.valueOf(Integer.valueOf(bigSequence) + 1));
+		}
 		assessSuggestionService.save(assessSuggestion);
 		addMessage(redirectAttributes, "保存审评意见成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/assessSuggestion/?repage";
