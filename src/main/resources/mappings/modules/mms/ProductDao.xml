@@ -86,6 +86,7 @@
 		LEFT JOIN mms_market_product mp ON a.market_product_id = mp.id
 		LEFT JOIN mms_comprehensive_product cp ON a.comprehensive_product_id = cp.id
 		LEFT JOIN mms_declare_product dp ON a.declare_product_id = dp.id
+		LEFT JOIN mms_product_flow_number pln ON a.id = pln.product_id
 	</sql>
     
 	<select id="get" resultType="Product">
@@ -169,7 +170,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY pln.flow_year DESC ,pln.flow_number ASC ,a.update_date DESC
 			</otherwise>
 		</choose>
 	</select>
@@ -187,7 +188,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.update_date DESC
+				ORDER BY pln.flow_year DESC ,pln.flow_number ASC ,a.update_date DESC
 			</otherwise>
 		</choose>
 	</select>

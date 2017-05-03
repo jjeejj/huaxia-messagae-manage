@@ -58,7 +58,7 @@ public class PoliciesRegulations extends DataEntity<PoliciesRegulations> {
 		this.sourceHref = sourceHref;
 	}
 	
-	@Length(min=1, max=32, message="文号长度必须介于 1 和 32 之间")
+//	@Length(min=1, max=32, message="文号长度必须介于 1 和 32 之间")
 	public String getDocumentNumber() {
 		return documentNumber;
 	}

@@ -33,7 +33,7 @@ CREATE TABLE mms_risk_material_assessment
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
 	update_date datetime COMMENT '更新时间',
-	remarks varchar(255) COMMENT '备注信息',
+	remarks text COMMENT '备注信息',
 	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记',
 	PRIMARY KEY (id)
 ) COMMENT = '风险物质评估信息';
@@ -106,8 +106,8 @@ CREATE TABLE mms_forbidden_component
 (
 	id varchar(64) NOT NULL COMMENT '编号',
 	sequence varchar(64) NOT NULL COMMENT '序号',
-	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
-	inic_name varchar(1000) COMMENT '原植(动)物拉丁文学名或植(动)物英文名 ',
+	standard_chinese_name varchar(2000) NOT NULL COMMENT '标准中文名称',
+	inic_name varchar(3000) COMMENT '原植(动)物拉丁文学名或植(动)物英文名 ',
   create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',
@@ -400,7 +400,7 @@ CREATE TABLE mms_policies_regulations (
 	file_name varchar(64) NOT NULL COMMENT '文件名称',
 	source_href varchar(64)  COMMENT '文件原始链接',
 	upload_address varchar(1000)  COMMENT '文件上传地址',
-	document_number varchar(32) NOT NULL COMMENT '文号',
+	document_number varchar(32) COMMENT '文号',
 	file_type char(1) NOT NULL COMMENT '政策法规件分类（1：法规、2：标准、3：技术资料）',
 	file_timeliness char(1) COMMENT '政策法规文件时效性（1：现行、2：征求意见、3：历史文件）',
 	create_by varchar(64) COMMENT '创建者',
