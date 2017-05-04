@@ -100,7 +100,7 @@ public class EnterpriseInformationController extends BaseController {
 	public String delete(EnterpriseInformation enterpriseInformation, RedirectAttributes redirectAttributes) {
 		enterpriseInformationService.delete(enterpriseInformation);
 		addMessage(redirectAttributes, "删除企业信息成功");
-		return "redirect:"+Global.getAdminPath()+"/mms/enterpriseInformation/?repage";
+		return "redirect:"+Global.getAdminPath()+"/mms/enterpriseInformation/?repage&enterpriseType=" + enterpriseInformation.getEnterpriseType();
 	}
 
 }
