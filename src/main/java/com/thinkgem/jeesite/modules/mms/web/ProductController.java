@@ -170,7 +170,14 @@ public class ProductController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "productInformation")
-	public String productInformation(Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String productInformation(Product product, HttpServletRequest request, HttpServletResponse response, Model model,RedirectAttributes redirectAttributes) {
+
+		String delete  = request.getParameter("delete");
+
+		if(StringUtils.isNoneBlank(delete) && delete.equals("1")){ //删除的状态
+			deleteInfo(product);
+			addMessage(redirectAttributes, "删除产品成功");
+		}
 
 		String isFirst = request.getParameter("isFirst"); //判断是不是首次进来
 		Page<Product> page = productService.findPage(new Page<Product>(request, response), product);
@@ -265,7 +272,7 @@ public class ProductController extends BaseController {
 		addMessage(redirectAttributes, "保存产品成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/product/?repage";
 	}
-	
+
 	@RequiresPermissions("mms:product:edit")
 	@RequestMapping(value = "delete")
 	public String delete(Product product, RedirectAttributes redirectAttributes) {
@@ -275,13 +282,46 @@ public class ProductController extends BaseController {
 	}
 
 	/**
-	 * 导出产品数据
-	 * @param product
-	 * @param request
-	 * @param response
-	 * @param redirectAttributes
-	 * @return
+	 * //删除产品信息，在产品数据全部信息信息。包括产品，市场产品，综合产品，申报产品的数据
 	 */
+//	@RequestMapping(value = "deleteInfo")
+	public void deleteInfo(Product product) {
+
+		String productId = product.getId();//产品id
+		Product productTemp = productService.get(productId);
+
+		String marketProductId = productTemp.getMarketProductId();//市场产品id
+		String comprehensiveProductId = productTemp.getComprehensiveProductId();//综合产品id
+		String declareProductId = productTemp.getDeclareProductId();//申报产品id
+
+		if(StringUtils.isNoneBlank(marketProductId)){
+			MarketProduct marketProduct = marketProductService.get(marketProductId);
+			marketProductService.delete(marketProduct);
+		}
+		if(StringUtils.isNoneBlank(comprehensiveProductId)){
+			ComprehensiveProduct comprehensiveProduct = comprehensiveProductService.get(comprehensiveProductId);
+			comprehensiveProductService.delete(comprehensiveProduct);
+		}
+		if(StringUtils.isNoneBlank(declareProductId)){
+			DeclareProduct declareProduct = declareProductService.get(declareProductId);
+			declareProductService.delete(declareProduct);
+		}
+
+		productService.delete(productTemp);
+//		addMessage(redirectAttributes, "删除产品成功");
+//
+//		return "redirect:"+Global.getAdminPath()+"/mms/product/productInformation?product="+product;
+	}
+
+
+		/**
+         * 导出产品数据
+         * @param product
+         * @param request
+         * @param response
+         * @param redirectAttributes
+         * @return
+         */
 	@RequestMapping(value = "export", method = RequestMethod.POST)
 	public String exportFile(Product product, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		try {

@@ -46,6 +46,23 @@
                 }
             });
         }
+
+        /**
+		 * 删除产品信息
+         */
+         function deleteProductInfo(productId) {
+//			var productId = $(this).data('id');//产品id
+			$('#id').val(productId);
+            top.$.jBox.confirm("确认要删除产品数据吗？", "系统提示", function (v, h, f) {
+                if (v == "ok") {
+                    $("#searchForm").attr("action", "${ctx}/mms/product/productInformation?delete=1");
+                    $("#searchForm").submit();
+                    //跳转链接改回查询
+                    $("#searchForm").attr("action", "${ctx}/mms/product/productInformation");
+                }
+            }, {buttonsFocus: 1});
+            top.$('.jbox-body .jbox-icon').css('top', '55px');
+        }
 	</script>
 </head>
 <body>
@@ -56,6 +73,8 @@
 	<form:form id="searchForm" modelAttribute="product" action="${ctx}/mms/product/productInformation" method="post" class="breadcrumb form-search">
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+		<%--要删除的产品id--%>
+		<input id="id" name="id" type="hidden" value=""/>
 		<ul class="ul-form">
 			<li><label>产品编号：</label>
 				<form:input path="marketProduct.productNumber" htmlEscape="false" maxlength="100" class="input-medium"/>
@@ -623,6 +642,9 @@
 					<a href="#" onclick="formulaDetailByProductNumber('${productData.marketProduct.productNumber}');">
 							查看配方
 					</a>
+					<c:if test="${fns:getUser().id eq '2' || fns:getUser().id eq '1'}">
+						<a href="javascript:void(0)" onclick="deleteProductInfo('${productData.id}')" data-id="${productData.id}">删除</a>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
