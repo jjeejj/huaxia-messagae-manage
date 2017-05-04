@@ -144,7 +144,8 @@ public class MarketProductController extends BaseController {
 			productFlowNumberService.save(productFlowNumber);
 
 			//更新产品编号
-			marketProduct.setProductNumber(productNumber+marketProduct.getProductNumber());
+			//产品编号----2017-05-04 修改为就是手动输入的数据
+//			marketProduct.setProductNumber(productNumber+marketProduct.getProductNumber());
 			marketProductService.save(marketProduct);
 
 		}else{
