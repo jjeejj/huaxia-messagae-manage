@@ -28,8 +28,11 @@
     <input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
     <input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
     <ul class="ul-form">
-        <li><label>送检总数：</label>
-            <form:input path="declareProduct.totalSubmission" htmlEscape="false" maxlength="64" class="input-medium"/>
+        <%--<li><label>送检总数：</label>--%>
+            <%--<form:input path="declareProduct.totalSubmission" htmlEscape="false" maxlength="64" class="input-medium"/>--%>
+        <%--</li>--%>
+        <li><label>产品编号：</label>
+            <form:input path="marketProduct.productNumber" htmlEscape="false" maxlength="100" class="input-medium"/>
         </li>
         <li><label>受理编号：</label>
             <form:input path="declareProduct.acceptanceNumber" htmlEscape="false" maxlength="64" class="input-medium"/>

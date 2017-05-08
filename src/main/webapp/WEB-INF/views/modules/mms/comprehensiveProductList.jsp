@@ -32,6 +32,9 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
+			<li><label>产品编号：</label>
+				<form:input path="marketProduct.productNumber" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
 			<li><label>行政许可检验受理编号：</label>
 				<form:input path="comprehensiveProduct.administrativeLicenseInspectionNo" htmlEscape="false" maxlength="64" class="input-medium"/>
 			</li>
