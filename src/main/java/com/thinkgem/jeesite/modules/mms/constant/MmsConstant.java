@@ -104,6 +104,7 @@ public class MmsConstant {
      *   不予批准 ----100%
      *   终止申报 ----100%
      */
+    public static final String PRODUCT_PROCESS_0 = "0"; //0:开始
     public static final String PRODUCT_PROCESS_1 = "20"; //1:初审
     public static final String PRODUCT_PROCESS_2 = "40"; //2:送检
     public static final String PRODUCT_PROCESS_3 = "60"; //3:申报

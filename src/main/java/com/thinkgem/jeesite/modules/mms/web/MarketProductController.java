@@ -156,6 +156,11 @@ public class MarketProductController extends BaseController {
 				product.setProductProcess(MmsConstant.PRODUCT_PROCESS_1); //产品进度
 				productService.save(product);
 			}
+
+			if(StringUtils.isEmpty(product.getProductStatus()) && marketProduct.getProjectTime() == null){ //第一次没有，没有状态和立项时间
+				product.setProductProcess(MmsConstant.PRODUCT_PROCESS_0); //产品进度 --- 0
+				productService.save(product);
+			}
 		}
 
 		//更新产品负责人---保存代汇总产品表中

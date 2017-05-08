@@ -103,7 +103,7 @@ public class ComprehensiveProductController extends BaseController {
 
 		if(product !=null){
 			String nowProductProcess = product.getProductProcess();
-			if(Integer.valueOf(nowProductProcess) < Integer.valueOf(MmsConstant.PRODUCT_PROCESS_2)){ //小于 40
+			if( StringUtils.isBlank(nowProductProcess) || Integer.valueOf(nowProductProcess) < Integer.valueOf(MmsConstant.PRODUCT_PROCESS_2)){ //小于 40
 				product.setProductProcess(MmsConstant.PRODUCT_PROCESS_2);
 				product.setProductStatus(MmsConstant.PRODUCT_STATUS_2);
 				productService.save(product);
