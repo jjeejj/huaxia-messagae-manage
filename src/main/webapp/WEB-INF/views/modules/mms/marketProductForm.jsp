@@ -19,8 +19,14 @@
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			//$("#name").focus();
+//			$("#name").focus();
 			$("#inputForm").validate({
+                rules: {
+                    productNumber: {remote: "${ctx}/mms/marketProduct/checkProductNumber?oldProductNumber=" + encodeURIComponent("${marketProduct.productNumber}")}
+                },
+                messages: {
+                    productNumber: {remote: "产品编号已存在"}
+                },
 				submitHandler: function(form){
 					loading('正在提交，请稍等...');
 					form.submit();
@@ -49,6 +55,7 @@
 		<div class="control-group">
 			<label class="control-label">产品编号：</label>
 			<div class="controls">
+				<input id="oldProductNumber" name="oldProductNumber" type="hidden" value="${marketProduct.productNumber}">
 				<form:input path="productNumber" htmlEscape="false" maxlength="64" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>

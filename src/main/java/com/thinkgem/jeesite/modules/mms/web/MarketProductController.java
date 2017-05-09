@@ -361,4 +361,27 @@ public class MarketProductController extends BaseController {
 		return enterpriseInformation;
 	}
 
+	/**
+	 * 新建产品的时候
+	 * 校验产品编号是否存在
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "checkProductNumber")
+	public String checkName(String oldProductNumber, String productNumber) {
+		if (productNumber!=null && productNumber.equals(oldProductNumber)) {
+			return "true";
+		} else if (productNumber!=null) {
+			MarketProduct marketProduct = new MarketProduct();
+			marketProduct.setProductNumber(productNumber);
+			List<MarketProduct> marketProductList = marketProductService.findList(marketProduct);
+			if(marketProductList !=null && marketProductList.size() > 0){
+				return "false";
+			}else{
+				return "true";
+			}
+		}
+		return "false";
+	}
+
 }
