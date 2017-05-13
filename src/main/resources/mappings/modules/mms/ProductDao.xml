@@ -143,6 +143,12 @@
 			<if test="marketProduct != null and marketProduct.enterpriseApplication != null and marketProduct.enterpriseApplication != ''">
 				AND mp.enterprise_application = #{marketProduct.enterpriseApplication}
 			</if>
+			<if test="marketProduct != null and marketProduct.productType != null and marketProduct.productType != ''">
+				AND mp.product_type = #{marketProduct.productType}
+			</if>
+			<if test="marketProduct != null and marketProduct.productLeader != null and marketProduct.productLeader != ''">
+				AND mp.product_leader = #{marketProduct.productLeader}
+			</if>
 
 			<if test="declareProduct != null and declareProduct.administrativeLicenseInspectionOrganization != null and declareProduct.administrativeLicenseInspectionOrganization != ''">
 				AND dp.administrative_license_inspection_organization = #{declareProduct.administrativeLicenseInspectionOrganization}

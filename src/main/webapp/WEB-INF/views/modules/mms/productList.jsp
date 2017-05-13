@@ -41,13 +41,22 @@
 			<li><label>中文名称：</label>
 				<form:input path="marketProduct.englishName" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
+			<li><label>产品负责人：</label>
+				<form:input path="marketProduct.productLeader" htmlEscape="false" maxlength="100" class="input-medium"/>
+			</li>
 			<%--<li><label>英文名称：</label>--%>
 				<%--<form:input path="marketProduct.chineseName" htmlEscape="false" maxlength="100" class="input-medium"/>--%>
 			<%--</li>--%>
 			<li><label>产品状态：</label>
 				<form:select path="productStatus" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('product_status')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</li>
+			<li><label>类别：</label>
+				<form:select path="marketProduct.productType" class="input-medium">
+					<form:option value="" label="请选择"/>
+					<form:options items="${fns:getDictList('product_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
@@ -65,7 +74,7 @@
 				<th>类别</th>
 				<th>工作事项</th>
 				<th>产品负责人</th>
-				<th>项目进度</th>
+				<th style="width: 10em">项目进度</th>
 				<th>产品状态</th>
 				<th>办理时限</th>
 				<%--<shiro:hasPermission name="mms:product:edit"><th>操作</th></shiro:hasPermission>--%>
@@ -92,23 +101,23 @@
 				<td>
 						${product.marketProduct.productLeader}
 				</td>
-				<td>
-					<progress value="${product.productProcess}" max="100"></progress>
-					<c:if test="${product.productStatus eq '7'}">
-						<font color="#dcdcdc">&nbsp;&nbsp;${product.productProcess}%</font>
-					</c:if>
-					<c:if test="${product.productStatus eq '6'}">
-						<font color="red">&nbsp;&nbsp;${product.productProcess}%</font>
-					</c:if>
-					<c:if test="${product.productStatus eq '5'}">
-						<font color="green">&nbsp;&nbsp;${product.productProcess}%</font>
-					</c:if>
-					<c:if test="${product.productStatus eq '4'}">
-						<font color="#ff8c00">&nbsp;&nbsp;${product.productProcess}%</font>
-					</c:if>
-					<c:if test="${product.productStatus eq '3' || product.productStatus eq '2' ||product.productStatus eq '1' }">
-						<font>&nbsp;&nbsp;${product.productProcess}%</font>
-					</c:if>
+				<td style="width: 10em">
+					<progress value="${product.productProcess}" max="100" style="width: 8em"></progress>
+					<%--<c:if test="${product.productStatus eq '7'}">--%>
+						<%--<font color="#dcdcdc">&nbsp;&nbsp;${product.productProcess}%</font>--%>
+					<%--</c:if>--%>
+					<%--<c:if test="${product.productStatus eq '6'}">--%>
+						<%--<font color="red">&nbsp;&nbsp;${product.productProcess}%</font>--%>
+					<%--</c:if>--%>
+					<%--<c:if test="${product.productStatus eq '5'}">--%>
+						<%--<font color="green">&nbsp;&nbsp;${product.productProcess}%</font>--%>
+					<%--</c:if>--%>
+					<%--<c:if test="${product.productStatus eq '4'}">--%>
+						<%--<font color="#ff8c00">&nbsp;&nbsp;${product.productProcess}%</font>--%>
+					<%--</c:if>--%>
+					<%--<c:if test="${product.productStatus eq '3' || product.productStatus eq '2' ||product.productStatus eq '1' }">--%>
+						<%--<font>&nbsp;&nbsp;${product.productProcess}%</font>--%>
+					<%--</c:if>--%>
 				</td>
 				<td>
 						${fns:getDictLabels(product.productStatus, 'product_status', '')}
