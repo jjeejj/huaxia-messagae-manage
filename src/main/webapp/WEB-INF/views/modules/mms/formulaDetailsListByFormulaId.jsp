@@ -24,7 +24,7 @@
     <span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color: blue;color: red"></span>大于限用成分的实际成分含量；
     <br/>
     <span class="glyphicon glyphicon-tint" aria-hidden="true" style="background-color: orange"></span>可能需要备注具体使用部位的植物成分；
-    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color: orange;color: red"></span>已使用原料目录信息不一致；
+    <%--<span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color: orange;color: red"></span>已使用原料目录信息不一致；--%>
     <span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color: orange"></span>不再已使用原料目录中；
 </div>
 <table id="contentTable" class="table table-striped table-bordered table-condensed">
@@ -46,9 +46,9 @@
     <c:forEach items="${formulaDetailsList}" var="formulaDetails">
         <tr>
             <td>
-                <c:if test="${formulaDetails.nameOrInicStatus eq '1'}">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color: blue;color: red"></span>
-                </c:if>
+                <%--<c:if test="${formulaDetails.nameOrInicStatus eq '1'}">--%>
+                    <%--<span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color: blue;color: red"></span>--%>
+                <%--</c:if>--%>
                 ${formulaDetails.sequence}
             </td>
             <td>
