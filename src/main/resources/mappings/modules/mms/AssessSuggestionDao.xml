@@ -43,7 +43,7 @@
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.sequence ASC , a.update_date DESC
+				ORDER BY a.sequence + 0 ASC , a.update_date DESC
 			</otherwise>
 		</choose>
 	</select>
@@ -115,7 +115,7 @@
 	<!--获取最大的序号-->
 	<select id="getBigSequence" resultType="java.lang.String">
 		SELECT
-		IFNULL(MAX(a.sequence),'0') AS 'bigSequence'
+		IFNULL(MAX(a.sequence + 0),'0') AS 'bigSequence'
 		FROM mms_assess_suggestion a
 	</select>
 </mapper>
