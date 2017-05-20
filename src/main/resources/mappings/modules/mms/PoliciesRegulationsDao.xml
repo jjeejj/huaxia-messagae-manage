@@ -11,6 +11,7 @@
 		a.document_number AS "documentNumber",
 		a.file_type AS "fileType",
 		a.file_timeliness AS "fileTimeliness",
+		a.file_source AS "fileSource",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -38,10 +39,10 @@
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 			<if test="fileName != null and fileName != ''">
-				AND a.file_name = #{fileName}
+				AND a.file_name like CONCAT('%', #{fileName}, '%')
 			</if>
 			<if test="documentNumber != null and documentNumber != ''">
-				AND a.document_number = #{documentNumber}
+				AND a.document_number like CONCAT('%', #{documentNumber}, '%')
 			</if>
 			<if test="fileType != null and fileType != ''">
 				AND a.file_type = #{fileType}
@@ -49,13 +50,16 @@
 			<if test="fileTimeliness != null and fileTimeliness != ''">
 				AND a.file_timeliness = #{fileTimeliness}
 			</if>
+			<if test="fileSource != null and fileSource != ''">
+				AND a.file_source = #{fileSource}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
 				ORDER BY ${page.orderBy}
 			</when>
 			<otherwise>
-				ORDER BY a.sequence ASC ,a.update_date DESC
+				ORDER BY a.sequence + 0 ASC ,a.update_date DESC
 			</otherwise>
 		</choose>
 	</select>
@@ -88,6 +92,7 @@
 			document_number,
 			file_type,
 			file_timeliness,
+			file_source,
 			create_by,
 			create_date,
 			update_by,
@@ -103,6 +108,7 @@
 			#{documentNumber},
 			#{fileType},
 			#{fileTimeliness},
+			#{fileSource},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -121,6 +127,7 @@
 			document_number = #{documentNumber},
 			file_type = #{fileType},
 			file_timeliness = #{fileTimeliness},
+			file_source = #{fileSource},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks}
@@ -136,7 +143,16 @@
 	<!--获取最大的序号-->
 	<select id="getBigSequence" resultType="java.lang.String">
 		SELECT
-			IFNULL(MAX(a.sequence),'0') AS 'bigSequence'
+			IFNULL(MAX(a.sequence + 0),'0') AS 'bigSequence'
 		FROM mms_policies_regulations a
+	</select>
+
+	<!--根据法规文号查询-->
+	<select id="selectByDocumentNumber" resultType="PoliciesRegulations">
+		SELECT
+		<include refid="policiesRegulationsColumns"/>
+		FROM mms_policies_regulations a
+		WHERE
+			a.document_number = #{documentNumber}
 	</select>
 </mapper>

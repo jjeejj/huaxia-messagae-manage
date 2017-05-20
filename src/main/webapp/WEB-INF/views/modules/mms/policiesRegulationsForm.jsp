@@ -8,6 +8,12 @@
 		$(document).ready(function() {
 			//$("#name").focus();
 			$("#inputForm").validate({
+                rules: {
+                    documentNumber: {remote: "${ctx}/mms/policiesRegulations/checkDocumentNumber?oldDocumentNumber=" + encodeURIComponent("${policiesRegulations.documentNumber}")}
+                },
+                messages: {
+                    documentNumber: {remote: "该文号已存在"}
+                },
 				submitHandler: function(form){
 					loading('正在提交，请稍等...');
 					form.submit();
@@ -65,8 +71,19 @@
 		<div class="control-group">
 			<label class="control-label">文号：</label>
 			<div class="controls">
+				<input id="oldDocumentNumber" name="oldDocumentNumber" type="hidden" value="${policiesRegulations.documentNumber}">
 				<form:input path="documentNumber" htmlEscape="false" maxlength="32" class="input-xlarge"/>
 				<%--<span class="help-inline"><font color="red">*</font> </span>--%>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">文件来源：</label>
+			<div class="controls">
+				<form:select path="fileSource" class="input-xlarge required">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('file_source')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">

@@ -403,6 +403,7 @@ CREATE TABLE mms_policies_regulations (
 	document_number varchar(32) COMMENT '文号',
 	file_type char(1) NOT NULL COMMENT '政策法规件分类（1：法规、2：标准、3：技术资料）',
 	file_timeliness char(1) COMMENT '政策法规文件时效性（1：现行、2：征求意见、3：历史文件）',
+	file_source char(1) COMMENT '政策法规文件来源（1：国内、2：国外）',
 	create_by varchar(64) COMMENT '创建者',
 	create_date datetime COMMENT '创建时间',
 	update_by varchar(64) COMMENT '更新者',

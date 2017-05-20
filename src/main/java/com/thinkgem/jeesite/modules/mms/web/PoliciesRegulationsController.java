@@ -20,6 +20,8 @@ import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.modules.mms.entity.PoliciesRegulations;
 import com.thinkgem.jeesite.modules.mms.service.PoliciesRegulationsService;
 
+import java.util.List;
+
 /**
  * 政策法规数据库Controller
  * @author jiang
@@ -85,5 +87,27 @@ public class PoliciesRegulationsController extends BaseController {
 		addMessage(redirectAttributes, "删除政策法规数据库成功");
 		return "redirect:"+Global.getAdminPath()+"/mms/policiesRegulations/?repage";
 	}
+
+	/**
+	 * 新建产品的时候
+	 * 校验产品编号是否存在
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "checkDocumentNumber")
+	public String checkDocumentNumber(String oldDocumentNumber, String documentNumber) {
+		if (documentNumber!=null && documentNumber.equals(oldDocumentNumber)) {
+			return "true";
+		} else if (StringUtils.isNoneBlank(documentNumber)) {
+			List<PoliciesRegulations> policiesRegulationsList = policiesRegulationsService.selectByDocumentNumber(documentNumber);
+			if(policiesRegulationsList !=null && policiesRegulationsList.size() > 0){
+				return "false";
+			}else{
+				return "true";
+			}
+		}
+		return "false";
+	}
+
 
 }

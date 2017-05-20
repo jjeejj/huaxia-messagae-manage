@@ -1,0 +1,20 @@
+2017-5-20 修改内容
+一：政策法规数据库 加一字段
+alter table mms_policies_regulations add file_source char(1) COMMENT '政策法规文件来源（1：国内、2：国外）';
+
+二：增加字典
+file_source 1：国内、2：国外
+
+三：修改
+PoliciesRegulationsDao.xml
+PoliciesRegulations.java
+policiesRegulationsList.jsp
+policiesRegulationsForm.jsp
+
+四：文号唯一验证
+增加一个查询数据库的方法
+修改文件为：
+PoliciesRegulationsDao.xml
+PoliciesRegulationsDao.java
+PoliciesRegulationsService.java
+PoliciesRegulationsController.java

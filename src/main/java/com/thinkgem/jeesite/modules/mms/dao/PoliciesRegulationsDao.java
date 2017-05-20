@@ -7,6 +7,8 @@ import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.mms.entity.PoliciesRegulations;
 
+import java.util.List;
+
 /**
  * 政策法规数据库DAO接口
  * @author jiang
@@ -20,5 +22,11 @@ public interface PoliciesRegulationsDao extends CrudDao<PoliciesRegulations> {
      * @return String
      */
     String getBigSequence();
-	
+
+    /**
+     * 根据法规文号查询 记录
+     * @param documentNumber 法规文号
+     * @return
+     */
+    List<PoliciesRegulations> selectByDocumentNumber(String documentNumber);
 }

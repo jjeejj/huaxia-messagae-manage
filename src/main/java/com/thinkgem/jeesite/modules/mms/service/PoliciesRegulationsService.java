@@ -56,4 +56,12 @@ public class PoliciesRegulationsService extends CrudService<PoliciesRegulationsD
 	public String getBigSequence(){
 		return policiesRegulationsDao.getBigSequence();
 	}
+	/**
+	 * 根据法规文号查询 记录
+	 * @param documentNumber 法规文号
+	 * @return
+	 */
+	public List<PoliciesRegulations> selectByDocumentNumber(String documentNumber){
+		return policiesRegulationsDao.selectByDocumentNumber(documentNumber);
+	}
 }

@@ -49,15 +49,21 @@
 			<li><label>文号：</label>
 				<form:input path="documentNumber" htmlEscape="false" maxlength="32" class="input-medium"/>
 			</li>
+			<li><label>文件来源：</label>
+				<form:select path="fileSource" class="input-medium">
+					<form:option value="" label="请选择"/>
+					<form:options items="${fns:getDictList('file_source')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</li>
 			<li><label>文件分类：</label>
 				<form:select path="fileType" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('file_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
 			<li><label>文件时效性：</label>
 				<form:select path="fileTimeliness" class="input-medium">
-					<form:option value="" label=""/>
+					<form:option value="" label="请选择"/>
 					<form:options items="${fns:getDictList('file_timeliness')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 			</li>
@@ -75,7 +81,7 @@
 				<th>文号</th>
 				<th>文件分类</th>
 				<th>文件时效性</th>
-				<th>更新时间</th>
+				<th>文件来源</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="mms:policiesRegulations:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -108,7 +114,7 @@
 					${fns:getDictLabel(policiesRegulations.fileTimeliness, 'file_timeliness', '')}
 				</td>
 				<td>
-					<fmt:formatDate value="${policiesRegulations.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						${fns:getDictLabel(policiesRegulations.fileSource, 'file_source', '')}
 				</td>
 				<td>
 					${policiesRegulations.remarks}

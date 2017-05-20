@@ -22,7 +22,9 @@ public class PoliciesRegulations extends DataEntity<PoliciesRegulations> {
 	private String documentNumber;		// 文号
 	private String fileType;		// 文件分类（1：法规、2：标准、3：技术资料）
 	private String fileTimeliness;		// 文件时效性（1：现行、2：征求意见、3：历史文件）
-	
+
+	private String fileSource;		// 政策法规文件来源（1：国内、2：国外）
+
 	public PoliciesRegulations() {
 		super();
 	}
@@ -92,5 +94,14 @@ public class PoliciesRegulations extends DataEntity<PoliciesRegulations> {
 	public void setUploadAddress(String uploadAddress) {
 		this.uploadAddress = uploadAddress;
 	}
-	
+
+	public String getFileSource() {
+		return fileSource;
+	}
+
+	public void setFileSource(String fileSource) {
+		this.fileSource = fileSource;
+	}
+
+
 }
