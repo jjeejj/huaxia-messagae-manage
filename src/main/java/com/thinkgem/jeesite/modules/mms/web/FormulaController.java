@@ -344,7 +344,7 @@ public class FormulaController extends BaseController {
             ColorantComponent colorantComponent = colorantComponentService.selectByFiveNumber(value);
             if(colorantComponent !=null){
                 formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
-                formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                formulaDetails.setActualComponentContentStatus(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
                 formulaDetails.setLimitedRemarks(colorantComponent.getLimitedRemarks()); //限用成分说明
             }
         } else {
@@ -357,7 +357,7 @@ public class FormulaController extends BaseController {
                     for (String queryChineseName : queryChineseNameList) {
                         if (standardChineseName.contains(queryChineseName)) {
                             formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
-                            formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                            formulaDetails.setActualComponentContentStatus(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
                             formulaDetails.setLimitedRemarks(limitedComponent.getLimitedRemarks()); //限用成分说明
                             isHandle = true;
                             break;
@@ -391,12 +391,12 @@ public class FormulaController extends BaseController {
                             //比较成分含量---默认是符合要求的。队友没有浓度的是复合要求的
                             if (StringUtils.isNoneBlank(limitedComponentTemp.getMaxAllowConcentretion())) { //成分有限制的浓度
                                 if (Float.parseFloat(formulaDetails.getActualComponentContent()) > Float.parseFloat(limitedComponentTemp.getMaxAllowConcentretion())) { //大于标准含量
-                                    formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NO_NORMAL);//不符合标准
+                                    formulaDetails.setActualComponentContentStatus(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NO_NORMAL);//不符合标准
                                 } else {
-                                    formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                                    formulaDetails.setActualComponentContentStatus(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
                                 }
                             } else {
-                                formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                                formulaDetails.setActualComponentContentStatus(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
                             }
                             isHandle = true;
                             break;
@@ -413,7 +413,7 @@ public class FormulaController extends BaseController {
                         for (String queryChineseName : queryChineseNameList) {
                             if (standardChineseName.contains(queryChineseName)) {
                                 formulaDetails.setComponentType(MmsConstant.COMPONENT_TYPE_LIMITED);//限用成分
-                                formulaDetails.setActualComponentContent(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
+                                formulaDetails.setActualComponentContentStatus(MmsConstant.ACTUAL_COMPONENT_CONTENT_STATUS_NORMAL);//符合标准
                                 formulaDetails.setLimitedRemarks(limitedComponent.getLimitedRemarks()); //限用成分说明
                                 isHandle = true;
                                 break;
