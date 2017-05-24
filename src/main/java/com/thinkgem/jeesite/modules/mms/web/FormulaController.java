@@ -531,6 +531,10 @@ public class FormulaController extends BaseController {
                             standardChineseName = incinameConvertChinesenameList.get(0).getStandardChineseName();
                         }
                     }
+                    //标准中文名没有或inci名称必须有一项有才进行下面的操作
+                    if(StringUtils.isEmpty(standardChineseName) && StringUtils.isEmpty(inicName)){
+                        continue;
+                    }
                     //有标准中文名称，才进行风险物质的匹配
                     if (StringUtils.isNoneEmpty(standardChineseName)) {
                         riskMaterial = this.nameToRiskMaterial(standardChineseName); //对应的风险物质
