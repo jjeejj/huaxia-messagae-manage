@@ -55,7 +55,7 @@ public class MmsConstant {
 	* 植物成分判断的正则表达式
 	*
 	*/
-	public static final String plantComponentRegex = "\\(\\w*\\)(提取)*[油水汁粉]|\\(\\w*\\)[\\w\\W\\u4e00-\\u9fa5]*\\/";
+	public static final String plantComponentRegex = "\\(\\w*\\)((提取)+|[油水汁粉]+)|\\(\\w*\\)[\\w\\W\\u4e00-\\u9fa5]*\\/";
 //    String regex1 = "\\(\\w*\\))[油水汁粉]|\\(\\w*\\)[\\w\\W\\u4e00-\\u9fa5]*\\/";
 
     /**

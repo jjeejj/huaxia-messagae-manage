@@ -300,6 +300,7 @@ public class FormulaController extends BaseController {
 
                 /**
                  * 进行是否是植物成分判断
+                 * 标准中文名称中可能是中文的括号，替换成英文在比较
                  * 是否是植物成分(1:是,2:不是)
                  * 原则
                  * 导入配方成分名称含“（字母）”并直接连接“提取”、“油”、“水”、“汁”、“粉”字段
@@ -307,7 +308,8 @@ public class FormulaController extends BaseController {
                  *
                  * Java 正则表达式
                  */
-                Matcher m1 = r1.matcher(standardChineseName);
+                String standardChineseNameTemp = standardChineseName.replaceAll("（","(").replaceAll("）",")").replaceAll(" ","");
+                Matcher m1 = r1.matcher(standardChineseNameTemp);
                 if (m1.find()) { //含有，植物油
                     formulaDetails.setPlantComponent(MmsConstant.PLANT_COMPONENT_YES);
                 } else {
