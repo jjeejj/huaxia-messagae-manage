@@ -116,7 +116,7 @@ public class ProductVo {
         this.countryOfOrigin = countryOfOrigin;
     }
 
-    @ExcelField(title = "类别",sort = 40)
+    @ExcelField(title = "类别",sort = 40,dictType = "product_type")
     public String getProductType() {
         return productType;
     }

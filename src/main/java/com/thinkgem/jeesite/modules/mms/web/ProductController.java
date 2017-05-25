@@ -413,7 +413,7 @@ public class ProductController extends BaseController {
 		//申报产品
 		if(declareProduct !=null){
 
-			productVo.setTotalNumberOfSamples(declareProduct.getAcceptanceNumber());
+			productVo.setTotalNumberOfSamples(declareProduct.getTotalSubmission()); //送检总数
 			productVo.setColorCharacter(declareProduct.getColorCharacter());
 			productVo.setSampleMarking(declareProduct.getSampleMarking());
 			productVo.setDateOfExpiry(declareProduct.getDateOfExpiry());
