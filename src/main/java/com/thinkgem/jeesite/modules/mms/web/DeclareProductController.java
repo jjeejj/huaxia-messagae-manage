@@ -114,17 +114,28 @@ public class DeclareProductController extends BaseController {
 				product.setProductStatus(MmsConstant.PRODUCT_STATUS_6);
 				product.setProductProcess(MmsConstant.PRODUCT_PROCESS_7); //100
 			} else{
-				if(reportTime!=null){ //上报时间
+//				if(reportTime!=null){ //上报时间
+//					product.setProductStatus(MmsConstant.PRODUCT_STATUS_3);
+//					product.setProductProcess(MmsConstant.PRODUCT_PROCESS_3); //60
+//					if(nextOpinionTime!=null){ //下意见时间
+//						product.setProductStatus(MmsConstant.PRODUCT_STATUS_4);
+//						product.setProductProcess(MmsConstant.PRODUCT_PROCESS_4); //80
+//						if(documentTime !=null){ //批件时间
+//							product.setProductStatus(MmsConstant.PRODUCT_STATUS_5);
+//							product.setProductProcess(MmsConstant.PRODUCT_PROCESS_7); //100
+//						}
+//					}
+//				}
+
+				if(documentTime !=null){ //批件时间
+					product.setProductStatus(MmsConstant.PRODUCT_STATUS_5);
+					product.setProductProcess(MmsConstant.PRODUCT_PROCESS_7); //100
+				}else if(nextOpinionTime!=null){//下意见时间
+					product.setProductStatus(MmsConstant.PRODUCT_STATUS_4);
+					product.setProductProcess(MmsConstant.PRODUCT_PROCESS_4); //80
+				}else if(reportTime!=null){//申报时间
 					product.setProductStatus(MmsConstant.PRODUCT_STATUS_3);
 					product.setProductProcess(MmsConstant.PRODUCT_PROCESS_3); //60
-					if(nextOpinionTime!=null){ //下意见时间
-						product.setProductStatus(MmsConstant.PRODUCT_STATUS_4);
-						product.setProductProcess(MmsConstant.PRODUCT_PROCESS_4); //80
-						if(documentTime !=null){ //批件时间
-							product.setProductStatus(MmsConstant.PRODUCT_STATUS_5);
-							product.setProductProcess(MmsConstant.PRODUCT_PROCESS_7); //100
-						}
-					}
 				}
 			}
 			productService.save(product);
