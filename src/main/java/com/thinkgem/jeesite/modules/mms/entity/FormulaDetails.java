@@ -73,7 +73,7 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 		this.inicName = inicName;
 	}
 	
-	@Length(min=0, max=10, message="原料含量（%）长度必须介于 0 和 10 之间")
+//	@Length(min=0, max=10, message="原料含量（%）长度必须介于 0 和 10 之间")
 	public String getRawMaterialContent() {
 		return rawMaterialContent;
 	}
@@ -82,7 +82,7 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 		this.rawMaterialContent = rawMaterialContent;
 	}
 	
-	@Length(min=0, max=10, message="复配百分比（%）长度必须介于 0 和 10 之间")
+//	@Length(min=0, max=10, message="复配百分比（%）长度必须介于 0 和 10 之间")
 	public String getCompoundPercentage() {
 		return compoundPercentage;
 	}
@@ -91,7 +91,7 @@ public class FormulaDetails extends DataEntity<FormulaDetails> {
 		this.compoundPercentage = compoundPercentage;
 	}
 	
-	@Length(min=0, max=10, message="实际成份含量（%）长度必须介于 0 和 10 之间")
+//	@Length(min=0, max=10, message="实际成份含量（%）长度必须介于 0 和 10 之间")
 	public String getActualComponentContent() {
 		return actualComponentContent;
 	}

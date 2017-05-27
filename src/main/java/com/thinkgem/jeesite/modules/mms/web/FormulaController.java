@@ -563,7 +563,10 @@ public class FormulaController extends BaseController {
                         }
                     }
                     compoundPercentage = exportFormulaVo.getFormulaDetailsCompoundPercentage();//复配百分比（%）
-//                    actualComponentContent = String.valueOf((Double.parseDouble(rawMaterialContent) * Double.parseDouble(compoundPercentage)) / 100); //实际成分含量
+                    if(StringUtils.isNoneBlank(compoundPercentage) && compoundPercentage.length() > 7){
+                        compoundPercentage = compoundPercentage.substring(0,7);
+                    }
+                    //                    actualComponentContent = String.valueOf((Double.parseDouble(rawMaterialContent) * Double.parseDouble(compoundPercentage)) / 100); //实际成分含量
                     actualComponentContent = String.valueOf(new BigDecimal(rawMaterialContent).multiply(new BigDecimal(compoundPercentage)).divide(new BigDecimal("100"))); //实际成分含量
 
 //                    actualComponentContentTotal += Double.parseDouble(actualComponentContent);//总实际成分含量

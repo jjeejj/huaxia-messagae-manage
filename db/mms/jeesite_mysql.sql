@@ -67,7 +67,7 @@ CREATE TABLE mms_formula_details
 	standard_chinese_name varchar(100) NOT NULL COMMENT '标准中文名称',
 	inic_name varchar(100) COMMENT 'INCI名',
 	raw_material_content varchar(10) COMMENT '原料含量（%）',
-	compound_percentage varchar(10) COMMENT '复配百分比（%）',
+	compound_percentage varchar(32) COMMENT '复配百分比（%）',
 	actual_component_content varchar(32) COMMENT '实际成份含量（%）',
 	purpose_of_use varchar(100) COMMENT '使用目的',
 	risk_material varchar(100) COMMENT '风险物质',
