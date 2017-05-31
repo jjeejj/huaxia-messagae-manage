@@ -119,7 +119,21 @@
 						<%--<font>&nbsp;&nbsp;${product.productProcess}%</font>--%>
 					<%--</c:if>--%>
 				</td>
-				<td>
+				<c:if test="${product.productStatus eq '7'}">
+					<td style="background-color: gainsboro">
+				</c:if>
+				<c:if test="${product.productStatus eq '6'}">
+					<td style="background-color: red">
+				</c:if>
+				<c:if test="${product.productStatus eq '5'}">
+					<td style="background-color: green">
+				</c:if>
+				<c:if test="${product.productStatus eq '4'}">
+					<td style="background-color: orange">
+				</c:if>
+				<c:if test="${product.productStatus ne '4' && product.productStatus ne '5' &&  product.productStatus ne '6' &&  product.productStatus ne '7'}">
+					<td>
+				</c:if>
 						${fns:getDictLabels(product.productStatus, 'product_status', '')}
 				</td>
 
