@@ -120,16 +120,16 @@
 					<%--</c:if>--%>
 				</td>
 				<c:if test="${product.productStatus eq '7'}">
-					<td style="background-color: gainsboro">
+					<td style="color: gainsboro">
 				</c:if>
 				<c:if test="${product.productStatus eq '6'}">
-					<td style="background-color: red">
+					<td style="color: red">
 				</c:if>
 				<c:if test="${product.productStatus eq '5'}">
-					<td style="background-color: green">
+					<td style="color: green">
 				</c:if>
 				<c:if test="${product.productStatus eq '4'}">
-					<td style="background-color: orange">
+					<td style="color: orange">
 				</c:if>
 				<c:if test="${product.productStatus ne '4' && product.productStatus ne '5' &&  product.productStatus ne '6' &&  product.productStatus ne '7'}">
 					<td>
