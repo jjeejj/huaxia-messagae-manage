@@ -25,7 +25,7 @@
     <br/>
     <span class="glyphicon glyphicon-tint" aria-hidden="true" style="background-color: orange"></span>可能需要备注具体使用部位的植物成分；
     <%--<span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color: orange;color: red"></span>已使用原料目录信息不一致；--%>
-    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color: orange"></span>不再已使用原料目录中；
+    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color: orange"></span>不在已使用原料目录中；
 </div>
 <table id="contentTable" class="table table-striped table-bordered table-condensed">
     <thead>

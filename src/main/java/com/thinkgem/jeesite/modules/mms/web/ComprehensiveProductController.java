@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
 import com.thinkgem.jeesite.modules.mms.entity.ComprehensiveProduct;
 import com.thinkgem.jeesite.modules.mms.entity.DeclareProduct;
+import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
 import com.thinkgem.jeesite.modules.mms.entity.Product;
 import com.thinkgem.jeesite.modules.mms.service.ComprehensiveProductService;
 import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
+import com.thinkgem.jeesite.modules.mms.service.MarketProductService;
 import com.thinkgem.jeesite.modules.mms.service.ProductService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.service.SystemService;
@@ -43,6 +45,9 @@ public class ComprehensiveProductController extends BaseController {
 
 	@Autowired
 	private ComprehensiveProductService comprehensiveProductService;
+
+	@Autowired
+	private MarketProductService marketProductService;
 
 	@Autowired
 	private SystemService systemService;
@@ -78,6 +83,15 @@ public class ComprehensiveProductController extends BaseController {
 	@RequestMapping(value = "form")
 	public String form(ComprehensiveProduct comprehensiveProduct, Model model) {
 
+		MarketProduct marketProduct = new MarketProduct();
+		//把对应的产品中文名称，英文名称，和产品编号显示出来
+		if(StringUtils.isNoneBlank(comprehensiveProduct.getId())){
+			String comprehensiveProductId = comprehensiveProduct.getId();//综合部id
+			Product product = productService.getByComprehensiveProductId(comprehensiveProductId); //产品信息
+
+			marketProduct = marketProductService.get(product.getMarketProductId());
+		}
+		model.addAttribute("marketProduct", marketProduct);
 
 		model.addAttribute("comprehensiveProduct", comprehensiveProduct);
 		return "modules/mms/comprehensiveProductForm";

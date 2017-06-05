@@ -32,7 +32,28 @@
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="comprehensiveProduct" action="${ctx}/mms/comprehensiveProduct/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
-		<sys:message content="${message}"/>		
+		<sys:message content="${message}"/>
+		<div class="control-group">
+			<label class="control-label">产品中文名称：</label>
+			<div class="controls">
+				<input  htmlEscape="false" maxlength="64"
+						class="input-xlarge "  value="${marketProduct.chineseName}" readonly="readonly"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">产品英文名称：</label>
+			<div class="controls">
+				<input  htmlEscape="false" maxlength="64"
+						class="input-xlarge " readonly value="${marketProduct.englishName}" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">产品编号：</label>
+			<div class="controls">
+				<input  htmlEscape="false" maxlength="64"
+						class="input-xlarge "  value="${marketProduct.productNumber}" readonly="readonly"/>
+			</div>
+		</div>
 		<div class="control-group">
 			<label class="control-label">来款时间：</label>
 			<div class="controls">

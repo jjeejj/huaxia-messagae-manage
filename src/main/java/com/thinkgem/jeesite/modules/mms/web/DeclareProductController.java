@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.thinkgem.jeesite.modules.mms.constant.MmsConstant;
 import com.thinkgem.jeesite.modules.mms.entity.DeclareProduct;
+import com.thinkgem.jeesite.modules.mms.entity.MarketProduct;
 import com.thinkgem.jeesite.modules.mms.entity.Product;
 import com.thinkgem.jeesite.modules.mms.service.DeclareProductService;
+import com.thinkgem.jeesite.modules.mms.service.MarketProductService;
 import com.thinkgem.jeesite.modules.mms.service.ProductService;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
@@ -41,6 +43,8 @@ public class DeclareProductController extends BaseController {
 
     @Autowired
     private DeclareProductService declareProductService;
+    @Autowired
+    private MarketProductService marketProductService;
 
     @Autowired
     private ProductService productService;
@@ -69,6 +73,16 @@ public class DeclareProductController extends BaseController {
     @RequiresPermissions("mms:declareProduct:view")
     @RequestMapping(value = "form")
     public String form(DeclareProduct declareProduct, Model model) {
+
+        MarketProduct marketProduct = new MarketProduct();
+        //把对应的产品中文名称，英文名称，和产品编号显示出来
+        if(StringUtils.isNoneBlank(declareProduct.getId())){
+            String declareProductId = declareProduct.getId();//申报表id
+            Product product = productService.getByDeclareProductId(declareProductId); //产品信息
+
+            marketProduct = marketProductService.get(product.getMarketProductId());
+        }
+        model.addAttribute("marketProduct", marketProduct);
         model.addAttribute("declareProduct", declareProduct);
         return "modules/mms/declareProductForm";
     }
