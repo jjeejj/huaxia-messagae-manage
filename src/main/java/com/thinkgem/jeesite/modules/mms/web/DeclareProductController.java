@@ -64,7 +64,14 @@ public class DeclareProductController extends BaseController {
     @RequiresPermissions("mms:declareProduct:view")
     @RequestMapping(value = {"list", ""})
     public String list(Product product, HttpServletRequest request, HttpServletResponse response, Model model) {
-//		Page<DeclareProduct> page = declareProductService.findPage(new Page<DeclareProduct>(request, response), declareProduct);
+        //获取当前登录的用户
+        User user = UserUtils.getUser();
+        if(user !=null && user.getOffice().getId().equals("5")){
+            MarketProduct marketProduct = new MarketProduct();
+            marketProduct.setProductLeader(user.getName());
+            product.setMarketProduct(marketProduct);
+
+        }//		Page<DeclareProduct> page = declareProductService.findPage(new Page<DeclareProduct>(request, response), declareProduct);
         Page<Product> page = productService.findPage(new Page<Product>(request, response), product);
         model.addAttribute("page", page);
         return "modules/mms/declareProductList";
